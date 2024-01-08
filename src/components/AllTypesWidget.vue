@@ -79,7 +79,7 @@ export default {
       selectSpinner: false,
       selectTrafficLight: false,
 
-      prevSelected: "",
+      prevSelected: "selectTimer",
     };
   },
   methods: {
