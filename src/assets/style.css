@@ -1,0 +1,387 @@
+@import url('https://fonts.googleapis.com/css2?family=Anek+Latin:wght@100;200;300;400;500;600;700;800&display=swap');
+
+html {
+  font-family: 'Anek Latin', sans-serif !important;
+}
+
+body {
+  background: #000;
+}
+
+#app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.top-menu {
+  background: #ffffff;
+  height: 50px;
+  padding: 0px 48px;
+  border-top-left-radius: 15px 15px;
+  border-top-right-radius: 15px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.top-menu img {
+  cursor: pointer;
+}
+
+.main-box {
+  width: 400px;
+  height: 400px;
+  background-color: #F1F1F1;
+  /* padding: 0px 30px; */
+  /* box-shadow: 5px 5px 5px rgb(188, 192, 194); */
+  border-radius: 15px;
+  display: grid;
+  position: relative;
+}
+
+.arrow-size {
+  font-size: 24px;
+}
+
+.count-size {
+  display: flex;
+  justify-content: center;
+  font-size: 44px;
+  font-weight: 500;
+  width: 20px;
+  align-items: center;
+}
+
+
+.inner-content {
+  color: #5B6770;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Anek Latin', sans-serif;
+  font-weight: 500;
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.timer-types {
+  height: 40px;
+  position: absolute;
+  left: 0%;
+  top: 32%;
+  transform: translate(-0%, -50%);
+  display: grid;
+  flex-direction: column;
+  gap: 20px;
+
+}
+
+.timer-type-box {
+  height: 44px;
+  vertical-align: middle;
+  width: 44px;
+  border-radius: 5px;
+  padding: 6px;
+  cursor: pointer;
+  position: relative;
+}
+
+.circle-progress {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 140px;
+  width: 140px;
+}
+
+.circle-progress circle {
+  stroke-linecap: butt;
+  /* stroke: #005EB8; */
+}
+
+.hour-glass-count {
+  color: #5B6770;
+  font-size: 20px;
+  max-width: 52px;
+  letter-spacing: 1px;
+  font-weight: 500;
+  font-family: 'Anek Latin', sans-serif;
+  position: absolute;
+  top: 74%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.bottom-buttons {
+  position: absolute;
+  right: 0%;
+  top: 48%;
+  transform: translate(-0%, -50%);
+  display: grid;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.circle-count {
+  width: 50px;
+  color: #5B6770;
+  position: absolute;
+  font-size: 24px;
+  font-weight: 500;
+  font-family: 'Anek Latin', sans-serif;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.watch-count {
+  color: #5B6770;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: 'Anek Latin', sans-serif;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.bi-play-circle-fill {
+  height: 28px;
+}
+
+
+#seconds {
+  background: white;
+  position: absolute;
+  left: 1000px;
+  top: 360px;
+  font-size: 24px;
+  padding: 15px;
+  width: 150px;
+  text-align: center;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.completed-txt h5 {
+  margin: 10px 0;
+  font-family: 'Anek Latin', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #005EB8;
+  text-align: center;
+
+}
+
+.heade {
+  height: 50px;
+}
+
+.bodyy {
+  height: 258px;
+  overflow-y: auto;
+}
+
+.bodyy h6 {
+  font-family: 'Anek Latin', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #222222;
+  margin-bottom: 0;
+
+  /* text-align: left; */
+
+}
+
+.footer {
+  height: 50px;
+}
+
+.btnn {
+  font-family: 'Anek Latin', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  border-radius: 10px;
+  border: 0;
+  padding: 8px 16px;
+}
+
+.track {
+  background: #772981;
+}
+
+.cancle {
+  background: #A1A8D0;
+}
+.save{
+  background: #005EB8;
+}
+
+.hr-glass {
+  /* margin-left: 52px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 140px;
+  height: 160px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hr-glass svg {
+  height: 110px;
+  width: 110px;
+}
+
+.hr-glass svg #middleSand {
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+
+.hr-glass svg #topGlassSand {
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+  z-index: 2 !important;
+}
+
+.hr-glass svg #bottomGlassSand {
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+
+@keyframes middleGlassAnimate {
+  0% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  100% {
+    clip-path: polygon(0 8%, 100% 8%, 100% 100%, 0 100%);
+  }
+}
+
+@keyframes topGlassAnimate {
+  0% {
+    clip-path: polygon(0 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+
+  100% {
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+  }
+}
+
+@keyframes bottomGlassAnimate {
+  0% {
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  }
+
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+.complition-animation{ 
+  margin-left: 97px;
+  height: 200px;
+  width:  200px;
+}
+
+
+
+
+
+/* **********  TrafficLightWidget ************** */
+
+
+
+
+.traffic-light-without-rotation {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  left: 50%;
+  top: 50%;
+  margin-left: -60px;
+  margin-top: -137px;
+  background-color: #333;
+  width: 120px;
+  height: 320px;
+  border-radius: 80px;
+  transform: rotate(360deg);
+}
+
+.traffic-light-with-rotation {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  left: 50%;
+  top: 50%;
+  margin-left: -60px;
+  margin-top: -137px;
+  background-color: #333;
+  width: 120px;
+  height: 320px;
+  border-radius: 80px;
+  transform: rotate(-90deg);
+}
+
+.red-input {
+  cursor: pointer;
+  appearance: none;
+  position: relative;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  margin-top: 20px;
+  margin-left: -40px;
+  vertical-align: middle;
+  border-radius: 100%;  
+}
+
+.yellow-input {
+  cursor: pointer;
+  appearance: none;
+  position: relative;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  margin-top: 20px;
+  margin-left: -40px; 
+  vertical-align: middle;
+  border-radius: 100%;  
+}
+
+.green-input {
+  cursor: pointer;
+  appearance: none;
+  position: relative;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  margin-top: 20px;
+  margin-left: -40px; 
+  vertical-align: middle;
+  border-radius: 100%;  
+} 
+
+* {
+  user-select: none;
+  outline: none;
+}

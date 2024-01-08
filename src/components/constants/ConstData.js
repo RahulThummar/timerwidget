@@ -1,0 +1,25 @@
+// constants.js
+
+export const timerTypes = {
+    HOURGLASS: 'HourGlass',
+    CIRCLETIMER: 'CircleTimer',
+    WATCHTIMER: 'WatchTimer',
+};
+
+export const colorsList = {
+    SELECTEDTIMERCOLOR: '#FFFFFF',
+    LIGHTBACKGROUND: "rgb(240, 243, 245)",
+    DARKBACKGROUND: "rgb(177, 173, 173)",
+    PLAYPAUSECOLOR: "#005eb8",
+    EMPTYPROGRESSBARCOLOR: "#B8DCFF",
+    FILLPROGRESSBARCOLOR: "#005EB8",
+    COMPLETEDTEXTCOLOR: "#005EB8",
+
+    REDLIGHTON: "#FF4437",
+    REDLIGHTOFF: "#8B2D26",
+    YELLOWLIGHTON: "#FFCD37",
+    YELLOWLIGHTOFF: "#7C6621",
+    GREENLIGHTON: "#9FFF45",
+    GREENLIGHTOFF: "#3E5925",
+
+};
