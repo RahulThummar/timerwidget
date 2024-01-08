@@ -81,13 +81,19 @@
 
       <!-- bottom buttons -->
 
-      <div class="bottom-buttons d-flex justify-content-between pe-2">
+      <div
+        :class="{
+          'bottom-buttons': !rotation,
+          'bottom-buttons-1': rotation,
+        }"
+        class="d-flex justify-content-between pe-2"
+      >
         <div>
           <img
             :src="RottetImg"
             class="pointer"
             alt="reset timer"
-            :style="{ width: '32px', height: '32px' }"
+            :style="{ width: '36px', height: '36px' }"
             @click="RottetLights"
           />
         </div>
@@ -97,36 +103,18 @@
             :src="VolumOn"
             class="pointer"
             alt="Volume On"
-            :style="{ width: '32px', height: '32px' }"
+            :style="{ width: '36px', height: '36px' }"
             @click="stopSound"
           />
           <img
             v-else
             :src="VolumOff"
-            class="mt-1 pointer"
+            class="pointer"
             alt="Volume Off"
-            :style="{ width: '32px', height: '32px' }"
+            :style="{ width: '36px', height: '36px' }"
             @click="startSound"
           />
         </div>
-        <!-- <div>
-          <img
-            v-if="IsLightMode"
-            :src="Sun"
-            class="pointer"
-            alt="light Mode On"
-            :style="{ width: '32px', height: '32px' }"
-            @click="stopLightMode"
-          />
-          <img
-            v-else
-            :src="Moon"
-            class="mt-1 pointer"
-            alt="light Mode Off"
-            :style="{ width: '32px', height: '32px' }"
-            @click="startLightMode"
-          />
-        </div> -->
       </div>
     </div>
   </div>

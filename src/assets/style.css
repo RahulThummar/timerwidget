@@ -26,7 +26,7 @@ body {
 }
 
 .top-menu img {
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .main-box {
@@ -100,8 +100,8 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 140px;
-  width: 140px;
+  height: 170px;
+  width: 170px;
 }
 
 .circle-progress circle {
@@ -133,7 +133,7 @@ body {
 }
 
 .circle-count {
-  width: 50px;
+  /* width: 50px; */
   color: #5B6770;
   position: absolute;
   font-size: 24px;
@@ -146,7 +146,7 @@ body {
 
 .watch-count {
   color: #5B6770;
-  font-size: 18px;
+  font-size: 26px;
   font-weight: 500;
   font-family: 'Anek Latin', sans-serif;
   position: absolute;
@@ -174,7 +174,7 @@ body {
 }
 
 .completed-txt h5 {
-  margin: 10px 0;
+  padding: 10px 0;
   font-family: 'Anek Latin', sans-serif;
   font-size: 26px;
   font-weight: 700;
@@ -188,7 +188,7 @@ body {
 }
 
 .bodyy {
-  height: 258px;
+  height: 228px;
   overflow-y: auto;
 }
 
@@ -204,7 +204,7 @@ body {
 }
 
 .footer {
-  height: 50px;
+  height: 40px;
 }
 
 .btnn {
@@ -224,7 +224,8 @@ body {
 .cancle {
   background: #A1A8D0;
 }
-.save{
+
+.save {
   background: #005EB8;
 }
 
@@ -233,8 +234,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 140px;
-  height: 160px;
+  width: 170px;
+  height: 170px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -242,8 +243,8 @@ body {
 }
 
 .hr-glass svg {
-  height: 110px;
-  width: 110px;
+  height: 170px;
+  width: 170px;
 }
 
 .hr-glass svg #middleSand {
@@ -297,10 +298,10 @@ body {
   }
 }
 
-.complition-animation{ 
+.complition-animation {
   margin-left: 97px;
   height: 200px;
-  width:  200px;
+  width: 200px;
 }
 
 
@@ -352,7 +353,7 @@ body {
   margin-top: 20px;
   margin-left: -40px;
   vertical-align: middle;
-  border-radius: 100%;  
+  border-radius: 100%;
 }
 
 .yellow-input {
@@ -363,9 +364,9 @@ body {
   width: 80px;
   height: 80px;
   margin-top: 20px;
-  margin-left: -40px; 
+  margin-left: -40px;
   vertical-align: middle;
-  border-radius: 100%;  
+  border-radius: 100%;
 }
 
 .green-input {
@@ -376,12 +377,36 @@ body {
   width: 80px;
   height: 80px;
   margin-top: 20px;
-  margin-left: -40px; 
+  margin-left: -40px;
   vertical-align: middle;
-  border-radius: 100%;  
-} 
+  border-radius: 100%;
+}
 
 * {
   user-select: none;
   outline: none;
+}
+
+.DFGH {
+  width: 400px;
+  height: 350px;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.count-dark {
+  color: #5B6770;
+}
+
+.count-light {
+  color: #F1F1F1;
+}
+
+.bottom-buttons-1 {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 20px;
 }

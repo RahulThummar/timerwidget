@@ -5,9 +5,9 @@
         :src="UnfilledBoxes"
         alt="UnfilledBoxes"
         :style="{ width: '32px', height: '32px' }"
-        @click="handleChangeWidgetType()"
       />
       <img
+        class="pointer"
         :src="selectTimer ? FilledTimer : UnfilledTimer"
         alt="Group244"
         :style="{ width: '32px', height: '32px' }"
@@ -17,9 +17,9 @@
         :src="selectSpinner ? FilledSpinner : UnfilledSpinner"
         alt="Group244"
         :style="{ width: '32px', height: '32px' }"
-        @click="handleChangeWidgetType('selectSpinner')"
       />
       <img
+        class="pointer"
         :src="selectTrafficLight ? FilledTrafficLight : UnfilledTrafficLight"
         alt="Group244"
         :style="{ width: '32px', height: '32px' }"
@@ -48,6 +48,8 @@
 </template>
 
 <script>
+// @click="handleChangeWidgetType('selectSpinner')"
+
 import UnfilledBoxes from "@/assets/images/AllTypesWidget/UnfilledBoxes.png";
 import UnfilledTimer from "@/assets/images/AllTypesWidget/UnfilledTimer.png";
 import UnfilledSpinner from "@/assets/images/AllTypesWidget/UnfilledSpinner.png";

@@ -1,23 +1,16 @@
 <template>
-
-  <div
-    class="ms-3"
-    :style="{
-      'background-color': IsLightMode
-        ? colorTypes?.LIGHTBACKGROUND
-        : colorTypes?.DARKBACKGROUND,
-    }"
-  >
+  <div class="DFGH" :style="{
+    'background-color': IsLightMode
+      ? colorTypes?.LIGHTBACKGROUND
+      : colorTypes?.DARKBACKGROUND,
+  }">
 
     <div v-if="this.musicSelection.IsSelectMusicIcn">
       <div class=" p-3">
         <div class="heade"></div>
         <div class="bodyy">
           <div class="align-middle">
-            <button
-              class="btnn track w-100 mt-5"
-              @click="handleClickSelectTrackBtn()"
-            >
+            <button class="btnn track w-100" @click="handleClickSelectTrackBtn()">
               Select Background Track
             </button>
           </div>
@@ -33,178 +26,80 @@
     </div>
 
     <div v-if="this.musicSelection.Is_SelectMusic">
-      <div class="ms-3">
+      <div class="">
         <div class="heade p-3">
-          <div
-            class="d-flex justify-content-between visually-hidden align-items-center px-4"
-          >
-            <img
-              :src="BigHourGlass"
-              alt="Group244"
-              :style="{ width: '32px', height: '32px' }"
-            />
-            <img
-              :src="CircleTimer"
-              alt="Group244"
-              :style="{ width: '32px', height: '32px' }"
-            />
-            <img
-              :src="WatchTimer"
-              alt="Group244"
-              :style="{ width: '32px', height: '32px' }"
-            />
+          <div class="d-flex justify-content-between visually-hidden align-items-center px-4">
+            <img :src="BigHourGlass" alt="Group244" :style="{ width: '32px', height: '32px' }" />
+            <img :src="CircleTimer" alt="Group244" :style="{ width: '32px', height: '32px' }" />
+            <img :src="WatchTimer" alt="Group244" :style="{ width: '32px', height: '32px' }" />
           </div>
         </div>
         <div class="bodyy">
-          <div
-            class="d-flex justify-content-between align-items-center border-bottom border-2 py-3 px-3"
-          >
+          <div class="d-flex justify-content-between align-items-center border-bottom border-2 py-3 px-3">
             <div class="d-flex gap-3">
-              <img
-                :src="musical"
-                alt="Group244"
-                :style="{ width: '22px', height: '22px' }"
-              />
+              <img :src="musical" alt="Group244" :style="{ width: '22px', height: '22px' }" />
               <h6>Beep</h6>
             </div>
-            <input
-              value="beep"
-              class="form-check-input mt-0 pointer"
-              type="radio"
-              name="exampleRadios"
-              id="beep"
-              :checked="tempSound === 'beep'"
-              @click="
-                () => {
+            <input value="beep" class="form-check-input mt-0 pointer" type="radio" name="exampleRadios" id="beep"
+              :checked="tempSound === 'beep'" @click="() => {
                   tempSound = 'beep';
                 }
-              "
-            />
+                " />
           </div>
-          <div
-            class="d-flex justify-content-between align-items-center border-bottom border-2 py-3 px-3"
-          >
+          <div class="d-flex justify-content-between align-items-center border-bottom border-2 py-3 px-3">
             <div class="d-flex gap-3">
-              <img
-                :src="musical"
-                alt="Group244"
-                :style="{ width: '22px', height: '22px' }"
-              />
+              <img :src="musical" alt="Group244" :style="{ width: '22px', height: '22px' }" />
               <h6>Bubble</h6>
             </div>
-            <input
-              value="bubble"
-              class="form-check-input mt-0 pointer"
-              type="radio"
-              name="exampleRadios"
-              id="bubble"
-              :checked="tempSound === 'bubble'"
-              @click="
-                () => {
+            <input value="bubble" class="form-check-input mt-0 pointer" type="radio" name="exampleRadios" id="bubble"
+              :checked="tempSound === 'bubble'" @click="() => {
                   tempSound = 'bubble';
                 }
-              "
-            />
+                " />
           </div>
-          <div
-            class="d-flex justify-content-between align-items-center border-bottom border-2 py-3 px-3"
-          >
+          <div class="d-flex justify-content-between align-items-center border-bottom border-2 py-3 px-3">
             <div class="d-flex gap-3">
-              <img
-                :src="musical"
-                alt="Group244"
-                :style="{ width: '22px', height: '22px' }"
-              />
+              <img :src="musical" alt="Group244" :style="{ width: '22px', height: '22px' }" />
               <h6>Buzzer</h6>
             </div>
-            <input
-              value="buzzer"
-              class="form-check-input mt-0 pointer"
-              type="radio"
-              name="exampleRadios"
-              id="buzzer"
-              :checked="tempSound === 'buzzer'"
-              @click="
-                () => {
+            <input value="buzzer" class="form-check-input mt-0 pointer" type="radio" name="exampleRadios" id="buzzer"
+              :checked="tempSound === 'buzzer'" @click="() => {
                   tempSound = 'buzzer';
                 }
-              "
-            />
+                " />
           </div>
-          <div
-            class="d-flex justify-content-between align-items-center border-bottom border-2 py-3 px-3"
-          >
+          <div class="d-flex justify-content-between align-items-center border-bottom border-2 py-3 px-3">
             <div class="d-flex gap-3">
-              <img
-                :src="musical"
-                alt="Group244"
-                :style="{ width: '22px', height: '22px' }"
-              />
+              <img :src="musical" alt="Group244" :style="{ width: '22px', height: '22px' }" />
               <h6>Smooth</h6>
             </div>
-            <input
-              value="smooth"
-              class="form-check-input mt-0 pointer"
-              type="radio"
-              name="exampleRadios"
-              id="smooth"
-              :checked="tempSound === 'smooth'"
-              @click="
-                () => {
+            <input value="smooth" class="form-check-input mt-0 pointer" type="radio" name="exampleRadios" id="smooth"
+              :checked="tempSound === 'smooth'" @click="() => {
                   tempSound = 'smooth';
                 }
-              "
-            />
+                " />
           </div>
-          <div
-            class="d-flex justify-content-between align-items-center border-bottom border-2 py-3 px-3"
-          >
+          <div class="d-flex justify-content-between align-items-center border-bottom border-2 py-3 px-3">
             <div class="d-flex gap-3">
-              <img
-                :src="musical"
-                alt="Group244"
-                :style="{ width: '22px', height: '22px' }"
-              />
+              <img :src="musical" alt="Group244" :style="{ width: '22px', height: '22px' }" />
               <h6>Sweet End</h6>
             </div>
-            <input
-              value="sweet_end"
-              class="form-check-input mt-0 pointer"
-              type="radio"
-              name="exampleRadios"
-              id="sweet_end"
-              :checked="tempSound === 'sweet_end'"
-              @click="
-                () => {
+            <input value="sweet_end" class="form-check-input mt-0 pointer" type="radio" name="exampleRadios"
+              id="sweet_end" :checked="tempSound === 'sweet_end'" @click="() => {
                   tempSound = 'sweet_end';
                 }
-              "
-            />
+                " />
           </div>
-          <div
-            class="d-flex justify-content-between align-items-center border-bottom border-2 py-3 px-3"
-          >
+          <div class="d-flex justify-content-between align-items-center border-bottom border-2 py-3 px-3">
             <div class="d-flex gap-3">
-              <img
-                :src="musical"
-                alt="Group244"
-                :style="{ width: '22px', height: '22px' }"
-              />
+              <img :src="musical" alt="Group244" :style="{ width: '22px', height: '22px' }" />
               <h6>Times Up</h6>
             </div>
-            <input
-              value="times_up"
-              class="form-check-input mt-0 pointer"
-              type="radio"
-              name="exampleRadios"
-              id="times_up"
-              :checked="tempSound === 'times_up'"
-              @click="
-                () => {
+            <input value="times_up" class="form-check-input mt-0 pointer" type="radio" name="exampleRadios" id="times_up"
+              :checked="tempSound === 'times_up'" @click="() => {
                   tempSound = 'times_up';
                 }
-              "
-            />
+                " />
           </div>
         </div>
         <div class="footer px-3">
@@ -220,12 +115,9 @@
       </div>
     </div>
 
-    <div
-      v-if="
-        !this.musicSelection.IsSelectMusicIcn &&
-        !this.musicSelection.Is_SelectMusic
-      "
-    >
+    <div v-if="!this.musicSelection.IsSelectMusicIcn &&
+      !this.musicSelection.Is_SelectMusic
+      ">
       <!-- <div class="top-menu">
         <img
           :src="Group244"
@@ -250,57 +142,30 @@
          
       </div> -->
       <!-- header buttons -->
-      <div
-        v-if="this.completedProgress !== 0"
-        class="timer-types p-1 d-flex justify-content-between"
-      >
-        <div
-          class="timer-type-box"
-          :style="{
-            backgroundColor:
-              timerData.selectedTimer === timerTypes?.HOURGLASS
-                ? colorTypes?.SELECTEDTIMERCOLOR
-                : colorTypes?.UNSELECTEDTIMERCOLOR,
-          }"
-          @click="selectTimer(timerTypes?.HOURGLASS)"
-        >
-          <img
-            :src="BigHourGlass"
-            alt="Hour Glass"
-            :style="{ width: '32px', height: '32px' }"
-          />
+      <div v-if="this.completedProgress !== 0" class="timer-types p-1 d-flex justify-content-between">
+        <div class="timer-type-box" :style="{
+          backgroundColor:
+            timerData.selectedTimer === timerTypes?.HOURGLASS
+              ? colorTypes?.SELECTEDTIMERCOLOR
+              : colorTypes?.UNSELECTEDTIMERCOLOR,
+        }" @click="selectTimer(timerTypes?.HOURGLASS)">
+          <img :src="BigHourGlass" alt="Hour Glass" :style="{ width: '32px', height: '32px' }" />
         </div>
-        <div
-          class="timer-type-box"
-          :style="{
-            backgroundColor:
-              timerData.selectedTimer === timerTypes?.CIRCLETIMER
-                ? colorTypes?.SELECTEDTIMERCOLOR
-                : colorTypes?.UNSELECTEDTIMERCOLOR,
-          }"
-          @click="selectTimer(timerTypes?.CIRCLETIMER)"
-        >
-          <img
-            :src="CircleTimer"
-            alt="Circle Timer"
-            :style="{ width: '32px', height: '32px' }"
-          />
+        <div class="timer-type-box" :style="{
+          backgroundColor:
+            timerData.selectedTimer === timerTypes?.CIRCLETIMER
+              ? colorTypes?.SELECTEDTIMERCOLOR
+              : colorTypes?.UNSELECTEDTIMERCOLOR,
+        }" @click="selectTimer(timerTypes?.CIRCLETIMER)">
+          <img :src="CircleTimer" alt="Circle Timer" :style="{ width: '32px', height: '32px' }" />
         </div>
-        <div
-          class="timer-type-box"
-          :style="{
-            backgroundColor:
-              timerData.selectedTimer === timerTypes?.WATCHTIMER
-                ? colorTypes?.SELECTEDTIMERCOLOR
-                : colorTypes?.UNSELECTEDTIMERCOLOR,
-          }"
-          @click="selectTimer(timerTypes?.WATCHTIMER)"
-        >
-          <img
-            :src="WatchTimer"
-            alt="Watch Timer"
-            :style="{ width: '32px', height: '32px' }"
-          />
+        <div class="timer-type-box" :style="{
+          backgroundColor:
+            timerData.selectedTimer === timerTypes?.WATCHTIMER
+              ? colorTypes?.SELECTEDTIMERCOLOR
+              : colorTypes?.UNSELECTEDTIMERCOLOR,
+        }" @click="selectTimer(timerTypes?.WATCHTIMER)">
+          <img :src="WatchTimer" alt="Watch Timer" :style="{ width: '32px', height: '32px' }" />
         </div>
       </div>
 
@@ -308,411 +173,245 @@
         <h5>Completed</h5>
       </div>
       <div class="content">
-        <img
-          v-if="
-            timerData.selectedTimer === timerTypes?.WATCHTIMER &&
-            this.timerData.isTimeAdded
-          "
-          :src="BigWatchTimer"
-          alt="Selected Timer"
-          class="circle-progress"
-          :style="{ width: '140px', height: '140px' }"
-        />
+        <img v-if="timerData.selectedTimer === timerTypes?.WATCHTIMER &&
+          this.timerData.isTimeAdded
+          " :src="BigWatchTimer" alt="Selected Timer" class="circle-progress"
+          :style="{ width: '170px', height: '170px' }" />
 
-        <div
-          class="hr-glass"
-          v-else-if="
-            timerData.selectedTimer === timerTypes?.HOURGLASS &&
-            this.timerData.isTimeAdded
-          "
-        >
+        <div class="hr-glass" v-else-if="timerData.selectedTimer === timerTypes?.HOURGLASS &&
+          this.timerData.isTimeAdded
+          ">
           <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <radialGradient
-                gradientUnits="userSpaceOnUse"
-                cx="226.928"
-                cy="99.801"
-                r="143.9"
-                id="gradient-1"
-                gradientTransform="matrix(2.520381, 0, 0, 0.105047, -345.016998, 89.317177)"
-              >
+              <radialGradient gradientUnits="userSpaceOnUse" cx="226.928" cy="99.801" r="143.9" id="gradient-1"
+                gradientTransform="matrix(2.520381, 0, 0, 0.105047, -345.016998, 89.317177)">
                 <stop offset="0" style="stop-color: rgb(250, 149, 121)" />
               </radialGradient>
-              <radialGradient
-                gradientUnits="userSpaceOnUse"
-                cx="226.928"
-                cy="99.801"
-                r="143.9"
-                id="gradient-2"
-                gradientTransform="matrix(2.520381, 0, 0, 0.105047, -344.7435, -413.743469)"
-              >
+              <radialGradient gradientUnits="userSpaceOnUse" cx="226.928" cy="99.801" r="143.9" id="gradient-2"
+                gradientTransform="matrix(2.520381, 0, 0, 0.105047, -344.7435, -413.743469)">
                 <stop offset="0" style="stop-color: rgb(250, 149, 121)" />
               </radialGradient>
             </defs>
-            <g
-              transform="matrix(1.488654, 0, 0, 1.488654, -85.968338, -124.319496)"
-            >
+            <g transform="matrix(1.488654, 0, 0, 1.488654, -85.968338, -124.319496)">
               <g id="topGlass">
-                <polygon
-                  style="fill: rgb(101, 214, 206)"
+                <polygon style="fill: rgb(101, 214, 206)"
                   points="126.025 116.627 329.326 116.627 321.346 148.544 302.612 194.339 273.817 227.297 249.532 246.031 236.002 251.582 221.777 251.235 202.696 243.603 179.105 224.175 155.514 197.808 140.249 167.625 130.188 138.136"
-                  id="topGlassSand"
-                />
-                <polygon
-                  style="fill: rgb(255, 233, 214, 0.01); visibility: visible"
+                  id="topGlassSand" />
+                <polygon style="fill: rgb(255, 233, 214, 0.01); visibility: visible"
                   points="125.294 105.142 126.097 119.33 132.807 148.472 143.16 174.738 153.13 195.635 166.551 211.74 182.464 228.42 200.485 241.84 215.823 250.084 228.093 252.002 236.721 250.851 264.712 235.513 292.704 206.18 304.207 191.034 318.778 155.757 327.405 124.89 329.706 104.184"
-                  id="topGlass"
-                  class="zindex-1"
-                />
+                  id="topGlass" class="zindex-1" />
                 <path
                   d="M 124.797 107.509 C 124.797 138.949 150.131 190.99 153.291 195.278 C 156.418 199.522 195.775 252.31 227.32 252.31"
                   style="
                     stroke-width: 4px;
                     fill: none;
                     stroke: rgb(255, 233, 214);
-                  "
-                />
+                  " />
                 <path
                   d="M 227.259 252.315 C 227.259 220.875 252.593 168.834 255.753 164.546 C 258.88 160.302 298.237 107.514 329.782 107.514"
                   style="
                     stroke-width: 4px;
                     fill: none;
                     stroke: rgb(255, 233, 214);
-                  "
-                  transform="matrix(-1, 0, 0, -1, 557.041016, 359.828995)"
-                />
-                <polygon
-                  style="fill: url(#gradient-0)"
-                  points="135.19 105.569 137.516 133.871 153.025 173.805 183.654 208.312 215.834 224.208 244.137 192.416 249.952 154.032 238.709 122.628 223.588 98.977"
-                />
+                  " transform="matrix(-1, 0, 0, -1, 557.041016, 359.828995)" />
+                <polygon style="fill: url(#gradient-0)"
+                  points="135.19 105.569 137.516 133.871 153.025 173.805 183.654 208.312 215.834 224.208 244.137 192.416 249.952 154.032 238.709 122.628 223.588 98.977" />
               </g>
-              <g
-                transform="matrix(1, 0, 0, -1, 0.002997, 504.836395)"
-                id="bottomGlass"
-              >
-                <polygon
-                  style="fill: rgb(101, 214, 206)"
+              <g transform="matrix(1, 0, 0, -1, 0.002997, 504.836395)" id="bottomGlass">
+                <polygon style="fill: rgb(101, 214, 206)"
                   points="180.30499267578125 225.71600341796875 188.2050018310547 228.48599243164062 193.4530029296875 231.3000030517578 201.25999450683594 235.82699584960938 210.5489959716797 241.2469940185547 218.22500610351562 245.05499267578125 223.13900756835938 247.56300354003906 227.4550018310547 248.3040008544922 232.44700622558594 247.99899291992188 241.26499938964844 244.85800170898438 245.47000122070312 242.03199768066406 253.6529998779297 237.7729949951172 258.9440002441406 234.53199768066406 267.614013671875 228.1909942626953 276.17401123046875 221.01400756835938 284.3210144042969 217.03900146484375 286.7049865722656 214.45599365234375 301.4110107421875 198.55799865722656 319.6929931640625 157.2239990234375 327.2030029296875 134.00900268554688 329.9339904785156 107.78399658203125 125.0469970703125 109.96900177001953 131.8780059814453 146.8489990234375 145.53599548339844 180.9969940185547 158.6490020751953 203.67100524902344"
-                  id="bottomGlassSand"
-                />
-                <polygon
-                  style="fill: rgb(255, 233, 214, 0.01)"
+                  id="bottomGlassSand" />
+                <polygon style="fill: rgb(255, 233, 214, 0.01)"
                   points="124.947 105.142 126.097 119.33 132.807 148.472 143.16 174.738 153.13 195.635 166.551 211.74 182.464 228.42 200.485 241.84 215.823 250.084 228.093 252.002 236.721 250.851 264.712 235.513 292.704 206.18 304.207 191.034 318.778 155.757 327.405 124.89 329.706 104.184"
-                  id="bottomGlass"
-                />
+                  id="bottomGlass" />
                 <path
                   d="M 124.797 107.509 C 124.797 138.949 150.131 190.99 153.291 195.278 C 156.418 199.522 195.775 252.31 227.32 252.31"
                   style="
                     stroke-width: 4px;
                     fill: none;
                     stroke: rgb(255, 233, 214);
-                  "
-                />
+                  " />
                 <path
                   d="M 227.259 252.315 C 227.259 220.875 252.593 168.834 255.753 164.546 C 258.88 160.302 298.237 107.514 329.782 107.514"
                   style="
                     stroke-width: 4px;
                     fill: none;
                     stroke: rgb(255, 233, 214);
-                  "
-                  transform="matrix(-1, 0, 0, -1, 557.041016, 359.828995)"
-                />
+                  " transform="matrix(-1, 0, 0, -1, 557.041016, 359.828995)" />
               </g>
-              <rect
-                x="93.028"
-                y="88.21"
-                width="270.801"
-                height="23.182"
-                style="fill: url(#gradient-1)"
-                rx="10"
-                ry="10"
-              />
-              <rect
-                x="93.301"
-                y="-414.851"
-                width="270.801"
-                height="23.182"
-                style="fill: url(#gradient-2)"
-                transform="matrix(1, 0, 0, -1, 0, 0)"
-                rx="10"
-                ry="10"
-              />
+              <rect x="93.028" y="88.21" width="270.801" height="23.182" style="fill: url(#gradient-1)" rx="10" ry="10" />
+              <rect x="93.301" y="-414.851" width="270.801" height="23.182" style="fill: url(#gradient-2)"
+                transform="matrix(1, 0, 0, -1, 0, 0)" rx="10" ry="10" />
             </g>
-            <polygon
-              style="fill: rgb(101, 214, 206)"
+            <polygon style="fill: rgb(101, 214, 206)"
               points="237.024 244.856 243.903 242.98 250.468 242.355 257.034 241.73 263.6 242.98 269.708 245.097 264.171 247.051 262.217 247.865 260.751 248.517 260.425 249.82 260.262 252.262 260.1 255.031 259.774 261.708 263.008 458.515 256.353 458.515 248.242 257.34 247.207 253.68 247.045 252.549 246.561 250.771 246.076 249.64 245.106 247.702 235.574 245.278"
-              id="middleSand"
-            />
+              id="middleSand" />
           </svg>
         </div>
 
-        <div
-          v-else-if="
-            timerData.selectedTimer === timerTypes?.CIRCLETIMER &&
-            this.timerData.isTimeAdded
-          "
-          class="circle-progress"
-        >
-          <circle-progress
-            :percent="calculateProgress()"
-            :stroke-width="17"
-            :inner-stroke-width="17"
-            :size="140"
-            :empty-color="colorTypes?.EMPTYPROGRESSBARCOLOR"
-            :stroke-color="colorTypes?.FILLPROGRESSBARCOLOR"
-            :linecap="'square'"
-          ></circle-progress>
+        <div v-else-if="timerData.selectedTimer === timerTypes?.CIRCLETIMER &&
+          this.timerData.isTimeAdded
+          " class="circle-progress">
+          <circle-progress :percent="calculateProgress()" :stroke-width="17" :inner-stroke-width="17" :size="170"
+            :empty-color="colorTypes?.EMPTYPROGRESSBARCOLOR" :stroke-color="colorTypes?.FILLPROGRESSBARCOLOR"
+            :linecap="'square'"></circle-progress>
         </div>
 
         <div v-else class="d-flex inner-content p-4">
           <div class="d-flex">
             <div>
               <div>
-                <i
-                  class="bi bi-caret-up-fill pointer arrow-size"
-                  :class="{
-                    'count-light': !IsLightMode,
-                    'count-dark': IsLightMode,
-                  }"
-                  @click="incrementFirstDigit('minutes')"
-                ></i>
+                <i class="bi bi-caret-up-fill pointer arrow-size" :class="{
+                  'count-light': !IsLightMode,
+                  'count-dark': IsLightMode,
+                }" @click="incrementFirstDigit('minutes')"></i>
               </div>
 
-              <div
-                :class="{
-                  'count-light count-size': !IsLightMode,
-                  'count-dark count-size': IsLightMode,
-                }"
-              >
+              <div :class="{
+                'count-light count-size': !IsLightMode,
+                'count-dark count-size': IsLightMode,
+              }">
                 {{ firstDigitMinutes }}
               </div>
 
               <div>
-                <i
-                  class="bi bi-caret-down-fill pointer arrow-size"
-                  :class="{
-                    'count-light': !IsLightMode,
-                    'count-dark': IsLightMode,
-                  }"
-                  @click="decrementFirstDigit('minutes')"
-                ></i>
+                <i class="bi bi-caret-down-fill pointer arrow-size" :class="{
+                  'count-light': !IsLightMode,
+                  'count-dark': IsLightMode,
+                }" @click="decrementFirstDigit('minutes')"></i>
               </div>
             </div>
 
             <div class="ms-2">
               <div>
-                <i
-                  class="bi bi-caret-up-fill pointer arrow-size"
-                  :class="{
-                    'count-light': !IsLightMode,
-                    'count-dark': IsLightMode,
-                  }"
-                  @click="incrementSecondDigit('minutes')"
-                ></i>
+                <i class="bi bi-caret-up-fill pointer arrow-size" :class="{
+                  'count-light': !IsLightMode,
+                  'count-dark': IsLightMode,
+                }" @click="incrementSecondDigit('minutes')"></i>
               </div>
-              <div
-                :class="{
-                  'count-light count-size': !IsLightMode,
-                  'count-dark count-size': IsLightMode,
-                }"
-              >
+              <div :class="{
+                'count-light count-size': !IsLightMode,
+                'count-dark count-size': IsLightMode,
+              }">
                 {{ secondDigitMinutes }}
               </div>
               <div>
-                <i
-                  class="bi bi-caret-down-fill pointer arrow-size"
-                  :class="{
-                    'count-light': !IsLightMode,
-                    'count-dark': IsLightMode,
-                  }"
-                  @click="decrementSecondDigit('minutes')"
-                ></i>
+                <i class="bi bi-caret-down-fill pointer arrow-size" :class="{
+                  'count-light': !IsLightMode,
+                  'count-dark': IsLightMode,
+                }" @click="decrementSecondDigit('minutes')"></i>
               </div>
             </div>
           </div>
 
-          <div
-            :class="{
-              'count-light count-size ms-2': !IsLightMode,
-              'count-dark count-size ms-2': IsLightMode,
-            }"
-          >
+          <div :class="{
+            'count-light count-size ms-2': !IsLightMode,
+            'count-dark count-size ms-2': IsLightMode,
+          }">
             :
           </div>
 
           <div class="d-flex ms-2">
             <div>
               <div>
-                <i
-                  class="bi bi-caret-up-fill pointer arrow-size"
-                  :class="{
-                    'count-light': !IsLightMode,
-                    'count-dark': IsLightMode,
-                  }"
-                  @click="incrementFirstDigit('seconds')"
-                ></i>
+                <i class="bi bi-caret-up-fill pointer arrow-size" :class="{
+                  'count-light': !IsLightMode,
+                  'count-dark': IsLightMode,
+                }" @click="incrementFirstDigit('seconds')"></i>
               </div>
-              <div
-                :class="{
-                  'count-light count-size': !IsLightMode,
-                  'count-dark count-size': IsLightMode,
-                }"
-              >
+              <div :class="{
+                'count-light count-size': !IsLightMode,
+                'count-dark count-size': IsLightMode,
+              }">
                 {{ firstDigitSeconds }}
               </div>
               <div>
-                <i
-                  class="bi bi-caret-down-fill pointer arrow-size"
-                  :class="{
-                    'count-light': !IsLightMode,
-                    'count-dark': IsLightMode,
-                  }"
-                  @click="decrementFirstDigit('seconds')"
-                ></i>
+                <i class="bi bi-caret-down-fill pointer arrow-size" :class="{
+                  'count-light': !IsLightMode,
+                  'count-dark': IsLightMode,
+                }" @click="decrementFirstDigit('seconds')"></i>
               </div>
             </div>
             <div class="ms-2">
               <div>
-                <i
-                  class="bi bi-caret-up-fill pointer arrow-size"
-                  :class="{
-                    'count-light': !IsLightMode,
-                    'count-dark': IsLightMode,
-                  }"
-                  @click="incrementSecondDigit('seconds')"
-                ></i>
+                <i class="bi bi-caret-up-fill pointer arrow-size" :class="{
+                  'count-light': !IsLightMode,
+                  'count-dark': IsLightMode,
+                }" @click="incrementSecondDigit('seconds')"></i>
               </div>
-              <div
-                :class="{
-                  'count-light count-size': !IsLightMode,
-                  'count-dark count-size': IsLightMode,
-                }"
-              >
+              <div :class="{
+                'count-light count-size': !IsLightMode,
+                'count-dark count-size': IsLightMode,
+              }">
                 {{ secondDigitSeconds }}
               </div>
               <div>
-                <i
-                  class="bi bi-caret-down-fill pointer arrow-size"
-                  :class="{
-                    'count-light': !IsLightMode,
-                    'count-dark': IsLightMode,
-                  }"
-                  @click="decrementSecondDigit('seconds')"
-                ></i>
+                <i class="bi bi-caret-down-fill pointer arrow-size" :class="{
+                  'count-light': !IsLightMode,
+                  'count-dark': IsLightMode,
+                }" @click="decrementSecondDigit('seconds')"></i>
               </div>
             </div>
           </div>
         </div>
 
-        <div
-          v-if="this.completedProgress == 0"
-          class="complition-animation"
-          ref="animationContainer"
-        ></div>
+        <div v-if="this.completedProgress == 0" class="complition-animation" ref="animationContainer"></div>
 
-        <div
-          :class="[
-            {
-              'hour-glass-count':
-                timerData.selectedTimer === timerTypes?.HOURGLASS &&
-                this.timerData.isTimeAdded,
-            },
-            {
-              'circle-count':
-                timerData.selectedTimer === timerTypes?.CIRCLETIMER &&
-                this.timerData.isTimeAdded,
-            },
-            {
-              'watch-count':
-                timerData.selectedTimer === timerTypes?.WATCHTIMER &&
-                this.timerData.isTimeAdded,
-            },
-            { 'count-light': !IsLightMode },
-            { 'count-dark': IsLightMode },
-          ]"
-        >
+        <div :class="[
+          {
+            'hour-glass-count':
+              timerData.selectedTimer === timerTypes?.HOURGLASS &&
+              this.timerData.isTimeAdded,
+          },
+          {
+            'circle-count':
+              timerData.selectedTimer === timerTypes?.CIRCLETIMER &&
+              this.timerData.isTimeAdded,
+          },
+          {
+            'watch-count':
+              timerData.selectedTimer === timerTypes?.WATCHTIMER &&
+              this.timerData.isTimeAdded,
+          },
+          { 'count-light': !IsLightMode },
+          { 'count-dark': IsLightMode },
+        ]">
           {{
             timerData.selectedTimer && this.timerData.isTimeAdded
-              ? formattedTime
-              : ""
+            ? formattedTime
+            : ""
           }}
         </div>
       </div>
       <!-- bottom buttons -->
 
-      <div
-        v-if="
-          !this.musicSelection.IsSelectMusicIcn &&
+      <div v-if="!this.musicSelection.IsSelectMusicIcn &&
           !this.musicSelection.Is_SelectMusic
-        "
-        class="bottom-buttons d-flex justify-content-between pe-2"
-      >
+          " class="bottom-buttons d-flex justify-content-between pe-2">
         <div>
-          <img
-            v-if="this.completedProgress === 0"
-            :src="ResetImg"
-            class="pointer"
-            alt="reset timer"
-            :style="{ width: '32px', height: '32px' }"
-            @click="resettimer"
-          />
-          <i
-            v-else-if="!timerRunning"
-            :style="{ color: colorTypes?.PLAYPAUSECOLOR }"
-            class="bi bi-play-circle-fill fs-2 pointer"
-            @click="startTimer"
-          >
+          <img v-if="this.completedProgress === 0" :src="ResetImg" class="pointer" alt="reset timer"
+            :style="{ width: '36px', height: '36px' }" @click="resettimer" />
+          <i v-else-if="!timerRunning"
+            :style="{ color: colorTypes?.PLAYPAUSECOLOR, width: '36px', height: '36px', display: 'flex', fontSize: '36px' }"
+            class="bi bi-play-circle-fill pointer" @click="startTimer">
           </i>
-          <i
-            v-else
-            :style="{ color: colorTypes?.PLAYPAUSECOLOR }"
-            class="bi bi-pause-circle-fill fs-2 pointer"
-            @click="stopTimer"
-          ></i>
+          <i v-else
+            :style="{ color: colorTypes?.PLAYPAUSECOLOR, width: '36px', height: '36px', display: 'flex', fontSize: '36px' }"
+            class="bi bi-pause-circle-fill pointer" @click="stopTimer"></i>
         </div>
         <div>
-          <img
-            v-if="this.completedProgress === 100"
-            :src="MusicImg"
-            class="pointer"
-            alt="Volume On"
-            :style="{ width: '32px', height: '32px' }"
-            @click="MusicImgClick"
-          />
-          <img
-            v-else-if="IsSoundOn"
-            :src="VolumOn"
-            class="pointer"
-            alt="Volume On"
-            :style="{ width: '32px', height: '32px' }"
-            @click="stopSound"
-          />
-          <img
-            v-else
-            :src="VolumOff"
-            class="mt-1 pointer"
-            alt="Volume Off"
-            :style="{ width: '32px', height: '32px' }"
-            @click="startSound"
-          />
+          <img v-if="this.completedProgress === 100" :src="MusicImg" class="pointer" alt="Volume On"
+            :style="{ width: '36px', height: '36px' }" @click="MusicImgClick" />
+          <img v-else-if="IsSoundOn" :src="VolumOn" class="pointer" alt="Volume On"
+            :style="{ width: '36px', height: '36px' }" @click="stopSound" />
+          <img v-else :src="VolumOff" class="pointer" alt="Volume Off" :style="{ width: '36px', height: '36px' }"
+            @click="startSound" />
         </div>
         <div>
-          <img
-            v-if="IsLightMode"
-            :src="Sun"
-            class="pointer"
-            alt="light Mode On"
-            :style="{ width: '32px', height: '32px' }"
-            @click="stopLightMode"
-          />
-          <img
-            v-else
-            :src="Moon"
-            class="mt-1 pointer"
-            alt="light Mode Off"
-            :style="{ width: '32px', height: '32px' }"
-            @click="startLightMode"
-          />
+          <img v-if="IsLightMode" :src="Sun" class="pointer" alt="light Mode On"
+            :style="{ width: '36px', height: '36px' }" @click="stopLightMode" />
+          <img v-else :src="Moon" class="pointer" alt="light Mode Off" :style="{ width: '36px', height: '36px' }"
+            @click="startLightMode" />
         </div>
         <!-- <div>
         <img
@@ -726,10 +425,7 @@
     </div>
 
   </div>
-  <audio
-    ref="tickAudio"
-    :src="selectedSound || require('@/assets/sound/TimerWidget/beep.mp3')"
-  ></audio>
+  <audio ref="tickAudio" :src="selectedSound || require('@/assets/sound/TimerWidget/beep.mp3')"></audio>
 </template>
 
 <script>
@@ -823,9 +519,8 @@ export default {
   },
   computed: {
     formattedTime() {
-      return `${this.timerMinutes < 10 ? "0" : ""}${this.timerMinutes}:${
-        this.timerSeconds < 10 ? "0" : ""
-      }${this.timerSeconds}`;
+      return `${this.timerMinutes < 10 ? "0" : ""}${this.timerMinutes}:${this.timerSeconds < 10 ? "0" : ""
+        }${this.timerSeconds}`;
     },
   },
 
@@ -1016,9 +711,8 @@ export default {
       setTimeout(() => {
         const middleAnimationTime = time / 10;
         const sandAnimationTime = time - middleAnimationTime;
-        document.querySelector("#middleSand").style.animationDelay = `${
-          sandAnimationTime - 0.04 * sandAnimationTime
-        }s`;
+        document.querySelector("#middleSand").style.animationDelay = `${sandAnimationTime - 0.04 * sandAnimationTime
+          }s`;
         document.querySelector(
           "#middleSand"
         ).style.animationDuration = `${middleAnimationTime}s`;
