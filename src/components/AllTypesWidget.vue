@@ -75,7 +75,7 @@ export default {
       FilledSpinner: FilledSpinner,
       FilledTrafficLight: FilledTrafficLight,
 
-      selectTimer: false,
+      selectTimer: true,
       selectSpinner: false,
       selectTrafficLight: false,
 
