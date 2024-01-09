@@ -25,10 +25,6 @@ body {
   align-items: center;
 }
 
-.top-menu img {
-  /* cursor: pointer; */
-}
-
 .main-box {
   width: 400px;
   height: 400px;
@@ -110,6 +106,7 @@ body {
 }
 
 .hour-glass-count {
+  width: 53px;
   color: #5B6770;
   font-size: 20px;
   max-width: 52px;
@@ -133,7 +130,7 @@ body {
 }
 
 .circle-count {
-  /* width: 50px; */
+  width: 60px;
   color: #5B6770;
   position: absolute;
   font-size: 24px;
@@ -145,6 +142,7 @@ body {
 }
 
 .watch-count {
+  width: 64px;
   color: #5B6770;
   font-size: 26px;
   font-weight: 500;
@@ -310,84 +308,7 @@ body {
 
 /* **********  TrafficLightWidget ************** */
 
-
-
-
-.traffic-light-without-rotation {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  left: 50%;
-  top: 50%;
-  margin-left: -60px;
-  margin-top: -137px;
-  background-color: #333;
-  width: 120px;
-  height: 320px;
-  border-radius: 80px;
-  transform: rotate(360deg);
-}
-
-.traffic-light-with-rotation {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  left: 50%;
-  top: 50%;
-  margin-left: -60px;
-  margin-top: -137px;
-  background-color: #333;
-  width: 120px;
-  height: 320px;
-  border-radius: 80px;
-  transform: rotate(-90deg);
-}
-
-.red-input {
-  cursor: pointer;
-  appearance: none;
-  position: relative;
-  left: 50%;
-  width: 80px;
-  height: 80px;
-  margin-top: 20px;
-  margin-left: -40px;
-  vertical-align: middle;
-  border-radius: 100%;
-}
-
-.yellow-input {
-  cursor: pointer;
-  appearance: none;
-  position: relative;
-  left: 50%;
-  width: 80px;
-  height: 80px;
-  margin-top: 20px;
-  margin-left: -40px;
-  vertical-align: middle;
-  border-radius: 100%;
-}
-
-.green-input {
-  cursor: pointer;
-  appearance: none;
-  position: relative;
-  left: 50%;
-  width: 80px;
-  height: 80px;
-  margin-top: 20px;
-  margin-left: -40px;
-  vertical-align: middle;
-  border-radius: 100%;
-}
-
-* {
-  user-select: none;
-  outline: none;
-}
-
-.DFGH {
+.inner-main {
   width: 400px;
   height: 350px;
   border-bottom-right-radius: 15px;
@@ -409,4 +330,78 @@ body {
   transform: translate(-50%, -50%);
   display: flex;
   gap: 20px;
+}
+
+
+.traffic-light {
+  background-color: #333;
+  transform: rotate(360deg);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  left: 40%;
+  top: 25%; 
+  border-radius: 3rem;
+  border: 2px solid #d9d9d9;
+  padding: 6px;
+}
+
+.traffic-light-1 {
+  background-color: #333;
+  transform: rotate(-90deg);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  left: 40%;
+  top: 25%; 
+  border-radius: 3rem;
+  border: 2px solid #d9d9d9;
+  padding: 6px;
+}
+ 
+.light {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 3rem;
+  margin: 8px;
+  background: red;
+  border: 2px solid transparent;
+  transition: 500ms background-color ease, 500ms box-shadow ease,
+    border-color 500ms ease;
+  cursor: pointer;
+}
+
+.light:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+ 
+.light.redactive {
+  background-color: #FF4437 !important;
+  box-shadow: 0px 0px 12px 6px #FF4437;
+  border-color: #2b2b2b;
+}
+.light.yellowactive {
+  background-color: #FFCD37 !important;
+  box-shadow: 0px 0px 12px 6px #FFCD37;
+  border-color: #2b2b2b;
+}
+.light.greenactive {
+  background-color: #57c443 !important;
+  box-shadow: 0px 0px 12px 6px #57c443;
+  border-color: #2b2b2b;
+}
+
+.light:nth-child(1) {
+  /* background: #8B2D26; */
+  background: rgba(213, 56, 90, 0.1);
+}
+
+.light:nth-child(2) {
+  /* background-color: #998035; */
+  background-color: rgba(253, 200, 46, 0.1);
+}
+
+.light:nth-child(3) {
+  /* background-color: #3E5925; */
+  background-color: rgba(87, 196, 67, 0.1);
 }

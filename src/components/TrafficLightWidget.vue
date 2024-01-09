@@ -8,75 +8,27 @@
     }"
   >
     <div>
-      <!-- <div class="top-menu">
-        <img
-          :src="Group244"
-          alt="Group244"
-          :style="{ width: '32px', height: '32px' }"
-        />
-        <img
-          :src="unFilledtimerImg"
-          alt="Group244"
-          :style="{ width: '32px', height: '32px' }"
-        />
-        <img
-          :src="Group4"
-          alt="Group244"
-          :style="{ width: '32px', height: '32px' }"
-        />
-        <img
-          :src="filledTrafficlightImg"
-          alt="Group244"
-          :style="{ width: '32px', height: '32px' }"
-        />
-      </div> -->
-
-      <div class="content">
-        <div class="p-4">
-          <div
-            :class="[
-              { 'traffic-light-without-rotation': !rotation },
-              { 'traffic-light-with-rotation ': rotation },
-            ]"
-          >
-            <input
-              type="radio"
-              name="traffic-light-color"
-              class="red-input"
-              value="color1"
-              @click="handleClickRedLight()"
-              :style="{
-                backgroundColor: this.redLightOn
-                  ? colorTypes?.REDLIGHTON
-                  : colorTypes?.REDLIGHTOFF,
-              }"
-            />
-            <input
-              type="radio"
-              name="traffic-light-color"
-              class="yellow-input"
-              value="color2"
-              @click="handleClickYellowLight()"
-              :style="{
-                backgroundColor: this.yellowLightOn
-                  ? colorTypes?.YELLOWLIGHTON
-                  : colorTypes?.YELLOWLIGHTOFF,
-              }"
-            />
-            <input
-              type="radio"
-              name="traffic-light-color"
-              class="green-input"
-              value="color3"
-              @click="handleClickGreenLight()"
-              :style="{
-                backgroundColor: this.greenLightOn
-                  ? colorTypes?.GREENLIGHTON
-                  : colorTypes?.GREENLIGHTOFF,
-              }"
-            />
-          </div>
-        </div>
+      <div
+        :class="[
+          { 'traffic-light': !rotation },
+          { 'traffic-light-1 ': rotation },
+        ]"
+      >
+        <div
+          class="light"
+          @click="changeColor(1)"
+          :class="{ redactive: currentLight === 1 }"
+        ></div>
+        <div
+          class="light"
+          @click="changeColor(2)"
+          :class="{ yellowactive: currentLight === 2 }"
+        ></div>
+        <div
+          class="light"
+          @click="changeColor(3)"
+          :class="{ greenactive: currentLight === 3 }"
+        ></div>
       </div>
 
       <!-- bottom buttons -->
@@ -124,9 +76,7 @@
 <script>
 import lottie from "lottie-web";
 import animationData from "../assets/images/celebration.json";
-import Group244 from "@/assets/images/TimerWidget/Group244.png";
 import unFilledtimerImg from "@/assets/images/TrafficLightWidget/unFilledtimerImg.png";
-import Group4 from "@/assets/images/TimerWidget/Group4.png";
 import filledTrafficlightImg from "@/assets/images/TrafficLightWidget/filledTrafficlight.png";
 import RottetImg from "@/assets/images/TrafficLightWidget/RottetImg.png";
 import VolumOn from "@/assets/images/TimerWidget/VolumOn.png";
@@ -139,11 +89,10 @@ import { colorsList } from "./constants/ConstData.js";
 export default {
   data() {
     return {
+      currentLight: 0,
       ClickSound: ClickSound,
       RottetImg: RottetImg,
-      Group244: Group244,
       unFilledtimerImg: unFilledtimerImg,
-      Group4: Group4,
       filledTrafficlightImg: filledTrafficlightImg,
       selectedSound: null,
       Sun: Sun,
@@ -152,16 +101,21 @@ export default {
       VolumOff: VolumOff,
       IsSoundOn: true,
       IsLightMode: true,
-      tempSound: "beep",
       colorTypes: colorsList,
-      redLightOn: false,
-      yellowLightOn: false,
-      greenLightOn: false,
       rotation: false,
     };
   },
 
   methods: {
+    changeColor(lightNumber) {
+      this.currentLight = lightNumber;
+      if (this.IsSoundOn) {
+        const audio = this.$refs.tickAudio;
+        audio.currentTime = 0;
+        audio.play();
+      }
+    },
+
     initAnimation() {
       const container = this.$refs.animationContainer;
       const animation = lottie.loadAnimation({
@@ -177,32 +131,7 @@ export default {
     RottetLights() {
       this.rotation = !this.rotation;
     },
-    handleClickRedLight() {
-      if (this.IsSoundOn) {
-        this.$refs.tickAudio.play();
-      }
-      this.redLightOn = true;
-      this.yellowLightOn = false;
-      this.greenLightOn = false;
-    },
 
-    handleClickYellowLight() {
-      if (this.IsSoundOn) {
-        this.$refs.tickAudio.play();
-      }
-      this.yellowLightOn = true;
-      this.redLightOn = false;
-      this.greenLightOn = false;
-    },
-
-    handleClickGreenLight() {
-      if (this.IsSoundOn) {
-        this.$refs.tickAudio.play();
-      }
-      this.greenLightOn = true;
-      this.redLightOn = false;
-      this.yellowLightOn = false;
-    },
     startSound() {
       this.IsSoundOn = true;
     },
