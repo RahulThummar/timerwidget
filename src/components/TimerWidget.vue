@@ -929,8 +929,7 @@ export default {
       if (this.completedProgress == 100) {
         this.totalSeconds = this.timerMinutes * 60 + this.timerSeconds;
       }
-
-      console.log(this.totalSeconds, "this.totalSeconds");
+ 
 
       if (
         (this.timerMinutes > 0 || this.timerSeconds > 0) &&
@@ -983,8 +982,7 @@ export default {
       // if (this.secondsLeft > 0) {
       //   time = this.secondsLeft;
       // }
-
-      console.log(time, "timetimetimetime");
+ 
       this.clearHourglass();
       setTimeout(() => {
         const middleAnimationTime = time / 10;
