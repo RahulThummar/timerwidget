@@ -333,9 +333,7 @@ body {
 }
 
 
-.traffic-light {
-  height: 300px;
-  width: 120px;
+.traffic-light { 
   background-color: #333;
   transform: rotate(360deg);
   position: absolute;
@@ -406,4 +404,63 @@ body {
 .light:nth-child(3) {
   /* background-color: #3E5925; */
   background-color: rgba(87, 196, 67, 0.1);
+}
+
+/* ***** spinner ************************* */
+
+.spinner-main { 
+  position: absolute;
+  transform: rotate(90deg);
+  height: 350px; 
+  width: 350px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  left: 5%;
+  top: 19%;
+  padding-top: 22px;  
+  /* background-color: #A1A8D0; */
+}
+
+.play-spinner-btn{
+  /* display: none !important; */
+  height: 30px !important;
+  width: 30px !important; 
+  opacity: 0!important; 
+} 
+
+.arrow-img{
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 50%;
+  z-index: 1;
+  top: 0;
+  transform: rotate(-90deg);
+  height: 50px;
+  width: 50px;
+}
+
+.start-spin-img{
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 50%;
+  z-index: 1;
+  top: 50;
+  transform: rotate(-90deg);
+  height: 50px;
+  width: 50px;
+}
+
+.play-spin-img{ 
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  position: absolute; 
+  z-index: 1;
+  top: 50; 
+  height: 50px;
+  width: 50px;
 }

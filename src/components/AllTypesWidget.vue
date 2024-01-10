@@ -14,9 +14,11 @@
         @click="handleChangeWidgetType('selectTimer')"
       />
       <img
+        class="pointer"
         :src="selectSpinner ? FilledSpinner : UnfilledSpinner"
         alt="Group244"
         :style="{ width: '32px', height: '32px' }"
+        @click="handleChangeWidgetType('selectSpinner')"
       />
       <img
         class="pointer"
@@ -42,6 +44,14 @@
 
     <div
       :class="{
+        'd-none': !selectSpinner,
+        '': selectSpinner,
+      }"
+    >
+      <SpinnerWidget />
+    </div>
+    <div
+      :class="{
         'd-none': !selectTrafficLight,
         '': selectTrafficLight,
       }"
@@ -52,8 +62,6 @@
 </template>
 
 <script>
-// @click="handleChangeWidgetType('selectSpinner')"
-
 import UnfilledBoxes from "@/assets/images/AllTypesWidget/UnfilledBoxes.png";
 import UnfilledTimer from "@/assets/images/AllTypesWidget/UnfilledTimer.png";
 import UnfilledSpinner from "@/assets/images/AllTypesWidget/UnfilledSpinner.png";
@@ -65,10 +73,13 @@ import FilledTrafficLight from "@/assets/images/AllTypesWidget/FilledTrafficLigh
 
 import TimerWidget from "./TimerWidget.vue";
 import TrafficLightWidget from "./TrafficLightWidget.vue";
+import SpinnerWidget from "./SpinnerWidget.vue";
+
 export default {
   components: {
     TimerWidget,
     TrafficLightWidget,
+    SpinnerWidget,
   },
   data() {
     return {
