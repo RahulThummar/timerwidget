@@ -334,16 +334,16 @@ body {
 
 
 .traffic-light {
-  height: 250px;
-  width: 100px;
+  height: 300px;
+  width: 120px;
   background-color: #333;
   transform: rotate(360deg);
   position: absolute;
   display: flex;
   flex-direction: column;
-  left: 38%;
-  top: 25%; 
-  border-radius: 3rem;
+  left: 35%;
+  top: 19%; 
+  border-radius: 4rem;
   border: 2px solid #d9d9d9;
   padding: 6px;
 }
@@ -354,18 +354,18 @@ body {
   position: absolute;
   display: flex;
   flex-direction: column;
-  left: 38%;
-  top: 20%; 
-  border-radius: 3rem;
+  left: 36%;
+  top: 11%; 
+  border-radius: 4rem;
   border: 2px solid #d9d9d9;
   padding: 6px;
 }
  
 .light {
-  width: 4rem;
-  height: 4rem;
+  width: 5rem;
+  height: 5rem;
   border-radius: 3rem;
-  margin: 9px;
+  margin: 10px;
   background: red;
   border: 2px solid transparent;
   transition: 500ms background-color ease, 500ms box-shadow ease,
