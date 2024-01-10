@@ -27,10 +27,14 @@
       />
     </div>
 
-    <div
-      :class="{
+    <!-- :class="{
         'd-none': !selectTimer,
         '': selectTimer,
+      }" -->
+    <div
+      :style="{
+        zIndex: !selectTimer ? '-1' : '1',
+        opacity: !selectTimer ? '0' : '1',
       }"
     >
       <TimerWidget />
