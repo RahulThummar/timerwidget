@@ -365,7 +365,7 @@ body {
   width: 4rem;
   height: 4rem;
   border-radius: 3rem;
-  margin: 8px;
+  margin: 9px;
   background: red;
   border: 2px solid transparent;
   transition: 500ms background-color ease, 500ms box-shadow ease,
