@@ -10,7 +10,7 @@
     <div>
       <div class="spinner-main">
         <div class="arrow-img">
-          <img :src="arrow" :style="{ width: '30px', height: '30px' }" />
+          <img :src="arrow" :style="{ width: '40px', height: '40px' }" />
         </div>
         <div class="start-spin-img ">
           <div v-if="!this.spinnerStart" class="play-spin-img">
@@ -31,7 +31,7 @@
 
       <!-- bottom buttons -->
 
-      <div
+      <!-- <div
         :class="{
           'bottom-buttons': !rotation,
           'bottom-buttons-1': rotation,
@@ -65,7 +65,7 @@
             @click="startSound"
           />
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
   <audio ref="tickAudio" :src="ClickSound"></audio>

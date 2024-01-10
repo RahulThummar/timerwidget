@@ -416,7 +416,8 @@ body {
   position: absolute;
   display: flex;
   align-items: center;
-  left: 5%;
+  /* left: 5%; */
+  left: 9%;
   top: 19%;
   padding-top: 22px;  
   /* background-color: #A1A8D0; */
