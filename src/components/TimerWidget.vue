@@ -873,6 +873,7 @@ export default {
     },
 
     incrementFirstDigit(type) {
+      this.remainingTime = 0;
       this.completedProgress = 100;
       const currentDigit =
         this[type === "minutes" ? "firstDigitMinutes" : "firstDigitSeconds"];
@@ -887,6 +888,7 @@ export default {
     },
 
     decrementFirstDigit(type) {
+      this.remainingTime = 0;
       this.completedProgress = 100;
       const currentDigit =
         this[type === "minutes" ? "firstDigitMinutes" : "firstDigitSeconds"];
@@ -901,6 +903,7 @@ export default {
     },
 
     incrementSecondDigit(type) {
+      this.remainingTime = 0;
       this.completedProgress = 100;
       this[type === "minutes" ? "secondDigitMinutes" : "secondDigitSeconds"] =
         (this[
@@ -911,6 +914,7 @@ export default {
     },
 
     decrementSecondDigit(type) {
+      this.remainingTime = 0;
       this.completedProgress = 100;
       this[type === "minutes" ? "secondDigitMinutes" : "secondDigitSeconds"] =
         (this[
@@ -929,7 +933,6 @@ export default {
       if (this.completedProgress == 100) {
         this.totalSeconds = this.timerMinutes * 60 + this.timerSeconds;
       }
-
 
       if (
         (this.timerMinutes > 0 || this.timerSeconds > 0) &&
@@ -979,9 +982,11 @@ export default {
     },
 
     animationStart(time) {
-      // if (this.secondsLeft > 0) {
-      //   time = this.secondsLeft;
-      // }
+      console.log(this.remainingTime, "****this.secondsLeft");
+      if (this.remainingTime > 0) {
+        time = this.remainingTime;
+      }
+
       console.log(time, "****timetime");
 
       this.clearHourglass();
