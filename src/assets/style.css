@@ -416,7 +416,7 @@ body {
   position: absolute;
   display: flex;
   align-items: center;
-  /* left: 5%; */
+  /* left: 0%; */
   left: 9%;
   top: 19%;
   padding-top: 22px;  
@@ -439,7 +439,7 @@ body {
   top: 0;
   transform: rotate(-90deg);
   height: 50px;
-  width: 50px;
+  width: 60px;
 }
 
 .start-spin-img{

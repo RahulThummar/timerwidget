@@ -10,7 +10,7 @@
     <div>
       <div class="spinner-main">
         <div class="arrow-img">
-          <img :src="arrow" :style="{ width: '40px', height: '40px' }" />
+          <img :src="arrow" :style="{ width: '55px', height: '40px' }" />
         </div>
         <div class="start-spin-img ">
           <div v-if="!this.spinnerStart" class="play-spin-img">
