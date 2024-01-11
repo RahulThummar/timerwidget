@@ -53,7 +53,7 @@
 
       <!-- bottom buttons -->
 
-      <div
+      <!-- <div
         :class="{
           'bottom-buttons': !rotation,
           'bottom-buttons-1': rotation,
@@ -87,7 +87,7 @@
             @click="startSound"
           />
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 
@@ -175,7 +175,88 @@ export default {
       tagList: [],
       message: message,
       canvasVerify: true,
-      prizes: [],
+      prizes: [
+        {
+          id: 1,
+          name: "1",
+          value: "1",
+          bgColor: "#45ace9",
+          color: "#ffffff",
+          probability: 10,
+        },
+        {
+          id: 2,
+          name: "2",
+          value: "2",
+          bgColor: "#dd3832",
+          color: "#ffffff",
+          probability: 10,
+        },
+        {
+          id: 3,
+          name: "3",
+          value: "3",
+          bgColor: "#fef151",
+          color: "#ffffff",
+          probability: 10,
+        },
+        {
+          id: 4,
+          name: "4",
+          value: "4",
+          bgColor: "pink",
+          color: "blue",
+          probability: 10,
+        },
+        {
+          id: 5,
+          name: "5",
+          value: "5",
+          bgColor: "#32a852",
+          color: "blue",
+          probability: 10,
+        },
+        {
+          id: 6,
+          name: "6",
+          value: "6",
+          bgColor: "#30898c",
+          color: "blue",
+          probability: 10,
+        },
+        {
+          id: 7,
+          name: "7",
+          value: "7",
+          bgColor: "#05e6ed",
+          color: "blue",
+          probability: 10,
+        },
+        {
+          id: 8,
+          name: "8",
+          value: "8",
+          bgColor: "#dbb753",
+          color: "blue",
+          probability: 10,
+        },
+        {
+          id: 9,
+          name: "9",
+          value: "9",
+          bgColor: "#c9c5de",
+          color: "blue",
+          probability: 10,
+        },
+        {
+          id: 10,
+          name: "10",
+          value: "10",
+          bgColor: "#8348b0",
+          color: "blue",
+          probability: 10,
+        },
+      ],
       celebration_bell: celebration_bell,
       editImg: editImg,
       unFilledtimerImg: unFilledtimerImg,
@@ -195,7 +276,7 @@ export default {
       IsLightMode: true,
       colorTypes: colorsList,
       spinnerStart: false,
-      isItemAdded: false,
+      isItemAdded: true,
       showAddModal: false,
     };
   },
