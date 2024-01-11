@@ -13,7 +13,7 @@
         <div class="bodyy">
           <div class="align-middle">
             <button
-              class="btnn track w-100"
+              class="btn-common track w-100"
               @click="handleClickSelectTrackBtn()"
             >
               Select Background Track
@@ -22,7 +22,10 @@
         </div>
         <div class="footer">
           <div>
-            <button class="btnn cancle w-100" @click="handleClickCancleBtn()">
+            <button
+              class="btn-common cancle w-100"
+              @click="handleClickCancleBtn()"
+            >
               Cancel
             </button>
           </div>
@@ -207,10 +210,13 @@
         </div>
         <div class="footer px-3">
           <div class="d-flex gap-2">
-            <button class="btnn cancle w-100" @click="handleClickCancleBtn()">
+            <button
+              class="btn-common cancle w-100"
+              @click="handleClickCancleBtn()"
+            >
               Cancel
             </button>
-            <button class="btnn save w-100" @click="handleSaveSound()">
+            <button class="btn-common save w-100" @click="handleSaveSound()">
               Save
             </button>
           </div>

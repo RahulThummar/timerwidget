@@ -92,8 +92,8 @@ export default {
       FilledSpinner: FilledSpinner,
       FilledTrafficLight: FilledTrafficLight,
 
-      selectTimer: true,
-      selectSpinner: false,
+      selectTimer: false,
+      selectSpinner: true,
       selectTrafficLight: false,
 
       prevSelected: "selectTimer",

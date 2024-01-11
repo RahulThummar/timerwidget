@@ -72,7 +72,7 @@ body {
 .timer-types {
   height: 40px;
   position: absolute;
-  left: 0%;
+  left: 1%;
   top: 32%;
   transform: translate(-0%, -50%);
   display: grid;
@@ -205,7 +205,7 @@ body {
   height: 40px;
 }
 
-.btnn {
+.btn-common {
   font-family: 'Anek Latin', sans-serif;
   font-size: 16px;
   font-weight: 700;
@@ -408,7 +408,20 @@ body {
 
 /* ***** spinner ************************* */
 
-.spinner-main { 
+.empty-spinner-main { 
+  position: absolute; 
+  height: 350px; 
+  width: 350px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  left: 9%; 
+  top: 10%;
+  padding-top: 22px;   
+}
+
+
+.filled-spinner-main { 
   position: absolute;
   transform: rotate(90deg);
   height: 350px; 
@@ -416,8 +429,8 @@ body {
   position: absolute;
   display: flex;
   align-items: center;
-  /* left: 0%; */
-  left: 9%;
+  left: 0%;
+  /* left: 9%; */
   top: 19%;
   padding-top: 22px;  
   /* background-color: #A1A8D0; */
@@ -450,6 +463,7 @@ body {
   right: 50%;
   z-index: 1;
   top: 50;
+  bottom: 41%;
   transform: rotate(-90deg);
   height: 50px;
   width: 50px;
@@ -465,3 +479,113 @@ body {
   height: 50px;
   width: 50px;
 }
+
+.empty-circle{
+  justify-content: center;
+  display: flex;
+  border-radius: 50%;
+  height: 300px;
+  width: 300px; 
+  border: 1px solid #000000;
+  background-color: #A1A8D0;
+  align-items: center;
+  flex-direction: column;
+}
+
+.choose-spn-btns{
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+}
+
+
+
+
+/* **** te,p **** */
+
+.form-main {
+  border-radius: 20px;
+  background-color: #fff;
+  display: flex;
+  max-width: 384px;
+  flex-direction: column;
+  align-items: end;
+  padding: 15px 0;
+}
+
+.form-inner {
+  align-self: stretch;
+  display: flex;
+  margin-top: 18px;
+  width: 100%;
+  flex-direction: column;
+  padding: 0 15px;
+}
+.div-3 {
+  color: #606d79;
+  font: 400 14px Anek Latin, sans-serif;
+}
+.input-main {
+  background: transparent;
+  border-radius: 10px;
+  background-color: #f1f2f4;
+  display: flex;
+  margin-top: 7px;
+  padding-left: 15px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.input-main input{  
+  height: 41px;
+  width: 280px;
+  background: transparent;
+  border: 0;
+}
+
+.input-main input:focus{
+outline: 0;
+box-shadow: none;
+}
+
+.name-label {
+  text-align: start;
+  color: #c6c7ca;
+  margin: auto 0;
+  font: 400 16px Anek Latin, sans-serif;
+}
+
+.enter-img {
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
+  width: 25px; 
+  overflow: hidden;
+  align-self: stretch;
+  max-width: 100%;
+}
+.enter-btn-main{
+  padding: 10px;
+  background-color: #005eb8;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.tag-main { 
+  display: flex;
+  flex-wrap: wrap; 
+  margin-top: 20px; 
+}
+.tag-inner { 
+  border-radius: 20px;
+  background-color: #dceeff;   
+  padding: 9px 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.cancle-save-btn {
+  display: flex;
+  margin-top: 15px;
+  justify-content: space-between; 
+}
+ 

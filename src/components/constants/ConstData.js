@@ -22,6 +22,8 @@ export const colorsList = {
     GREENLIGHTON: "#9FFF45",
     GREENLIGHTOFF: "#3E5925",
 
+    TEXTCOLORINSPEENERITEAMS: "#3E5925",
+
 };
 
 
