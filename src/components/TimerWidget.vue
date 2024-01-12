@@ -988,12 +988,9 @@ export default {
     },
 
     animationStart(time) {
-      console.log(this.remainingTime, "****this.secondsLeft");
       if (this.remainingTime > 0) {
         time = this.remainingTime;
       }
-
-      console.log(time, "****timetime");
 
       this.clearHourglass();
       setTimeout(() => {

@@ -415,7 +415,7 @@ body {
   position: absolute;
   display: flex;
   align-items: center;
-  left: 9%; 
+  left: 12%; 
   top: 10%;
   padding-top: 22px;   
 }
@@ -429,8 +429,8 @@ body {
   position: absolute;
   display: flex;
   align-items: center;
-  /* left: 0%; */
-  left: 9%;
+  left: 0%;
+  /* left: 9%; */
   top: 19%;
   padding-top: 22px;  
   /* background-color: #A1A8D0; */
@@ -441,6 +441,7 @@ body {
   height: 30px !important;
   width: 30px !important; 
   opacity: 0!important; 
+  z-index: -1;
 } 
 
 .arrow-img{
@@ -504,13 +505,8 @@ body {
 /* **** te,p **** */
 
 .form-main {
-  border-radius: 20px;
   background-color: #fff;
-  display: flex;
-  max-width: 384px;
-  flex-direction: column;
-  align-items: end;
-  padding: 15px 0;
+  width: auto; 
 }
 
 .form-inner {
@@ -585,7 +581,21 @@ box-shadow: none;
 }
 .cancle-save-btn {
   display: flex;
-  margin-top: 15px;
-  justify-content: space-between; 
 }
- 
+
+.spinner-complition-animation{
+  transform: rotate(-90deg);
+  position: absolute;
+  top: 24%;
+  left: 17%;
+  height: 200px;
+  width: 200px;
+}
+.winner-name{
+  font: 400 20px Anek Latin, sans-serif;
+  transform: rotate(-90deg);
+  position: absolute;
+  top: 41%;
+  left: 14%;
+  z-index: 1;
+}

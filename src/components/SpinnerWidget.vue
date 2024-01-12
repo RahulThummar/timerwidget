@@ -20,6 +20,7 @@
         </div>
 
         <FortuneWheel
+          :key="prizes.length"
           style="width: 300px"
           borderColor="#00000033"
           :borderWidth="6"
@@ -28,12 +29,36 @@
           @rotateStart="onCanvasRotateStart"
           @rotateEnd="onRotateEnd"
         />
+
+        <div
+          class="spinner-complition-animation"
+          ref="animationContainer"
+          v-if="this.animationStarted"
+        ></div>
+
+        <div class="winner-name" v-if="this.winnerName !== ''">
+          <div class="tag-main">
+            <span class="tag-inner">
+              {{ this.winnerName }}
+              <img
+                :style="{ width: '15px', height: '15px' }"
+                loading="lazy"
+                class="pointer"
+                :src="cancelImg"
+                @click="handleClickWinTag()"
+              />
+            </span>
+          </div>
+        </div>
       </div>
+
       <div v-else class="empty-spinner-main">
         <div class="empty-circle">
           <div class="col-9">
             <button
               class="btn-common save"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
               @click="
                 () => {
                   showAddModal = true;
@@ -43,17 +68,18 @@
               Create New Spinner
             </button>
           </div>
-          <div class="col-9">
+          <!-- <div class="col-9">
             <button class="btn-common save mt-5" @click="handleSaveSound()">
               Choose Spinner
             </button>
-          </div>
+          </div> -->
         </div>
       </div>
 
       <!-- bottom buttons -->
 
-      <!-- <div
+      <div
+        v-if="this.isItemAdded"
         :class="{
           'bottom-buttons': !rotation,
           'bottom-buttons-1': rotation,
@@ -62,11 +88,13 @@
       >
         <div>
           <img
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
             :src="editImg"
             class="pointer"
             alt="reset timer"
             :style="{ width: '36px', height: '36px' }"
-            @click="RottetLights"
+            @click="handleClickEdit"
           />
         </div>
         <div>
@@ -87,51 +115,69 @@
             @click="startSound"
           />
         </div>
-      </div> -->
+      </div>
     </div>
   </div>
 
   <audio ref="tickAudio" :src="celebration_bell"></audio>
 
-  <div class="form-main mt-5" v-if="this.showAddModal">
-    <span class="form-inner">
-      <div class="name-label">Tag Name</div>
-      <span class="input-main">
-        <input v-model="message" placeholder="Enter Tag Name" />
-        <div class="enter-btn-main" @click="handleClickTagEnter">
-          <img loading="lazy" :src="EnterImg" class="enter-img pointer" />
+  <!-- Modal -->
+  <div>
+    <div class="modal fade" id="exampleModal" data-bs-backdrop="static">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="form-main">
+              <span class="form-inner">
+                <div class="name-label">Tag Name</div>
+                <span class="input-main">
+                  <input v-model="message" placeholder="Enter Tag Name" />
+
+                  <div
+                    class="enter-btn-main pointer"
+                    @click="handleClickTagEnter"
+                  >
+                    <img loading="lazy" :src="EnterImg" class="enter-img" />
+                  </div>
+                </span>
+
+                <div class="tag-main">
+                  <span
+                    class="tag-inner"
+                    v-for="(tagNames, index) in tagList"
+                    :key="index"
+                  >
+                    {{ tagNames.name }}
+                    <img
+                      :style="{ width: '15px', height: '15px' }"
+                      loading="lazy"
+                      class="pointer"
+                      :src="cancelImg"
+                      @click="handleClickTagRemove(index)"
+                    />
+                  </span>
+                </div>
+                <hr />
+                <div class="cancle-save-btn">
+                  <span
+                    class="btn-common cancle col-6 me-2 pointer"
+                    :data-bs-dismiss="dismissAttribute"
+                    @click="handleClickCancle"
+                    >Cancel</span
+                  >
+                  <span
+                    class="btn-common save col-6 pointer"
+                    @click="handleClickSaveItems"
+                    :data-bs-dismiss="dismissAttribute"
+                    >Save</span
+                  >
+                </div>
+              </span>
+            </div>
+          </div>
         </div>
-      </span>
-
-      <div class="tag-main">
-        <span
-          class="tag-inner"
-          v-for="(tagNames, index) in tagList"
-          :key="index"
-        >
-          {{ tagNames.name }}
-          <img
-            loading="lazy"
-            class="pointer"
-            :src="cancelImg"
-            @click="handleClickTagRemove(index)"
-          />
-        </span>
       </div>
-
-      <div class="cancle-save-btn">
-        <span
-          class="btn-common cancle col-6 me-2 pointer"
-          @click="handleClickCancle"
-          >Cancel</span
-        >
-        <span
-          class="btn-common save col-6 pointer"
-          @click="handleClickSaveItems"
-          >Save</span
-        >
-      </div>
-    </span>
+    </div>
   </div>
 </template>
 
@@ -149,7 +195,6 @@ import Moon from "@/assets/images/TimerWidget/Moon.png";
 import arrow from "@/assets/images/SpinnerWidget/arrow.png";
 import editImg from "@/assets/images/SpinnerWidget/editImg.png";
 import play_icn from "@/assets/images/SpinnerWidget/play_icn.png";
-import Rectangle from "@/assets/images/SpinnerWidget/Rectangle.png";
 import EnterImg from "@/assets/images/SpinnerWidget/EnterImg.png";
 import cancelImg from "@/assets/images/SpinnerWidget/cancelImg.png";
 import play_bg from "@/assets/images/SpinnerWidget/play_bg.png";
@@ -164,99 +209,17 @@ export default {
   },
   mounted() {
     var element = document.getElementsByClassName("fw-btn__btn")[0];
-    console.log(element);
     if (element) {
       element.classList.add("play-spinner-btn");
     }
   },
+
   data() {
-    console.log(this.tagText);
     return {
       tagList: [],
+      prizes: [],
       message: message,
       canvasVerify: true,
-      prizes: [
-        {
-          id: 1,
-          name: "1",
-          value: "1",
-          bgColor: "#45ace9",
-          color: "#ffffff",
-          probability: 10,
-        },
-        {
-          id: 2,
-          name: "2",
-          value: "2",
-          bgColor: "#dd3832",
-          color: "#ffffff",
-          probability: 10,
-        },
-        {
-          id: 3,
-          name: "3",
-          value: "3",
-          bgColor: "#fef151",
-          color: "#ffffff",
-          probability: 10,
-        },
-        {
-          id: 4,
-          name: "4",
-          value: "4",
-          bgColor: "pink",
-          color: "blue",
-          probability: 10,
-        },
-        {
-          id: 5,
-          name: "5",
-          value: "5",
-          bgColor: "#32a852",
-          color: "blue",
-          probability: 10,
-        },
-        {
-          id: 6,
-          name: "6",
-          value: "6",
-          bgColor: "#30898c",
-          color: "blue",
-          probability: 10,
-        },
-        {
-          id: 7,
-          name: "7",
-          value: "7",
-          bgColor: "#05e6ed",
-          color: "blue",
-          probability: 10,
-        },
-        {
-          id: 8,
-          name: "8",
-          value: "8",
-          bgColor: "#dbb753",
-          color: "blue",
-          probability: 10,
-        },
-        {
-          id: 9,
-          name: "9",
-          value: "9",
-          bgColor: "#c9c5de",
-          color: "blue",
-          probability: 10,
-        },
-        {
-          id: 10,
-          name: "10",
-          value: "10",
-          bgColor: "#8348b0",
-          color: "blue",
-          probability: 10,
-        },
-      ],
       celebration_bell: celebration_bell,
       editImg: editImg,
       unFilledtimerImg: unFilledtimerImg,
@@ -267,7 +230,6 @@ export default {
       play_bg: play_bg,
       arrow: arrow,
       EnterImg: EnterImg,
-      Rectangle: Rectangle,
       cancelImg: cancelImg,
       play_icn: play_icn,
       VolumOn: VolumOn,
@@ -276,14 +238,26 @@ export default {
       IsLightMode: true,
       colorTypes: colorsList,
       spinnerStart: false,
-      isItemAdded: true,
+      isItemAdded: false,
       showAddModal: false,
+      showEditModal: false,
+      animationStarted: false,
+      winnerName: "",
+      prevPrizes: [],
     };
   },
 
   computed: {
     isVerifiedCanvas: function () {
       return this.canvasVerify;
+    },
+
+    dismissAttribute() {
+      if (this.showEditModal) {
+        return this.tagList.length > 1 ? "modal" : null;
+      } else {
+        return this.tagList.length > 1 ? "modal" : null;
+      }
     },
   },
   methods: {
@@ -303,43 +277,41 @@ export default {
         });
         message.value = "";
       }
-      console.log(this.tagList);
     },
 
     handleClickSaveItems() {
-      console.log(this.tagList.length, "length");
       if (this.tagList.length < 2) {
         alert("Please add two or more items.");
         return;
       }
 
-      let probabilityRatio = 100 / this.tagList.length;
-      console.log(probabilityRatio);
-      this.tagList.map((a) => (a.probability = probabilityRatio));
-      this.prizes = this.tagList;
+      this.handleClickWinTag();
 
-      let arr = this.prizes;
+      const probabilityRatio = parseInt(100 / this.tagList.length);
+      this.tagList.map((item) => (item.probability = probabilityRatio));
 
-      if (
-        this.prizes.reduce((n, { probability }) => n + probability, 0) !== 100
-      ) {
-        let temp =
-          100 - this.prizes.reduce((n, { probability }) => n + probability, 0);
-        arr[0].probability = arr[0].probability + temp;
-      }
-      this.prizes = arr;
+      this.prizes = [...this.tagList];
 
-      if (
-        this.prizes.reduce((n, { probability }) => n + probability, 0) === 100
-      ) {
-        console.log(this.prizes.length, "5555555588888");
-        console.log(this.prizes, "55555555");
+      const totalProbability = this.prizes.reduce(
+        (sum, { probability }) => sum + probability,
+        0
+      );
+
+      if (totalProbability === 100) {
+        this.prevPrizes = this.prizes;
+        this.showAddModal = false;
+        this.isItemAdded = true;
+      } else {
+        const remainingProbability = 100 - totalProbability;
+        this.prizes[0].probability += remainingProbability;
+        this.prevPrizes = this.prizes;
+
         this.showAddModal = false;
         this.isItemAdded = true;
       }
+
       setTimeout(() => {
-        var element = document.getElementsByClassName("fw-btn__btn")[0];
-        console.log(element);
+        const element = document.querySelector(".fw-btn__btn");
         if (element) {
           element.classList.add("play-spinner-btn");
         }
@@ -351,23 +323,30 @@ export default {
     },
 
     handleClickCancle() {
-      this.tagList = [];
-      this.prizes = [];
-      this.showAddModal = false;
+      if (this.showEditModal) {
+        if (this.tagList.length < 2) {
+          alert("Please add two or more items.");
+          return;
+        }
+        message.value = "";
+        this.prizes = this.prevPrizes;
+        // this.tagList = this.prevtagList;
+        this.showEditModal = false;
+      } else {
+        message.value = "";
+        this.showAddModal = false;
+        this.tagList = [];
+      }
     },
 
-    onImageRotateStart() {
-      console.log("onRotateStart");
-    },
     onCanvasRotateStart(rotate) {
+      this.animationStarted = false;
+      this.winnerName = "";
       this.spinnerStart = true;
-      console.log(rotate, "l");
-      console.log(this.isVerifiedCanvas);
       if (this.isVerifiedCanvas) {
         const verified = true;
         this.DoServiceVerify(verified, 100).then((verifiedRes) => {
           if (verifiedRes) {
-            console.log("Verification passed, start to rotate");
             rotate();
             this.canvasVerify = false;
           } else {
@@ -376,15 +355,18 @@ export default {
         });
         return;
       }
-
-      console.log("onCanvasRotateStart");
     },
+
     onRotateEnd(prize) {
+      this.animationStarted = true;
       if (this.IsSoundOn) {
         this.$refs.tickAudio.play();
       }
       this.spinnerStart = false;
-      alert(prize.name);
+      setTimeout(() => {
+        this.initAnimation();
+      }, 3);
+      this.winnerName = prize.name;
     },
 
     DoServiceVerify(verified, duration) {
@@ -394,6 +376,7 @@ export default {
         }, duration);
       });
     },
+
     initAnimation() {
       const container = this.$refs.animationContainer;
       const animation = lottie.loadAnimation({
@@ -404,6 +387,16 @@ export default {
         animationData,
       });
       this.animation = animation;
+    },
+
+    handleClickWinTag() {
+      this.animationStarted = false;
+      this.winnerName = "";
+    },
+
+    handleClickEdit() {
+      this.showEditModal = true;
+      this.showAddModal = false;
     },
 
     startSound() {
