@@ -20,7 +20,7 @@
         </div>
 
         <FortuneWheel
-          :key="prizes.length"
+          :key="num"
           style="width: 300px"
           borderColor="#00000033"
           :borderWidth="6"
@@ -161,14 +161,14 @@
                 <div class="cancle-save-btn">
                   <span
                     class="btn-common cancle col-6 me-2 pointer"
-                    :data-bs-dismiss="dismissAttribute"
                     @click="handleClickCancle"
+                    :data-bs-dismiss="dismissAttributeCancel"
                     >Cancel</span
                   >
                   <span
                     class="btn-common save col-6 pointer"
                     @click="handleClickSaveItems"
-                    :data-bs-dismiss="dismissAttribute"
+                    :data-bs-dismiss="dismissAttributeSave"
                     >Save</span
                   >
                 </div>
@@ -244,6 +244,7 @@ export default {
       animationStarted: false,
       winnerName: "",
       prevPrizes: [],
+      num:0
     };
   },
 
@@ -252,12 +253,13 @@ export default {
       return this.canvasVerify;
     },
 
-    dismissAttribute() {
-      if (this.showEditModal) {
+    dismissAttributeSave() { 
         return this.tagList.length > 1 ? "modal" : null;
-      } else {
-        return this.tagList.length > 1 ? "modal" : null;
-      }
+    },
+    
+     dismissAttributeCancel() { 
+        return "modal";
+         
     },
   },
   methods: {
@@ -296,7 +298,8 @@ export default {
         (sum, { probability }) => sum + probability,
         0
       );
-
+      
+      this.num += 1 
       if (totalProbability === 100) {
         this.prevPrizes = this.prizes;
         this.showAddModal = false;
@@ -324,15 +327,11 @@ export default {
 
     handleClickCancle() {
       if (this.showEditModal) {
-        if (this.tagList.length < 2) {
-          alert("Please add two or more items.");
-          return;
-        }
         message.value = "";
         this.prizes = this.prevPrizes;
         // this.tagList = this.prevtagList;
         this.showEditModal = false;
-      } else {
+      } else { 
         message.value = "";
         this.showAddModal = false;
         this.tagList = [];
