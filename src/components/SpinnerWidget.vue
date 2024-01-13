@@ -244,6 +244,7 @@ export default {
       animationStarted: false,
       winnerName: "",
       prevPrizes: [],
+      tempTagList:[],
       num:0
     };
   },
@@ -301,6 +302,7 @@ export default {
       
       this.num += 1 
       if (totalProbability === 100) {
+        this.tempTagList = [...this.prizes]; 
         this.prevPrizes = this.prizes;
         this.showAddModal = false;
         this.isItemAdded = true;
@@ -308,6 +310,7 @@ export default {
         const remainingProbability = 100 - totalProbability;
         this.prizes[0].probability += remainingProbability;
         this.prevPrizes = this.prizes;
+        this.tempTagList = [...this.prizes]; 
 
         this.showAddModal = false;
         this.isItemAdded = true;
@@ -327,14 +330,15 @@ export default {
 
     handleClickCancle() {
       if (this.showEditModal) {
-        message.value = "";
-        this.prizes = this.prevPrizes;
-        // this.tagList = this.prevtagList;
+        message.value = ""; 
+        this.tagList = [...this.tempTagList];
+        this.prizes = this.prevPrizes; 
         this.showEditModal = false;
       } else { 
         message.value = "";
-        this.showAddModal = false;
+        this.showAddModal = false; 
         this.tagList = [];
+        this.tempTagList = [];
       }
     },
 
