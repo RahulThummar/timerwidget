@@ -83,24 +83,29 @@
       <!-- bottom buttons -->
 
       <div
-        v-if="this.isItemAdded"
-        :class="{
-          'bottom-buttons': !rotation,
-          'bottom-buttons-1': rotation,
-        }"
-        class="d-flex justify-content-between pe-2"
+        class="bottom-buttons d-flex justify-content-between pe-2"
       >
         <div>
+          <img
+            :src="ResetImg"
+            class="pointer"
+            alt="reset"
+            :style="{ width: '36px', height: '36px' }"
+            @click="handleClickReset"
+          />
+        </div>
+        <div  v-if="this.isItemAdded">
           <img
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
             :src="editImg"
             class="pointer"
-            alt="reset timer"
+            alt="edit tags"
             :style="{ width: '36px', height: '36px' }"
             @click="handleClickEdit"
           />
         </div>
+
         <div>
           <img
             v-if="IsSoundOn"
@@ -200,6 +205,7 @@ import play_icn from "@/assets/images/SpinnerWidget/play_icn.png";
 import EnterImg from "@/assets/images/SpinnerWidget/EnterImg.png";
 import cancelImg from "@/assets/images/SpinnerWidget/cancelImg.png";
 import play_bg from "@/assets/images/SpinnerWidget/play_bg.png";
+import ResetImg from "@/assets/images/SpinnerWidget/ResetImg.png";
 import celebration_bell from "@/assets/sound/SpinnerWidget/celebration_bell.mp3";
 import { colorsList } from "./constants/ConstData.js";
 import { ref } from "vue";
@@ -237,6 +243,7 @@ export default {
       Sun: Sun,
       Moon: Moon,
       play_bg: play_bg,
+      ResetImg: ResetImg,
       arrow: arrow,
       EnterImg: EnterImg,
       cancelImg: cancelImg,
@@ -259,10 +266,6 @@ export default {
   },
 
   computed: {
-    isVerifiedCanvas: function () {
-      return this.canvasVerify;
-    },
-
     dismissAttributeSave() {
       return this.tagList.length > 1 ? "modal" : null;
     },
@@ -292,7 +295,13 @@ export default {
       this.ctx.fillStyle = "#fff";
       this.ctx.font = "16px sans-serif";
       // this.ctx.fillText(sector.label, this.rad - 10, 10);
-      this.ctx.fillText(sector.label.length > 10 ? sector.label.slice(0, 10) + "..." : sector.label, this.rad - 10, 10);
+      this.ctx.fillText(
+        sector.label.length > 10
+          ? sector.label.slice(0, 10) + "..."
+          : sector.label,
+        this.rad - 10,
+        10
+      );
       //
       this.ctx.restore();
     },
@@ -326,7 +335,7 @@ export default {
           this.isSpinning = false;
           this.angVel = 0;
           cancelAnimationFrame(this.animFrame);
-          const winningSector = this.prizes[this.getIndex()]; 
+          const winningSector = this.prizes[this.getIndex()];
           this.animationStarted = true;
           if (this.IsSoundOn) {
             this.$refs.tickAudio.play();
@@ -348,6 +357,7 @@ export default {
       this.frame();
       this.animFrame = requestAnimationFrame(this.engine);
     },
+
     startSpin() {
       if (this.isSpinning) return;
       this.animationStarted = false;
@@ -426,7 +436,6 @@ export default {
         this.tempTagList = [];
       }
     },
- 
 
     initAnimation() {
       const container = this.$refs.animationContainer;
@@ -443,6 +452,16 @@ export default {
     handleClickWinTag() {
       this.animationStarted = false;
       this.winnerName = "";
+    },
+
+    handleClickReset() {
+      this.isItemAdded = false;
+      this.tagList = [];
+      this.prizes = [];
+      this.prevPrizes = [];
+      this.tempTagList = [];
+      this.showEditModal = false;
+      this.showAddModal = false;
     },
 
     handleClickEdit() {
