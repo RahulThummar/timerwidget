@@ -429,7 +429,7 @@ body {
   position: absolute;
   display: flex;
   align-items: center;
-  left: 0%;
+  left: 3%;
   /* left: 9%; */
   top: 19%;
   padding-top: 22px;  
@@ -482,13 +482,13 @@ body {
 }
 
 .empty-circle{
-  justify-content: center;
+  /* justify-content: center; */
   display: flex;
   border-radius: 50%;
   height: 300px;
   width: 300px; 
   border: 1px solid #000000;
-  background-color: #A1A8D0;
+  background-color:#cfd1dc;
   align-items: center;
   flex-direction: column;
 }
@@ -517,10 +517,7 @@ body {
   flex-direction: column;
   padding: 0 15px;
 }
-.div-3 {
-  color: #606d79;
-  font: 400 14px Anek Latin, sans-serif;
-}
+
 .input-main {
   background: transparent;
   border-radius: 10px;
@@ -592,11 +589,11 @@ box-shadow: none;
   width: 200px;
 }
 .winner-name{
-  font: 400 20px Anek Latin, sans-serif;
+  font: 350 18px Anek Latin, sans-serif;
   transform: rotate(-90deg);
   position: absolute;
   top: 41%;
-  left: 9%;
+  left: 28%;
   z-index: 1;
 }
 
@@ -635,3 +632,21 @@ box-shadow: none;
   }
 
   /* ********************** */
+
+  .save-header{
+    color: #222;
+    text-align: center;
+    font: 400 16px Anek Latin, sans-serif;
+  }
+
+  .spinner-list-options{
+    font-family: 'Anek Latin', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    border-radius: 10px;
+    border: 0;
+    padding: 8px 16px;
+    background-color:  #005EB8;
+    padding: 12px;
+  }

@@ -16,7 +16,7 @@
         class="filled-spinner-main"
       >
         <div class="arrow-img">
-          <img :src="arrow" :style="{ width: '55px', height: '40px' }" />
+          <img :src="arrow" :style="{ width: '42px', height: '29px' }" />
         </div>
 
         <div :key="num" id="wheelOfFortune">
@@ -57,12 +57,18 @@
       </div>
 
       <div v-if="!isItemAdded" class="empty-spinner-main">
-        <div class="empty-circle">
-          <div class="col-9">
+        <div
+          class="empty-circle"
+          :style="{
+            paddingTop: this.chooseSpinner ? '50px' : null,
+            justifyContent: this.chooseSpinner ? null : 'center',
+          }"
+        >
+          <div v-if="!this.chooseSpinner" class="col-9">
             <button
               class="btn-common save"
               data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
+              data-bs-target="#addEditTagModal"
               @click="
                 () => {
                   showAddModal = true;
@@ -72,19 +78,35 @@
               Create New Spinner
             </button>
           </div>
-          <!-- <div class="col-9">
-            <button class="btn-common save mt-5" @click="handleSaveSound()">
+
+          <div v-if="!this.chooseSpinner" class="col-9">
+            <button
+              class="btn-common save mt-5"
+              @click="handleClickChooseSpinner"
+            >
               Choose Spinner
             </button>
-          </div> -->
+          </div>
+
+          <div v-if="this.chooseSpinner" class="col-9">
+            <select class="spinner-list-options" @change="handleSpinnerChange">
+              <option value="" hidden>Choose Spinner</option>
+
+              <option
+                v-for="(spinner, index) in getSpinnersList()"
+                :value="spinner.spinnerName"
+                :key="index"
+              >
+                {{ spinner.spinnerName }}
+              </option>
+            </select>
+          </div>
         </div>
       </div>
 
       <!-- bottom buttons -->
 
-      <div
-        class="bottom-buttons d-flex justify-content-between pe-2"
-      >
+      <div class="bottom-buttons d-flex justify-content-between pe-2">
         <div>
           <img
             :src="ResetImg"
@@ -94,18 +116,6 @@
             @click="handleClickReset"
           />
         </div>
-        <div  v-if="this.isItemAdded">
-          <img
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
-            :src="editImg"
-            class="pointer"
-            alt="edit tags"
-            :style="{ width: '36px', height: '36px' }"
-            @click="handleClickEdit"
-          />
-        </div>
-
         <div>
           <img
             v-if="IsSoundOn"
@@ -124,65 +134,139 @@
             @click="startSound"
           />
         </div>
+        <div v-if="this.isItemAdded">
+          <img
+            data-bs-toggle="modal"
+            data-bs-target="#addEditTagModal"
+            :src="editImg"
+            class="pointer"
+            alt="edit tags"
+            :style="{ width: '36px', height: '36px' }"
+            @click="handleClickEdit"
+          />
+        </div>
+
+        <div v-if="this.isItemAdded && !this.selectedSpinner">
+          <img
+            :src="SaveImg"
+            class="pointer"
+            alt="SaveImg"
+            data-bs-toggle="modal"
+            data-bs-target="#saveSpinnerModal"
+            :style="{ width: '36px', height: '36px' }"
+            @click="handleClickSave"
+          />
+        </div>
+
+        <div v-if="this.isItemAdded && this.selectedSpinner">
+          <img
+            :src="SaveAsImg"
+            class="pointer"
+            alt="SaveAsImg"
+            data-bs-toggle="modal"
+            data-bs-target="#saveSpinnerModal"
+            :style="{ width: '36px', height: '36px' }"
+            @click="handleClickSaveAs"
+          />
+        </div>
       </div>
     </div>
   </div>
 
   <audio ref="tickAudio" :src="celebration_bell"></audio>
 
-  <!-- Modal -->
-  <div>
-    <div class="modal fade" id="exampleModal" data-bs-backdrop="static">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-body">
-            <div class="form-main">
-              <span class="form-inner">
-                <div class="name-label">Tag Name</div>
-                <span class="input-main">
-                  <input v-model="message" placeholder="Enter Tag Name" />
+  <!-- Add edit tag Modal -->
 
-                  <div
-                    class="enter-btn-main pointer"
-                    @click="handleClickTagEnter"
-                  >
-                    <img loading="lazy" :src="EnterImg" class="enter-img" />
-                  </div>
-                </span>
+  <div class="modal fade" id="addEditTagModal" data-bs-backdrop="static">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="form-main">
+            <span class="form-inner">
+              <div class="name-label">Tag Name</div>
+              <span class="input-main">
+                <input v-model="message" placeholder="Enter Tag Name..." />
 
-                <div class="tag-main">
-                  <span
-                    class="tag-inner"
-                    v-for="(tagNames, index) in tagList"
-                    :key="index"
-                  >
-                    {{ tagNames.label }}
-                    <img
-                      :style="{ width: '15px', height: '15px' }"
-                      loading="lazy"
-                      class="pointer"
-                      :src="cancelImg"
-                      @click="handleClickTagRemove(index)"
-                    />
-                  </span>
-                </div>
-                <hr />
-                <div class="cancle-save-btn">
-                  <span
-                    class="btn-common cancle col-6 me-2 pointer"
-                    @click="handleClickCancle"
-                    :data-bs-dismiss="dismissAttributeCancel"
-                    >Cancel</span
-                  >
-                  <span
-                    class="btn-common save col-6 pointer"
-                    @click="handleClickSaveItems"
-                    :data-bs-dismiss="dismissAttributeSave"
-                    >Save</span
-                  >
+                <div
+                  class="enter-btn-main pointer"
+                  @click="handleClickTagEnter"
+                >
+                  <img loading="lazy" :src="EnterImg" class="enter-img" />
                 </div>
               </span>
-            </div>
+
+              <div class="tag-main">
+                <span
+                  class="tag-inner"
+                  v-for="(tagNames, index) in tagList"
+                  :key="index"
+                >
+                  {{ tagNames.label }}
+                  <img
+                    :style="{ width: '15px', height: '15px' }"
+                    loading="lazy"
+                    class="pointer"
+                    :src="cancelImg"
+                    @click="handleClickTagRemove(index)"
+                  />
+                </span>
+              </div>
+              <hr />
+              <div class="cancle-save-btn">
+                <span
+                  class="btn-common cancle col-6 me-2 pointer"
+                  @click="handleClickCancle"
+                  :data-bs-dismiss="dismissAttributeCancel"
+                  >Cancel</span
+                >
+                <span
+                  class="btn-common save col-6 pointer"
+                  @click="handleClickSaveItems"
+                  :data-bs-dismiss="dismissAttributeSaveTags"
+                  >Save</span
+                >
+              </div>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Save Spinner Modal -->
+
+  <div class="modal fade" id="saveSpinnerModal" data-bs-backdrop="static">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="form-main">
+            <span class="form-inner">
+              <div class="save-header pb-2">
+                Do you want to save<br />this Spinner?
+              </div>
+              <span class="input-main">
+                <input
+                  v-model="spinnerName"
+                  placeholder="Enter Spinner Name..."
+                />
+              </span>
+
+              <hr />
+              <div class="cancle-save-btn">
+                <span
+                  class="btn-common cancle col-6 me-2 pointer"
+                  @click="handleCancleSpinnerSave"
+                  :data-bs-dismiss="dismissAttributeCancel"
+                  >Cancel</span
+                >
+                <span
+                  class="btn-common save col-6 pointer"
+                  @click="handleClickSaveSpinner"
+                  :data-bs-dismiss="dismissAttributeSaveSpinner"
+                  >Save</span
+                >
+              </div>
+            </span>
           </div>
         </div>
       </div>
@@ -206,11 +290,15 @@ import EnterImg from "@/assets/images/SpinnerWidget/EnterImg.png";
 import cancelImg from "@/assets/images/SpinnerWidget/cancelImg.png";
 import play_bg from "@/assets/images/SpinnerWidget/play_bg.png";
 import ResetImg from "@/assets/images/SpinnerWidget/ResetImg.png";
+import SaveImg from "@/assets/images/SpinnerWidget/SaveImg.png";
+import SaveAsImg from "@/assets/images/SpinnerWidget/SaveAsImg.png";
 import celebration_bell from "@/assets/sound/SpinnerWidget/celebration_bell.mp3";
 import { colorsList } from "./constants/ConstData.js";
 import { ref } from "vue";
 
 let message = ref("");
+let spinnerName = ref("");
+
 export default {
   data() {
     return {
@@ -234,6 +322,7 @@ export default {
 
       tagList: [],
       message: message,
+      spinnerName: spinnerName,
       canvasVerify: true,
       celebration_bell: celebration_bell,
       editImg: editImg,
@@ -244,6 +333,8 @@ export default {
       Moon: Moon,
       play_bg: play_bg,
       ResetImg: ResetImg,
+      SaveImg: SaveImg,
+      SaveAsImg: SaveAsImg,
       arrow: arrow,
       EnterImg: EnterImg,
       cancelImg: cancelImg,
@@ -262,22 +353,28 @@ export default {
       prevPrizes: [],
       tempTagList: [],
       num: 0,
+      chooseSpinner: false,
+      selectedSpinner: null,
     };
   },
 
   computed: {
-    dismissAttributeSave() {
+    dismissAttributeSaveTags() {
       return this.tagList.length > 1 ? "modal" : null;
     },
 
     dismissAttributeCancel() {
       return "modal";
     },
+    dismissAttributeSaveSpinner() {
+      return spinnerName.value.trim() !== "" ? "modal" : null;
+    },
   },
   methods: {
     getIndex() {
       return Math.floor(this.tot - (this.ang / this.TAU) * this.tot) % this.tot;
     },
+
     drawSector(sector, i) {
       const ang = this.arc * i;
       this.ctx.save();
@@ -305,6 +402,7 @@ export default {
       //
       this.ctx.restore();
     },
+
     rotate() {
       // const currentSector = this.prizes[this.getIndex()];
       this.$refs.wheelCanvas.style.transform = `rotate(${
@@ -374,23 +472,30 @@ export default {
     },
 
     handleClickTagEnter() {
-      let randomColor;
       if (message.value.trim() !== "") {
+        const existingColors = new Set(this.tagList.map((tag) => tag.color));
+
+        let randomColor;
         for (let i = 0; i < 10; i++) {
           const color = "#" + Math.floor(Math.random() * 16777215).toString(16);
-          randomColor = color;
+          if (!existingColors.has(color)) {
+            randomColor = color;
+            break; // Exit the loop once a unique color is found
+          }
         }
+
         this.tagList.push({
           label: message.value.trim(),
           color: randomColor,
         });
+
         message.value = "";
       }
     },
 
     handleClickSaveItems() {
       if (this.tagList.length < 2) {
-        alert("Please add two or more items.");
+        alert("Create at least two tags...");
         return;
       }
 
@@ -437,6 +542,10 @@ export default {
       }
     },
 
+    handleCancleSpinnerSave() {
+      spinnerName.value = "";
+    },
+
     initAnimation() {
       const container = this.$refs.animationContainer;
       const animation = lottie.loadAnimation({
@@ -455,6 +564,8 @@ export default {
     },
 
     handleClickReset() {
+      this.selectedSpinner = null;
+      this.chooseSpinner = false;
       this.isItemAdded = false;
       this.tagList = [];
       this.prizes = [];
@@ -462,6 +573,8 @@ export default {
       this.tempTagList = [];
       this.showEditModal = false;
       this.showAddModal = false;
+      this.animationStarted = false;
+      this.winnerName = "";
     },
 
     handleClickEdit() {
@@ -477,12 +590,98 @@ export default {
       this.IsSoundOn = false;
     },
 
-    startLightMode() {
-      this.IsLightMode = true;
+    getSpinnersList() {
+      const storedSpinners =
+        JSON.parse(localStorage.getItem("spinnersList")) || [];
+      return storedSpinners;
     },
 
-    stopLightMode() {
-      this.IsLightMode = false;
+    handleSpinnerChange(event) {
+      const selectedValue = event.target.value;
+
+      this.selectedSpinner = this.getSpinnersList().find(
+        (spinner) => spinner.spinnerName === selectedValue
+      );
+
+      if (this.selectedSpinner) {
+        this.prizes = [...this.selectedSpinner.prizes];
+        this.prevPrizes = [...this.selectedSpinner.prizes];
+        this.tagList = [...this.selectedSpinner.prizes];
+        this.tempTagList = [...this.selectedSpinner.prizes];
+
+        this.isItemAdded = true;
+
+        setTimeout(() => {
+          this.tot = this.prizes.length;
+          this.elSpin = document.querySelector("#spin");
+          this.ctx = this.$refs.wheelCanvas.getContext("2d");
+          this.dia = this.ctx.canvas.width;
+          this.rad = this.dia / 2;
+          this.arc = this.TAU / this.tot;
+
+          // INIT!
+          this.prizes.forEach(this.drawSector);
+          this.rotate(); // Initial rotation
+        }, 1);
+      }
+    },
+
+    handleClickChooseSpinner() {
+      if (this.getSpinnersList().length === 0) {
+        alert("Please create at least one spinner for choose spinner.");
+        return;
+      }
+      this.chooseSpinner = true;
+    },
+
+    handleClickSave() {},
+
+    handleClickSaveAs() {
+      // spinnerName.value = this.selectedSpinner.spinnerName;
+    },
+
+    handleClickSaveSpinner() {
+      if (spinnerName.value.trim() === "") {
+        alert("Please add spinner name for save spinner.");
+        return;
+      }
+
+      if (!this.selectedSpinner) {
+        let saveSpinner = {
+          spinnerName: spinnerName.value.trim(),
+          prizes: this.prizes,
+        };
+
+        let spinnersList = this.getSpinnersList();
+        spinnersList.push(saveSpinner);
+        localStorage.setItem("spinnersList", JSON.stringify(spinnersList));
+        this.selectedSpinner = saveSpinner;
+      } else {
+        let spinnersList = this.getSpinnersList();
+
+        const updatedSpinnersList = spinnersList.map((spinner) => {
+          if (spinner.spinnerName === this.selectedSpinner.spinnerName) {
+            return {
+              ...spinner,
+              spinnerName: spinnerName.value.trim(),
+              prizes: this.prizes,
+            };
+          } else {
+            return spinner;
+          }
+        });
+
+        localStorage.setItem(
+          "spinnersList",
+          JSON.stringify(updatedSpinnersList)
+        );
+        this.selectedSpinner = {
+          spinnerName: spinnerName.value.trim(),
+          prizes: this.prizes,
+        };
+      }
+
+      spinnerName.value = "";
     },
   },
 };
