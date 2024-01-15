@@ -448,7 +448,7 @@ body {
   display: flex;
   align-items: center;
   position: absolute;
-  right: 50%;
+  right: 49%;
   z-index: 1;
   top: 0;
   transform: rotate(-90deg);
@@ -461,10 +461,10 @@ body {
   display: flex;
   align-items: center;
   position: absolute;
-  right: 50%;
+  right: 6%;
+  bottom: 1%;
   z-index: 1;
   top: 50;
-  bottom: 41%;
   transform: rotate(-90deg);
   height: 50px;
   width: 50px;
@@ -502,7 +502,7 @@ body {
 
 
 
-/* **** te,p **** */
+/* **** add-edit tag modal **** */
 
 .form-main {
   background-color: #fff;
@@ -596,6 +596,42 @@ box-shadow: none;
   transform: rotate(-90deg);
   position: absolute;
   top: 41%;
-  left: 14%;
+  left: 9%;
   z-index: 1;
 }
+
+
+/* ************  custom spinner ***************** */
+
+#wheelOfFortune {
+  display: inline-flex;
+  position: relative;
+  /* overflow: hidden; */
+  }
+  
+  #wheel {
+  display: block;
+  }
+  
+  #spin { 
+  cursor: pointer; 
+  position: absolute;
+  top: 52%;
+  left: 52%;
+  width: 22%;
+  height: 22%;
+  margin: -15%;
+  /* background: #fff; */
+  border-radius: 50%; 
+  }
+  
+  #spin::after {
+  /* content: "";
+  position: absolute;
+  top: -17px;
+  border: 10px solid transparent;
+  border-bottom-color: currentColor;
+  border-top: none; */
+  }
+
+  /* ********************** */

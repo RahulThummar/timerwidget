@@ -8,27 +8,31 @@
     }"
   >
     <div>
-      <div v-if="this.isItemAdded" class="filled-spinner-main">
+      <div
+        :style="{
+          zIndex: !isItemAdded ? '-1' : '1',
+          opacity: !isItemAdded ? '0' : '1',
+        }"
+        class="filled-spinner-main"
+      >
         <div class="arrow-img">
           <img :src="arrow" :style="{ width: '55px', height: '40px' }" />
         </div>
-        <div class="start-spin-img">
-          <div v-if="!this.spinnerStart" class="play-spin-img">
-            <img :src="play_icn" :style="{ width: '20px', height: '20px' }" />
-          </div>
-          <img :src="play_bg" :style="{ width: '60px', height: '60px' }" />
-        </div>
 
-        <FortuneWheel
-          :key="num"
-          style="width: 300px"
-          borderColor="#00000033"
-          :borderWidth="6"
-          :prizes="prizes"
-          :verify="isVerifiedCanvas"
-          @rotateStart="onCanvasRotateStart"
-          @rotateEnd="onRotateEnd"
-        />
+        <div :key="num" id="wheelOfFortune">
+          <canvas ref="wheelCanvas" width="300" height="300"></canvas>
+          <div id="spin" @click="startSpin">
+            <div class="start-spin-img">
+              <div v-if="!this.isSpinning" class="play-spin-img">
+                <img
+                  :src="play_icn"
+                  :style="{ width: '20px', height: '20px' }"
+                />
+              </div>
+              <img :src="play_bg" :style="{ width: '60px', height: '60px' }" />
+            </div>
+          </div>
+        </div>
 
         <div
           class="spinner-complition-animation"
@@ -52,7 +56,7 @@
         </div>
       </div>
 
-      <div v-else class="empty-spinner-main">
+      <div v-if="!isItemAdded" class="empty-spinner-main">
         <div class="empty-circle">
           <div class="col-9">
             <button
@@ -147,7 +151,7 @@
                     v-for="(tagNames, index) in tagList"
                     :key="index"
                   >
-                    {{ tagNames.name }}
+                    {{ tagNames.label }}
                     <img
                       :style="{ width: '15px', height: '15px' }"
                       loading="lazy"
@@ -182,8 +186,6 @@
 </template>
 
 <script>
-import FortuneWheel from "vue-fortune-wheel";
-import "../../node_modules/vue-fortune-wheel/dist/style.css";
 import lottie from "lottie-web";
 import animationData from "../assets/images/celebration.json";
 import unFilledtimerImg from "@/assets/images/TrafficLightWidget/unFilledtimerImg.png";
@@ -204,20 +206,27 @@ import { ref } from "vue";
 
 let message = ref("");
 export default {
-  components: {
-    FortuneWheel,
-  },
-  mounted() {
-    var element = document.getElementsByClassName("fw-btn__btn")[0];
-    if (element) {
-      element.classList.add("play-spinner-btn");
-    }
-  },
-
   data() {
     return {
-      tagList: [],
+      tot: 0,
+      elSpin: null,
+      ctx: null,
+      dia: 0,
+      rad: 0,
+      PI: Math.PI,
+      TAU: 2 * Math.PI,
+      arc: 0,
+      friction: 0.991,
+      angVelMin: 0.009,
+      angVelMax: 0,
+      angVel: 0,
+      ang: 0,
+      isSpinning: false,
+      isAccelerating: false,
+      animFrame: null,
       prizes: [],
+
+      tagList: [],
       message: message,
       canvasVerify: true,
       celebration_bell: celebration_bell,
@@ -244,8 +253,8 @@ export default {
       animationStarted: false,
       winnerName: "",
       prevPrizes: [],
-      tempTagList:[],
-      num:0
+      tempTagList: [],
+      num: 0,
     };
   },
 
@@ -254,16 +263,106 @@ export default {
       return this.canvasVerify;
     },
 
-    dismissAttributeSave() { 
-        return this.tagList.length > 1 ? "modal" : null;
+    dismissAttributeSave() {
+      return this.tagList.length > 1 ? "modal" : null;
     },
-    
-     dismissAttributeCancel() { 
-        return "modal";
-         
+
+    dismissAttributeCancel() {
+      return "modal";
     },
   },
   methods: {
+    getIndex() {
+      return Math.floor(this.tot - (this.ang / this.TAU) * this.tot) % this.tot;
+    },
+    drawSector(sector, i) {
+      const ang = this.arc * i;
+      this.ctx.save();
+      // COLOR
+      this.ctx.beginPath();
+      this.ctx.fillStyle = sector.color;
+      this.ctx.moveTo(this.rad, this.rad);
+      this.ctx.arc(this.rad, this.rad, this.rad, ang, ang + this.arc);
+      this.ctx.lineTo(this.rad, this.rad);
+      this.ctx.fill();
+      // TEXT
+      this.ctx.translate(this.rad, this.rad);
+      this.ctx.rotate(ang + this.arc / 2);
+      this.ctx.textAlign = "right";
+      this.ctx.fillStyle = "#fff";
+      this.ctx.font = "16px sans-serif";
+      // this.ctx.fillText(sector.label, this.rad - 10, 10);
+      this.ctx.fillText(sector.label.length > 10 ? sector.label.slice(0, 10) + "..." : sector.label, this.rad - 10, 10);
+      //
+      this.ctx.restore();
+    },
+    rotate() {
+      // const currentSector = this.prizes[this.getIndex()];
+      this.$refs.wheelCanvas.style.transform = `rotate(${
+        this.ang - this.PI / 2
+      }rad)`;
+      // this.elSpin.textContent = !this.angVel ? "SPIN" : currentSector.label;
+      // this.elSpin.style.background = currentSector.color;
+    },
+
+    frame() {
+      if (!this.isSpinning) return;
+
+      if (this.angVel >= this.angVelMax) this.isAccelerating = false;
+
+      // Accelerate
+      if (this.isAccelerating) {
+        this.angVel ||= this.angVelMin; // Initial velocity kick
+        this.angVel *= 2; // Accelerate
+      }
+
+      // Decelerate
+      else {
+        this.isAccelerating = false;
+        this.angVel *= this.friction; // Decelerate by friction
+
+        // SPIN END:
+        if (this.angVel < this.angVelMin) {
+          this.isSpinning = false;
+          this.angVel = 0;
+          cancelAnimationFrame(this.animFrame);
+          const winningSector = this.prizes[this.getIndex()]; 
+          this.animationStarted = true;
+          if (this.IsSoundOn) {
+            this.$refs.tickAudio.play();
+          }
+          this.spinnerStart = false;
+          setTimeout(() => {
+            this.initAnimation();
+          }, 3);
+          this.winnerName = winningSector.label;
+        }
+      }
+
+      this.ang += this.angVel; // Update angle
+      this.ang %= this.TAU; // Normalize angle
+      this.rotate(); // CSS rotate!
+    },
+
+    engine() {
+      this.frame();
+      this.animFrame = requestAnimationFrame(this.engine);
+    },
+    startSpin() {
+      if (this.isSpinning) return;
+      this.animationStarted = false;
+      this.winnerName = "";
+      this.spinnerStart = true;
+      this.isSpinning = true;
+      this.isAccelerating = true;
+      this.angVelMax = this.rand(0.25, 0.4);
+      this.engine(); // Start engine!
+    },
+
+    rand(m, M) {
+      return Math.random() * (M - m) + m;
+    },
+
     handleClickTagEnter() {
       let randomColor;
       if (message.value.trim() !== "") {
@@ -272,11 +371,8 @@ export default {
           randomColor = color;
         }
         this.tagList.push({
-          id: this.tagList.length + 1,
-          name: message.value.trim(),
-          bgColor: randomColor,
-          color: "#fff",
-          probability: 0,
+          label: message.value.trim(),
+          color: randomColor,
         });
         message.value = "";
       }
@@ -290,37 +386,26 @@ export default {
 
       this.handleClickWinTag();
 
-      const probabilityRatio = parseInt(100 / this.tagList.length);
-      this.tagList.map((item) => (item.probability = probabilityRatio));
-
       this.prizes = [...this.tagList];
 
-      const totalProbability = this.prizes.reduce(
-        (sum, { probability }) => sum + probability,
-        0
-      );
-      
-      this.num += 1 
-      if (totalProbability === 100) {
-        this.tempTagList = [...this.prizes]; 
-        this.prevPrizes = this.prizes;
-        this.showAddModal = false;
-        this.isItemAdded = true;
-      } else {
-        const remainingProbability = 100 - totalProbability;
-        this.prizes[0].probability += remainingProbability;
-        this.prevPrizes = this.prizes;
-        this.tempTagList = [...this.prizes]; 
+      this.num += 1;
 
-        this.showAddModal = false;
-        this.isItemAdded = true;
-      }
+      this.prevPrizes = this.prizes;
+      this.tempTagList = [...this.prizes];
+      this.showAddModal = false;
+      this.isItemAdded = true;
 
       setTimeout(() => {
-        const element = document.querySelector(".fw-btn__btn");
-        if (element) {
-          element.classList.add("play-spinner-btn");
-        }
+        this.tot = this.prizes.length;
+        this.elSpin = document.querySelector("#spin");
+        this.ctx = this.$refs.wheelCanvas.getContext("2d");
+        this.dia = this.ctx.canvas.width;
+        this.rad = this.dia / 2;
+        this.arc = this.TAU / this.tot;
+
+        // INIT!
+        this.prizes.forEach(this.drawSector);
+        this.rotate(); // Initial rotation
       }, 1);
     },
 
@@ -330,55 +415,18 @@ export default {
 
     handleClickCancle() {
       if (this.showEditModal) {
-        message.value = ""; 
-        this.tagList = [...this.tempTagList];
-        this.prizes = this.prevPrizes; 
-        this.showEditModal = false;
-      } else { 
         message.value = "";
-        this.showAddModal = false; 
+        this.tagList = [...this.tempTagList];
+        this.prizes = this.prevPrizes;
+        this.showEditModal = false;
+      } else {
+        message.value = "";
+        this.showAddModal = false;
         this.tagList = [];
         this.tempTagList = [];
       }
     },
-
-    onCanvasRotateStart(rotate) {
-      this.animationStarted = false;
-      this.winnerName = "";
-      this.spinnerStart = true;
-      if (this.isVerifiedCanvas) {
-        const verified = true;
-        this.DoServiceVerify(verified, 100).then((verifiedRes) => {
-          if (verifiedRes) {
-            rotate();
-            this.canvasVerify = false;
-          } else {
-            alert("Failed verification");
-          }
-        });
-        return;
-      }
-    },
-
-    onRotateEnd(prize) {
-      this.animationStarted = true;
-      if (this.IsSoundOn) {
-        this.$refs.tickAudio.play();
-      }
-      this.spinnerStart = false;
-      setTimeout(() => {
-        this.initAnimation();
-      }, 3);
-      this.winnerName = prize.name;
-    },
-
-    DoServiceVerify(verified, duration) {
-      return new Promise((resove) => {
-        setTimeout(() => {
-          resove(verified);
-        }, duration);
-      });
-    },
+ 
 
     initAnimation() {
       const container = this.$refs.animationContainer;
