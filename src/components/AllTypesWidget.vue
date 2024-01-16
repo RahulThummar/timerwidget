@@ -6,56 +6,43 @@
         alt="UnfilledBoxes"
         :style="{ width: '32px', height: '32px' }"
       /> -->
-      <img
-        class="pointer"
-        :src="selectTimer ? FilledTimer : UnfilledTimer"
-        alt="Group244"
-        :style="{ width: '32px', height: '32px' }"
-        @click="handleChangeWidgetType('selectTimer')"
-      />
-      <img
-        class="pointer"
-        :src="selectSpinner ? FilledSpinner : UnfilledSpinner"
-        alt="Group244"
-        :style="{ width: '32px', height: '32px' }"
-        @click="handleChangeWidgetType('selectSpinner')"
-      />
-      <img
-        class="pointer"
-        :src="selectTrafficLight ? FilledTrafficLight : UnfilledTrafficLight"
-        alt="Group244"
-        :style="{ width: '32px', height: '32px' }"
-        @click="handleChangeWidgetType('selectTrafficLight')"
-      />
+      <div>
+        <img class="pointer first" :src="selectTimer ? FilledTimer : UnfilledTimer" alt="Group244"
+          :style="{ width: '32px', height: '32px' }" @click="handleChangeWidgetType('selectTimer')" />
+          
+      </div>
+      <div class="b">
+        <img class="pointer" :src="selectSpinner ? FilledSpinner : UnfilledSpinner" alt="Group244"
+          :style="{ width: '32px', height: '32px' }" @click="handleChangeWidgetType('selectSpinner')" />
+      </div>
+      <div class="c">
+        <img class="pointer" :src="selectTrafficLight ? FilledTrafficLight : UnfilledTrafficLight" alt="Group244"
+          :style="{ width: '32px', height: '32px' }" @click="handleChangeWidgetType('selectTrafficLight')" />
+
+      </div>
     </div>
 
     <!-- :class="{
         'd-none': !selectTimer,
         '': selectTimer,
       }" -->
-    <div
-      :style="{
-        zIndex: !selectTimer ? '-1' : '1',
-        opacity: !selectTimer ? '0' : '1',
-      }"
-    >
+    <div :style="{
+      zIndex: !selectTimer ? '-1' : '1',
+      opacity: !selectTimer ? '0' : '1',
+    }">
       <TimerWidget />
     </div>
 
-    <div
-      :class="{
-        'd-none': !selectSpinner,
-        '': selectSpinner,
-      }"
-    >
+    <div :class="{
+      'd-none': !selectSpinner,
+      '': selectSpinner,
+    }">
       <SpinnerWidget />
     </div>
-    <div
-      :class="{
-        'd-none': !selectTrafficLight,
-        '': selectTrafficLight,
-      }"
-    >
+    <div :class="{
+      'd-none': !selectTrafficLight,
+      '': selectTrafficLight,
+    }">
       <TrafficLightWidget />
     </div>
   </div>

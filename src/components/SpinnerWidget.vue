@@ -22,8 +22,8 @@
         <div class="outer-border">
           <div :key="num" id="wheelOfFortune">
             <canvas ref="wheelCanvas" width="300" height="300"></canvas>
-            <div id="spin" @click="startSpin">
-              <div class="start-spin-img">
+            <div id="spin">
+              <div class="start-spin-img" @click="startSpin">
                 <div v-if="!this.isSpinning" class="play-spin-img">
                   <img
                     :src="play_icn"
@@ -35,6 +35,20 @@
                   :style="{ width: '60px', height: '60px' }"
                 />
               </div>
+              <div class="winner-name" v-if="this.winnerName !== ''">
+                <div class="winner-main">
+                  <span class="winner-inner">
+                    {{ this.winnerName }}
+                    <img
+                      :style="{ width: '15px', height: '15px' }"
+                      loading="lazy"
+                      class="pointer"
+                      :src="cancelImg"
+                      @click="handleClickWinTag()"
+                    />
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -45,7 +59,7 @@
           v-if="this.animationStarted"
         ></div>
 
-        <div class="winner-name" v-if="this.winnerName !== ''">
+        <!-- <div class="winner-name" v-if="this.winnerName !== ''">
           <div class="tag-main">
             <span class="tag-inner">
               {{ this.winnerName }}
@@ -58,7 +72,7 @@
               />
             </span>
           </div>
-        </div>
+        </div> -->
       </div>
 
       <div v-if="!isItemAdded" class="empty-spinner-main">
