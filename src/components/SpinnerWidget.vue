@@ -169,6 +169,16 @@
             @click="handleClickSaveAs"
           />
         </div>
+        <div v-if="this.isItemAdded && this.selectedSpinner">
+          <img
+            :src="deleteImg"
+            class="pointer"
+            alt="deleteImg"
+            data-bs-toggle="modal"
+            data-bs-target="#deleteSpinnerModal"
+            :style="{ width: '36px', height: '36px' }"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -272,6 +282,47 @@
       </div>
     </div>
   </div>
+
+  <!-- Delete Spinner Modal -->
+
+  <div class="modal fade" id="deleteSpinnerModal" data-bs-backdrop="static">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="form-main">
+            <span class="form-inner">
+              <div class="save-header pb-2">
+                Do you want to delete<br />"{{ selectedSpinner?.spinnerName }}"
+                Spinner?
+              </div>
+              <!-- <span class="input-main">
+                <input
+                  v-model="spinnerName"
+                  placeholder="Enter Spinner Name..."
+                />
+              </span> -->
+
+              <hr />
+              <div class="cancle-save-btn">
+                <span
+                  class="btn-common cancle col-6 me-2 pointer"
+                  @click="handleCancleSpinnerSave"
+                  :data-bs-dismiss="dismissAttributeCancel"
+                  >Cancel</span
+                >
+                <span
+                  class="btn-common delete col-6 pointer"
+                  @click="handleClickDeleteSpinner"
+                  data-bs-dismiss="modal"
+                  >Delete</span
+                >
+              </div>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -291,6 +342,7 @@ import cancelImg from "@/assets/images/SpinnerWidget/cancelImg.png";
 import play_bg from "@/assets/images/SpinnerWidget/play_bg.png";
 import ResetImg from "@/assets/images/SpinnerWidget/ResetImg.png";
 import SaveImg from "@/assets/images/SpinnerWidget/SaveImg.png";
+import deleteImg from "@/assets/images/SpinnerWidget/deleteImg.png";
 import SaveAsImg from "@/assets/images/SpinnerWidget/SaveAsImg.png";
 import celebration_bell from "@/assets/sound/SpinnerWidget/celebration_bell.mp3";
 import { colorsList } from "./constants/ConstData.js";
@@ -334,6 +386,7 @@ export default {
       play_bg: play_bg,
       ResetImg: ResetImg,
       SaveImg: SaveImg,
+      deleteImg: deleteImg,
       SaveAsImg: SaveAsImg,
       arrow: arrow,
       EnterImg: EnterImg,
@@ -393,10 +446,10 @@ export default {
       this.ctx.font = "16px sans-serif";
       // this.ctx.fillText(sector.label, this.rad - 10, 10);
       this.ctx.fillText(
-        sector.label.length > 10
-          ? sector.label.slice(0, 10) + "..."
+        sector.label.length > 7
+          ? sector.label.slice(0, 7) + "..."
           : sector.label,
-        this.rad - 10,
+        this.rad - 40,
         10
       );
       //
@@ -575,6 +628,8 @@ export default {
       this.showAddModal = false;
       this.animationStarted = false;
       this.winnerName = "";
+      this.isAccelerating = false;
+      this.isSpinning = false;
     },
 
     handleClickEdit() {
@@ -634,58 +689,37 @@ export default {
       this.chooseSpinner = true;
     },
 
-    handleClickSave() {},
-
-    handleClickSaveAs() {
-      // spinnerName.value = this.selectedSpinner.spinnerName;
-    },
-
     handleClickSaveSpinner() {
       if (spinnerName.value.trim() === "") {
         alert("Please add spinner name for save spinner.");
         return;
       }
-
-      // if (!this.selectedSpinner) {
       let saveSpinner = {
         spinnerName: spinnerName.value.trim(),
         prizes: this.prizes,
       };
 
-      console.log(saveSpinner, "saveSpinner");
-
       let spinnersList = this.getSpinnersList();
-      console.log(spinnersList, "spinnersList")
       spinnersList.push(saveSpinner);
       localStorage.setItem("spinnersList", JSON.stringify(spinnersList));
       this.selectedSpinner = saveSpinner;
-      // }
-      // else {
-      //   let spinnersList = this.getSpinnersList();
-
-      //   const updatedSpinnersList = spinnersList.map((spinner) => {
-      //     if (spinner.spinnerName === this.selectedSpinner.spinnerName) {
-      //       return {
-      //         ...spinner,
-      //         spinnerName: spinnerName.value.trim(),
-      //         prizes: this.prizes,
-      //       };
-      //     } else {
-      //       return spinner;
-      //     }
-      //   });
-
-      //   localStorage.setItem(
-      //     "spinnersList",
-      //     JSON.stringify(updatedSpinnersList)
-      //   );
-      //   this.selectedSpinner = {
-      //     spinnerName: spinnerName.value.trim(),
-      //     prizes: this.prizes,
-      //   };
-      // }
-
+     
       spinnerName.value = "";
+    },
+
+    handleClickDeleteSpinner() {
+      this.handleClickReset();
+
+      let spinnersList = this.getSpinnersList();
+
+      let remeiningSpinnersList = spinnersList.filter(
+        (a) => a.spinnerName !== this.selectedSpinner.spinnerName
+      );
+
+      localStorage.setItem(
+        "spinnersList",
+        JSON.stringify(remeiningSpinnersList)
+      );
     },
   },
 };
@@ -695,10 +729,3 @@ export default {
 @import "../assets/style.css";
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 </style>
-
-<!-- id: 1,
-name: "1",
-value: "1",
-bgColor: "#45ace9",
-color: "#ffffff",
-probability: 10, -->

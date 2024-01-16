@@ -123,7 +123,7 @@ body {
   position: absolute;
   right: 0%;
   top: 48%;
-  transform: translate(-0%, -50%);
+  transform: translate(-0%, -40%);
   display: grid;
   flex-direction: column;
   gap: 20px;
@@ -221,6 +221,9 @@ body {
 
 .cancle {
   background: #A1A8D0;
+}
+.delete {
+  background: #D0103A;
 }
 
 .save {
