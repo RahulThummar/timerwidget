@@ -646,40 +646,44 @@ export default {
         return;
       }
 
-      if (!this.selectedSpinner) {
-        let saveSpinner = {
-          spinnerName: spinnerName.value.trim(),
-          prizes: this.prizes,
-        };
+      // if (!this.selectedSpinner) {
+      let saveSpinner = {
+        spinnerName: spinnerName.value.trim(),
+        prizes: this.prizes,
+      };
 
-        let spinnersList = this.getSpinnersList();
-        spinnersList.push(saveSpinner);
-        localStorage.setItem("spinnersList", JSON.stringify(spinnersList));
-        this.selectedSpinner = saveSpinner;
-      } else {
-        let spinnersList = this.getSpinnersList();
+      console.log(saveSpinner, "saveSpinner");
 
-        const updatedSpinnersList = spinnersList.map((spinner) => {
-          if (spinner.spinnerName === this.selectedSpinner.spinnerName) {
-            return {
-              ...spinner,
-              spinnerName: spinnerName.value.trim(),
-              prizes: this.prizes,
-            };
-          } else {
-            return spinner;
-          }
-        });
+      let spinnersList = this.getSpinnersList();
+      console.log(spinnersList, "spinnersList")
+      spinnersList.push(saveSpinner);
+      localStorage.setItem("spinnersList", JSON.stringify(spinnersList));
+      this.selectedSpinner = saveSpinner;
+      // }
+      // else {
+      //   let spinnersList = this.getSpinnersList();
 
-        localStorage.setItem(
-          "spinnersList",
-          JSON.stringify(updatedSpinnersList)
-        );
-        this.selectedSpinner = {
-          spinnerName: spinnerName.value.trim(),
-          prizes: this.prizes,
-        };
-      }
+      //   const updatedSpinnersList = spinnersList.map((spinner) => {
+      //     if (spinner.spinnerName === this.selectedSpinner.spinnerName) {
+      //       return {
+      //         ...spinner,
+      //         spinnerName: spinnerName.value.trim(),
+      //         prizes: this.prizes,
+      //       };
+      //     } else {
+      //       return spinner;
+      //     }
+      //   });
+
+      //   localStorage.setItem(
+      //     "spinnersList",
+      //     JSON.stringify(updatedSpinnersList)
+      //   );
+      //   this.selectedSpinner = {
+      //     spinnerName: spinnerName.value.trim(),
+      //     prizes: this.prizes,
+      //   };
+      // }
 
       spinnerName.value = "";
     },
