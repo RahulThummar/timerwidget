@@ -639,7 +639,7 @@ box-shadow: none;
   .save-header{
     color: #5B6770;
     text-align: center;
-    font: 400 25px Anek Latin, sans-serif;
+    font: 400 22px Anek Latin, sans-serif;
   }
 
   .spinner-list-options{
@@ -652,4 +652,14 @@ box-shadow: none;
     padding: 8px 16px;
     background-color:  #005EB8;
     padding: 12px;
+  }
+
+  .outer-border{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 312px;
+    width: 312px;
+    border: 3px solid #c4c8cc;
+    border-radius: 50%;
   }

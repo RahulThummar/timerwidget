@@ -19,17 +19,22 @@
           <img :src="arrow" :style="{ width: '42px', height: '29px' }" />
         </div>
 
-        <div :key="num" id="wheelOfFortune">
-          <canvas ref="wheelCanvas" width="300" height="300"></canvas>
-          <div id="spin" @click="startSpin">
-            <div class="start-spin-img">
-              <div v-if="!this.isSpinning" class="play-spin-img">
+        <div class="outer-border">
+          <div :key="num" id="wheelOfFortune">
+            <canvas ref="wheelCanvas" width="300" height="300"></canvas>
+            <div id="spin" @click="startSpin">
+              <div class="start-spin-img">
+                <div v-if="!this.isSpinning" class="play-spin-img">
+                  <img
+                    :src="play_icn"
+                    :style="{ width: '20px', height: '20px' }"
+                  />
+                </div>
                 <img
-                  :src="play_icn"
-                  :style="{ width: '20px', height: '20px' }"
+                  :src="play_bg"
+                  :style="{ width: '60px', height: '60px' }"
                 />
               </div>
-              <img :src="play_bg" :style="{ width: '60px', height: '60px' }" />
             </div>
           </div>
         </div>
@@ -250,7 +255,7 @@
         <div class="modal-body">
           <div class="form-main">
             <span class="form-inner">
-              <div class="save-header pb-2 ">
+              <div class="save-header pb-2">
                 {{ this.selectedSpinner ? "Save as" : "Save spinner list" }}
               </div>
               <span class="input-main">
@@ -288,18 +293,17 @@
           <div class="form-main">
             <span class="form-inner">
               <div class="save-header pb-2">
+                <div>
+                  <img
+                    :src="deleteSvg"
+                    data-bs-target="#saveSpinnerModal"
+                    :style="{ width: '36px', height: '36px' }"
+                  />
+                </div>
                 Are you sure you want to delete <br />"{{
                   selectedSpinner?.spinnerName
                 }}" spinner?
               </div>
-              <!-- <span class="input-main">
-                <input
-                  v-model="spinnerName"
-                  placeholder="Enter Spinner Name..."
-                />
-              </span> -->
-
-              <!-- <hr /> -->
               <div class="cancle-save-btn">
                 <span
                   class="btn-common cancle col-6 me-2 pointer"
@@ -340,6 +344,7 @@ import play_bg from "@/assets/images/SpinnerWidget/play_bg.png";
 import ResetImg from "@/assets/images/SpinnerWidget/ResetImg.png";
 import SaveImg from "@/assets/images/SpinnerWidget/SaveImg.png";
 import deleteImg from "@/assets/images/SpinnerWidget/deleteImg.png";
+import deleteSvg from "@/assets/images/SpinnerWidget/deleteSvg.svg";
 import SaveAsImg from "@/assets/images/SpinnerWidget/SaveAsImg.png";
 import celebration_bell from "@/assets/sound/SpinnerWidget/celebration_bell.mp3";
 import { colorsList } from "./constants/ConstData.js";
@@ -377,6 +382,7 @@ export default {
       editImg: editImg,
       unFilledtimerImg: unFilledtimerImg,
       filledTrafficlightImg: filledTrafficlightImg,
+      deleteSvg: deleteSvg,
       selectedSound: null,
       Sun: Sun,
       Moon: Moon,
@@ -428,6 +434,7 @@ export default {
     drawSector(sector, i) {
       const ang = this.arc * i;
       this.ctx.save();
+
       // COLOR
       this.ctx.beginPath();
       this.ctx.fillStyle = sector.color;
@@ -435,13 +442,14 @@ export default {
       this.ctx.arc(this.rad, this.rad, this.rad, ang, ang + this.arc);
       this.ctx.lineTo(this.rad, this.rad);
       this.ctx.fill();
+
       // TEXT
       this.ctx.translate(this.rad, this.rad);
       this.ctx.rotate(ang + this.arc / 2);
       this.ctx.textAlign = "right";
       this.ctx.fillStyle = "#fff";
       this.ctx.font = "16px sans-serif";
-      // this.ctx.fillText(sector.label, this.rad - 10, 10);
+
       this.ctx.fillText(
         sector.label.length > 7
           ? sector.label.slice(0, 7) + "..."
@@ -449,17 +457,14 @@ export default {
         this.rad - 40,
         10
       );
-      //
+
       this.ctx.restore();
     },
 
     rotate() {
-      // const currentSector = this.prizes[this.getIndex()];
       this.$refs.wheelCanvas.style.transform = `rotate(${
         this.ang - this.PI / 2
       }rad)`;
-      // this.elSpin.textContent = !this.angVel ? "SPIN" : currentSector.label;
-      // this.elSpin.style.background = currentSector.color;
     },
 
     frame() {
