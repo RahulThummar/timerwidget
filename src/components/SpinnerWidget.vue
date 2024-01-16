@@ -146,12 +146,12 @@
           />
         </div>
 
-        <div v-if="this.isItemAdded && !this.selectedSpinner">
+        <div v-if="this.isItemAdded">
           <img
             :src="SaveImg"
             class="pointer"
             alt="SaveImg"
-            data-bs-toggle="modal"
+            :data-bs-toggle="this.selectedSpinner ? null : 'modal'"
             data-bs-target="#saveSpinnerModal"
             :style="{ width: '36px', height: '36px' }"
             @click="handleClickSave"
@@ -166,7 +166,6 @@
             data-bs-toggle="modal"
             data-bs-target="#saveSpinnerModal"
             :style="{ width: '36px', height: '36px' }"
-            @click="handleClickSaveAs"
           />
         </div>
         <div v-if="this.isItemAdded && this.selectedSpinner">
@@ -251,14 +250,11 @@
         <div class="modal-body">
           <div class="form-main">
             <span class="form-inner">
-              <div class="save-header pb-2">
-                Do you want to save<br />this Spinner?
+              <div class="save-header pb-2 ">
+                {{ this.selectedSpinner ? "Save as" : "Save spinner list" }}
               </div>
               <span class="input-main">
-                <input
-                  v-model="spinnerName"
-                  placeholder="Enter Spinner Name..."
-                />
+                <input v-model="spinnerName" placeholder="Enter spinner name" />
               </span>
 
               <hr />
@@ -292,8 +288,9 @@
           <div class="form-main">
             <span class="form-inner">
               <div class="save-header pb-2">
-                Do you want to delete<br />"{{ selectedSpinner?.spinnerName }}"
-                Spinner?
+                Are you sure you want to delete <br />"{{
+                  selectedSpinner?.spinnerName
+                }}" spinner?
               </div>
               <!-- <span class="input-main">
                 <input
@@ -302,7 +299,7 @@
                 />
               </span> -->
 
-              <hr />
+              <!-- <hr /> -->
               <div class="cancle-save-btn">
                 <span
                   class="btn-common cancle col-6 me-2 pointer"
@@ -687,6 +684,12 @@ export default {
         return;
       }
       this.chooseSpinner = true;
+    },
+    handleClickSave() {
+      if (this.selectedSpinner) {
+        alert("Spinner data save.");
+        return;
+      }
     },
 
     handleClickSaveSpinner() {
