@@ -703,13 +703,11 @@ export default {
       spinnersList.push(saveSpinner);
       localStorage.setItem("spinnersList", JSON.stringify(spinnersList));
       this.selectedSpinner = saveSpinner;
-     
+
       spinnerName.value = "";
     },
 
     handleClickDeleteSpinner() {
-      this.handleClickReset();
-
       let spinnersList = this.getSpinnersList();
 
       let remeiningSpinnersList = spinnersList.filter(
@@ -720,6 +718,7 @@ export default {
         "spinnersList",
         JSON.stringify(remeiningSpinnersList)
       );
+      this.handleClickReset();
     },
   },
 };
