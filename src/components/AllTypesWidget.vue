@@ -1,11 +1,11 @@
 <template>
   <div class="main-box ms-3">
     <div class="top-menu">
-      <img
+      <!-- <img
         :src="UnfilledBoxes"
         alt="UnfilledBoxes"
         :style="{ width: '32px', height: '32px' }"
-      />
+      /> -->
       <img
         class="pointer"
         :src="selectTimer ? FilledTimer : UnfilledTimer"
@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import UnfilledBoxes from "@/assets/images/AllTypesWidget/UnfilledBoxes.png";
+// import UnfilledBoxes from "@/assets/images/AllTypesWidget/UnfilledBoxes.png";
 import UnfilledTimer from "@/assets/images/AllTypesWidget/UnfilledTimer.png";
 import UnfilledSpinner from "@/assets/images/AllTypesWidget/UnfilledSpinner.png";
 import UnfilledTrafficLight from "@/assets/images/AllTypesWidget/UnfilledTrafficLight.png";
@@ -83,7 +83,7 @@ export default {
   },
   data() {
     return {
-      UnfilledBoxes: UnfilledBoxes,
+      // UnfilledBoxes: UnfilledBoxes,
       UnfilledTimer: UnfilledTimer,
       UnfilledSpinner: UnfilledSpinner,
       UnfilledTrafficLight: UnfilledTrafficLight,
