@@ -590,7 +590,15 @@ export default {
 
         let randomColor;
         for (let i = 0; i < 10; i++) {
-          const color = "#" + Math.floor(Math.random() * 16777215).toString(16);
+          // Generate a dark color by limiting the range of RGB components
+          const darkColor = {
+            r: Math.floor(Math.random() * 128),
+            g: Math.floor(Math.random() * 128),
+            b: Math.floor(Math.random() * 128),
+          };
+
+          const color = `rgb(${darkColor.r},${darkColor.g},${darkColor.b})`;
+
           if (!existingColors.has(color)) {
             randomColor = color;
             break; // Exit the loop once a unique color is found
@@ -622,6 +630,7 @@ export default {
       this.tempTagList = [...this.prizes];
       this.showAddModal = false;
       this.isItemAdded = true;
+      message.value = "";
 
       setTimeout(() => {
         this.tot = this.prizes.length;
