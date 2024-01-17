@@ -38,11 +38,13 @@
               <div class="winner-name" v-if="this.winnerName !== ''">
                 <div class="winner-main">
                   <span class="winner-inner">
-                    {{ this.winnerName }}
+                    <div class="winner-tag">
+                      {{ this.winnerName }}
+                    </div>
                     <img
                       :style="{ width: '15px', height: '15px' }"
                       loading="lazy"
-                      class="pointer"
+                      class="pointer m-1"
                       :src="cancelImg"
                       @click="handleClickWinTag()"
                     />
@@ -81,6 +83,7 @@
           :style="{
             paddingTop: this.chooseSpinner ? '50px' : null,
             justifyContent: this.chooseSpinner ? null : 'center',
+            backgroundColor: this.chooseSpinner ? 'rgb(195 195 195)' : null,
           }"
         >
           <div v-if="!this.chooseSpinner" class="empty-inner">

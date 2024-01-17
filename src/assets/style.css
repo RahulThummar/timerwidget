@@ -515,8 +515,8 @@ body {
   display: flex;
   align-items: center;
   position: absolute;
-  right: 6%;
-  bottom: 1%;
+  right: 12%;
+  bottom: 12%;
   z-index: 1;
   top: 50;
   transform: rotate(-90deg);
@@ -664,9 +664,12 @@ body {
   display: flex;
   border-radius: 20px;
   background-color: #dceeff;
-  padding: 9px 10px;
-  margin-right: 10px;
-  margin-bottom: 10px;
+  padding: 9px 10px; 
+}
+
+.winner-tag{
+  display: block;
+  white-space: nowrap;
 }
 
 
@@ -683,10 +686,14 @@ body {
 }
 
 #spin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: #A1A8D0; */
   cursor: pointer;
   position: absolute;
-  top: 52%;
-  left: 52%;
+  top: 54%;
+  left: 54%;
   width: 22%;
   height: 22%;
   margin: -15%;
@@ -754,7 +761,7 @@ body {
   display: flex;
   height: 50px;
   width: 80px;  
-  border-bottom: 3px solid #ffffff;
+  border-bottom: 3px solid transparent;
 }
  
 
