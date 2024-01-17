@@ -1093,8 +1093,7 @@ export default {
     },
 
     calculateProgress() {
-      const totalSeconds = this.totalSeconds;
-      console.log(totalSeconds, "totalSecond");
+      const totalSeconds = this.totalSeconds; 
       const elapsedSeconds =
         (this.firstDigitMinutes * 10 + this.secondDigitMinutes) * 60 +
         this.firstDigitSeconds * 10 +
