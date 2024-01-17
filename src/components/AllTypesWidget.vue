@@ -9,7 +9,7 @@
       <div>
         <img class="pointer first" :src="selectTimer ? FilledTimer : UnfilledTimer" alt="Group244"
           :style="{ width: '32px', height: '32px' }" @click="handleChangeWidgetType('selectTimer')" />
-          
+          <!-- <span class="a"></span> -->
       </div>
       <div class="b">
         <img class="pointer" :src="selectSpinner ? FilledSpinner : UnfilledSpinner" alt="Group244"

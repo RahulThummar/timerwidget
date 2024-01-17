@@ -335,7 +335,7 @@
                 ></i>
               </div>
 
-              <div
+              <div class="m-1"
                 :class="{
                   'count-light count-size': !IsLightMode,
                   'count-dark count-size': IsLightMode,
@@ -367,7 +367,7 @@
                   @click="incrementSecondDigit('minutes')"
                 ></i>
               </div>
-              <div
+              <div class="m-1"
                 :class="{
                   'count-light count-size': !IsLightMode,
                   'count-dark count-size': IsLightMode,
@@ -388,7 +388,7 @@
             </div>
           </div>
 
-          <div
+          <div class="m-1"
             :class="{
               'count-light count-size ms-2': !IsLightMode,
               'count-dark count-size ms-2': IsLightMode,
@@ -409,7 +409,7 @@
                   @click="incrementFirstDigit('seconds')"
                 ></i>
               </div>
-              <div
+              <div class="m-1"
                 :class="{
                   'count-light count-size': !IsLightMode,
                   'count-dark count-size': IsLightMode,
@@ -439,7 +439,7 @@
                   @click="incrementSecondDigit('seconds')"
                 ></i>
               </div>
-              <div
+              <div class="m-1"
                 :class="{
                   'count-light count-size': !IsLightMode,
                   'count-dark count-size': IsLightMode,
@@ -532,10 +532,10 @@
                   "
                   transform="matrix(-1, 0, 0, -1, 557.041016, 359.828995)"
                 />
-                <polygon
+                <!-- <polygon
                   style="fill: url(#gradient-0)"
                   points="135.19 105.569 137.516 133.871 153.025 173.805 183.654 208.312 215.834 224.208 244.137 192.416 249.952 154.032 238.709 122.628 223.588 98.977"
-                />
+                /> -->
               </g>
               <g
                 transform="matrix(1, 0, 0, -1, 0.002997, 504.836395)"
@@ -669,31 +669,22 @@
             :style="{ width: '36px', height: '36px' }"
             @click="resettimer"
           />
-          <i
+          <img
             v-else-if="!timerRunning"
-            :style="{
-              color: colorTypes?.PLAYPAUSECOLOR,
-              width: '36px',
-              height: '36px',
-              display: 'flex',
-              fontSize: '36px',
-            }"
-            class="bi bi-play-circle-fill pointer"
+            :src="PlayTimerImg"
+            class="pointer"
+            alt="startTimer"
+            :style="{ width: '36px', height: '36px' }"
             @click="startTimer"
-          >
-          </i>
-          <i
+          />
+          <img
             v-else
-            :style="{
-              color: colorTypes?.PLAYPAUSECOLOR,
-              width: '36px',
-              height: '36px',
-              display: 'flex',
-              fontSize: '36px',
-            }"
-            class="bi bi-pause-circle-fill pointer"
+            :src="PauseTimerImg"
+            class="pointer"
+            alt="PauseTimerImg"
+            :style="{ width: '36px', height: '36px' }"
             @click="stopTimer"
-          ></i>
+          />
         </div>
         <div>
           <img
@@ -769,8 +760,10 @@ import musical from "@/assets/images/TimerWidget/musical.png";
 import HourGlass from "@/assets/images/TimerWidget/HourGlass.png";
 import CircleTimer from "@/assets/images/TimerWidget/CircleTimer.png";
 import WatchTimer from "@/assets/images/TimerWidget/WatchTimer.png";
+import PlayTimerImg from "@/assets/images/TimerWidget/PlayTimerImg.png";
 import BigHourGlass from "@/assets/images/TimerWidget/BigHourGlass.png";
 import BigWatchTimer from "@/assets/images/TimerWidget/BigWatchTimer.png";
+import PauseTimerImg from "@/assets/images/TimerWidget/PauseTimerImg.png";
 import VolumOn from "@/assets/images/TimerWidget/VolumOn.png";
 import VolumOff from "@/assets/images/TimerWidget/VolumOff.png";
 import Sun from "@/assets/images/TimerWidget/Sun.png";
@@ -811,6 +804,8 @@ export default {
       CircleTimer: CircleTimer,
       WatchTimer: WatchTimer,
       BigWatchTimer: BigWatchTimer,
+      PauseTimerImg: PauseTimerImg,
+      PlayTimerImg: PlayTimerImg,
       BigHourGlass: BigHourGlass,
       OuterHourGlassImg: OuterHourGlassImg,
       ResetImg: ResetImg,
