@@ -14,7 +14,6 @@
           :style="{
             width: '32px',
             height: '32px',
-            position: 'fixed',
           }"
           @click="handleChangeWidgetType('selectTimer')"
         />

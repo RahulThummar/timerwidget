@@ -754,6 +754,7 @@ body {
   display: flex;
   height: 50px;
   width: 80px;  
+  border-bottom: 3px solid #ffffff;
 }
  
 

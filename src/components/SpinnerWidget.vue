@@ -472,7 +472,6 @@ export default {
       return Math.floor(this.tot - (this.ang / this.TAU) * this.tot) % this.tot;
     },
 
-  
     drawSector(sector, i) {
       const ang = this.arc * i;
       this.ctx.save();
@@ -490,8 +489,7 @@ export default {
       const textRadius = this.rad - textMargin;
       const textX = textRadius * Math.cos(ang + this.arc / 2);
       const textY = textRadius * Math.sin(ang + this.arc / 2);
-      console.log(textX, "textX");
-      console.log(textY, "textY");
+
       this.ctx.translate(this.rad + textX, this.rad + textY);
       this.ctx.rotate(ang + this.arc / 2);
       this.ctx.textAlign = "right";
