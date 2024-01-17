@@ -472,6 +472,7 @@ export default {
       return Math.floor(this.tot - (this.ang / this.TAU) * this.tot) % this.tot;
     },
 
+  
     drawSector(sector, i) {
       const ang = this.arc * i;
       this.ctx.save();
@@ -485,67 +486,37 @@ export default {
       this.ctx.fill();
 
       // TEXT
-      this.ctx.translate(this.rad, this.rad);
+      const textMargin = 20; // Adjust this margin as needed
+      const textRadius = this.rad - textMargin;
+      const textX = textRadius * Math.cos(ang + this.arc / 2);
+      const textY = textRadius * Math.sin(ang + this.arc / 2);
+      console.log(textX, "textX");
+      console.log(textY, "textY");
+      this.ctx.translate(this.rad + textX, this.rad + textY);
       this.ctx.rotate(ang + this.arc / 2);
       this.ctx.textAlign = "right";
       this.ctx.fillStyle = "#fff";
-      this.ctx.font = "16px sans-serif";
+      this.ctx.font = "14px sans-serif";
 
-      this.ctx.fillText(
-        sector.label.length > 7
-          ? sector.label.slice(0, 7) + "..."
-          : sector.label,
-        this.rad - 40,
-        10
-      );
+      const maxTextWidth = 80; // Maximum width for the text
+      const label = sector.label;
+
+      let truncatedLabel = label;
+      let labelWidth = this.ctx.measureText(label).width;
+
+      while (labelWidth > maxTextWidth && truncatedLabel.length > 0) {
+        truncatedLabel = truncatedLabel.slice(0, -1);
+        labelWidth = this.ctx.measureText(truncatedLabel + "...").width;
+      }
+
+      if (truncatedLabel.length < label.length) {
+        truncatedLabel += "...";
+      }
+
+      this.ctx.fillText(truncatedLabel, 10, 0);
 
       this.ctx.restore();
     },
-
-    // drawSector(sector, i) {
-    //   const ang = this.arc * i;
-    //   this.ctx.save();
-
-    //   // COLOR
-    //   this.ctx.beginPath();
-    //   this.ctx.fillStyle = sector.color;
-    //   this.ctx.moveTo(this.rad, this.rad);
-    //   this.ctx.arc(this.rad, this.rad, this.rad, ang, ang + this.arc);
-    //   this.ctx.lineTo(this.rad, this.rad);
-    //   this.ctx.fill();
-
-    //   // TEXT
-    //   const textMargin = 20; // Adjust this margin as needed
-    //   const textRadius = this.rad - textMargin;
-    //   const textX = textRadius * Math.cos(ang + this.arc / 2);
-    //   const textY = textRadius * Math.sin(ang + this.arc / 2);
-    //   console.log(textX, "textX");
-    //   console.log(textY, "textY");
-    //   this.ctx.translate(this.rad + textX, this.rad + textY);
-    //   this.ctx.rotate(ang + this.arc / 2);
-    //   this.ctx.textAlign = "right";
-    //   this.ctx.fillStyle = "#fff";
-    //   this.ctx.font = "14px sans-serif";
-
-    //   const maxTextWidth = 80; // Maximum width for the text
-    //   const label = sector.label;
-
-    //   let truncatedLabel = label;
-    //   let labelWidth = this.ctx.measureText(label).width;
-
-    //   while (labelWidth > maxTextWidth && truncatedLabel.length > 0) {
-    //     truncatedLabel = truncatedLabel.slice(0, -1);
-    //     labelWidth = this.ctx.measureText(truncatedLabel + "...").width;
-    //   }
-
-    //   if (truncatedLabel.length < label.length) {
-    //     truncatedLabel += "...";
-    //   }
-
-    //   this.ctx.fillText(truncatedLabel, 10, 0);
-
-    //   this.ctx.restore();
-    // },
 
     rotate() {
       this.$refs.wheelCanvas.style.transform = `rotate(${
