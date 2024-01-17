@@ -83,9 +83,10 @@
             justifyContent: this.chooseSpinner ? null : 'center',
           }"
         >
-          <div v-if="!this.chooseSpinner" class="col-9">
-            <button
-              class="btn-common save"
+          <div v-if="!this.chooseSpinner" class="empty-inner">
+            <div
+              class="pointer"
+              :style="{ display: 'flex' }"
               data-bs-toggle="modal"
               data-bs-target="#addEditTagModal"
               @click="
@@ -94,17 +95,32 @@
                 }
               "
             >
-              Create New Spinner
-            </button>
-          </div>
+              <div>
+                <img
+                  :src="CreteSpinner"
+                  alt="CreteSpinner"
+                  :style="{ width: '25px', height: '25px' }"
+                />
+              </div>
+              <div class="ms-2">Create New Spinner</div>
+            </div>
 
-          <div v-if="!this.chooseSpinner" class="col-9">
-            <button
-              class="btn-common save mt-5"
+            <div
+              v-if="!this.chooseSpinner"
+              class="mt-3 pointer"
               @click="handleClickChooseSpinner"
             >
-              Choose Spinner
-            </button>
+              <div :style="{ display: 'flex' }">
+                <div>
+                  <img
+                    :src="ChooseSpinner"
+                    alt="ChooseSpinner"
+                    :style="{ width: '25px', height: '25px' }"
+                  />
+                </div>
+                <div class="ms-2">Choose Spinner</div>
+              </div>
+            </div>
           </div>
 
           <div v-if="this.chooseSpinner" class="col-9">
@@ -125,7 +141,14 @@
 
       <!-- bottom buttons -->
 
-      <div class="bottom-buttons d-flex justify-content-between pe-2">
+      <div
+        class="p-2"
+        :class="
+          this.isItemAdded
+            ? 'bottom-buttons-spinner'
+            : 'bottom-buttons-empty-spinner'
+        "
+      >
         <div>
           <img
             :src="ResetImg"
@@ -359,6 +382,8 @@ import ResetImg from "@/assets/images/SpinnerWidget/ResetImg.png";
 import SaveImg from "@/assets/images/SpinnerWidget/SaveImg.png";
 import deleteImg from "@/assets/images/SpinnerWidget/deleteImg.png";
 import deleteSvg from "@/assets/images/SpinnerWidget/deleteSvg.svg";
+import CreteSpinner from "@/assets/images/SpinnerWidget/CreteSpinner.svg";
+import ChooseSpinner from "@/assets/images/SpinnerWidget/ChooseSpinner.svg";
 import SaveAsImg from "@/assets/images/SpinnerWidget/SaveAsImg.png";
 import celebration_bell from "@/assets/sound/SpinnerWidget/celebration_bell.mp3";
 import { colorsList } from "./constants/ConstData.js";
@@ -396,6 +421,8 @@ export default {
       editImg: editImg,
       unFilledtimerImg: unFilledtimerImg,
       filledTrafficlightImg: filledTrafficlightImg,
+      ChooseSpinner: ChooseSpinner,
+      CreteSpinner: CreteSpinner,
       deleteSvg: deleteSvg,
       selectedSound: null,
       Sun: Sun,
@@ -474,6 +501,51 @@ export default {
 
       this.ctx.restore();
     },
+
+    // drawSector(sector, i) {
+    //   const ang = this.arc * i;
+    //   this.ctx.save();
+
+    //   // COLOR
+    //   this.ctx.beginPath();
+    //   this.ctx.fillStyle = sector.color;
+    //   this.ctx.moveTo(this.rad, this.rad);
+    //   this.ctx.arc(this.rad, this.rad, this.rad, ang, ang + this.arc);
+    //   this.ctx.lineTo(this.rad, this.rad);
+    //   this.ctx.fill();
+
+    //   // TEXT
+    //   const textMargin = 20; // Adjust this margin as needed
+    //   const textRadius = this.rad - textMargin;
+    //   const textX = textRadius * Math.cos(ang + this.arc / 2);
+    //   const textY = textRadius * Math.sin(ang + this.arc / 2);
+    //   console.log(textX, "textX");
+    //   console.log(textY, "textY");
+    //   this.ctx.translate(this.rad + textX, this.rad + textY);
+    //   this.ctx.rotate(ang + this.arc / 2);
+    //   this.ctx.textAlign = "right";
+    //   this.ctx.fillStyle = "#fff";
+    //   this.ctx.font = "14px sans-serif";
+
+    //   const maxTextWidth = 80; // Maximum width for the text
+    //   const label = sector.label;
+
+    //   let truncatedLabel = label;
+    //   let labelWidth = this.ctx.measureText(label).width;
+
+    //   while (labelWidth > maxTextWidth && truncatedLabel.length > 0) {
+    //     truncatedLabel = truncatedLabel.slice(0, -1);
+    //     labelWidth = this.ctx.measureText(truncatedLabel + "...").width;
+    //   }
+
+    //   if (truncatedLabel.length < label.length) {
+    //     truncatedLabel += "...";
+    //   }
+
+    //   this.ctx.fillText(truncatedLabel, 10, 0);
+
+    //   this.ctx.restore();
+    // },
 
     rotate() {
       this.$refs.wheelCanvas.style.transform = `rotate(${

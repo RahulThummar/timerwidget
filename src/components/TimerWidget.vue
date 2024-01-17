@@ -335,7 +335,8 @@
                 ></i>
               </div>
 
-              <div class="m-1"
+              <div
+                class="m-1"
                 :class="{
                   'count-light count-size': !IsLightMode,
                   'count-dark count-size': IsLightMode,
@@ -367,7 +368,8 @@
                   @click="incrementSecondDigit('minutes')"
                 ></i>
               </div>
-              <div class="m-1"
+              <div
+                class="m-1"
                 :class="{
                   'count-light count-size': !IsLightMode,
                   'count-dark count-size': IsLightMode,
@@ -388,7 +390,8 @@
             </div>
           </div>
 
-          <div class="m-1"
+          <div
+            class="m-1"
             :class="{
               'count-light count-size ms-2': !IsLightMode,
               'count-dark count-size ms-2': IsLightMode,
@@ -409,7 +412,8 @@
                   @click="incrementFirstDigit('seconds')"
                 ></i>
               </div>
-              <div class="m-1"
+              <div
+                class="m-1"
                 :class="{
                   'count-light count-size': !IsLightMode,
                   'count-dark count-size': IsLightMode,
@@ -439,7 +443,8 @@
                   @click="incrementSecondDigit('seconds')"
                 ></i>
               </div>
-              <div class="m-1"
+              <div
+                class="m-1"
                 :class="{
                   'count-light count-size': !IsLightMode,
                   'count-dark count-size': IsLightMode,
@@ -658,7 +663,7 @@
           !this.musicSelection.IsSelectMusicIcn &&
           !this.musicSelection.Is_SelectMusic
         "
-        class="bottom-buttons d-flex justify-content-between pe-2"
+        class="bottom-buttons-timer p-2"
       >
         <div>
           <img
@@ -1089,6 +1094,7 @@ export default {
 
     calculateProgress() {
       const totalSeconds = this.totalSeconds;
+      console.log(totalSeconds, "totalSecond");
       const elapsedSeconds =
         (this.firstDigitMinutes * 10 + this.secondDigitMinutes) * 60 +
         this.firstDigitSeconds * 10 +

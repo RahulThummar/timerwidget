@@ -35,7 +35,7 @@
 
       <div
         :class="{
-          'bottom-buttons': !rotation,
+          'bottom-buttons-traffic': !rotation,
           'bottom-buttons-1': rotation,
         }"
         class="d-flex justify-content-between pe-2"
