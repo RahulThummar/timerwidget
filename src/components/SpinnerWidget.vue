@@ -615,12 +615,14 @@ export default {
 
     handleClickTagEnter() {
       if (message.value.trim() !== "") {
-        const isDuplicateLabel = this.tagList.some((tag) => tag.label === message.value.trim()) 
+        const isDuplicateLabel = this.tagList.some(
+          (tag) => tag.label === message.value.trim()
+        );
 
         if (isDuplicateLabel) {
-        alert("You can not able to add same tag names...");
-        return;
-      }
+          alert("You can not able to add same tag names... !!!");
+          return;
+        }
 
         const existingColors = new Set(this.tagList.map((tag) => tag.color));
 
