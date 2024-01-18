@@ -778,7 +778,7 @@ export default {
 
     handleClickSave() {
       if (this.selectedSpinner) {
-        alert("Spinner data save.");
+        alert("Spinner data saved !!!.");
         this.handleClickSaveSpinner("old");
         return;
       }
