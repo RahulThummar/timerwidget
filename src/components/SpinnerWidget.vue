@@ -519,6 +519,7 @@ export default {
         truncatedLabel += "...";
       }
 
+      // this.ctx.fillText(truncatedLabel, 10, 0);
       this.ctx.fillText(
         truncatedLabel,
         truncatedLabel.length < label.length ? 10 : -20,
@@ -614,6 +615,13 @@ export default {
 
     handleClickTagEnter() {
       if (message.value.trim() !== "") {
+        const isDuplicateLabel = this.tagList.some((tag) => tag.label === message.value.trim()) 
+
+        if (isDuplicateLabel) {
+        alert("You can not able to add same tag names...");
+        return;
+      }
+
         const existingColors = new Set(this.tagList.map((tag) => tag.color));
 
         const randomColor = this.generateRandomColor(existingColors);
