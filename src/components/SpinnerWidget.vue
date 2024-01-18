@@ -211,11 +211,6 @@
             data-bs-toggle="modal"
             data-bs-target="#saveSpinnerModal"
             :style="{ width: '36px', height: '36px' }"
-            @click="
-              () => {
-                selectedSpinner = null;
-              }
-            "
           />
         </div>
         <div v-if="this.isItemAdded && this.selectedSpinner">
@@ -317,7 +312,7 @@
                 >
                 <span
                   class="btn-common save col-6 pointer"
-                  @click="handleClickSaveSpinner"
+                  @click="handleClickSaveSpinner('new')"
                   :data-bs-dismiss="dismissAttributeSaveSpinner"
                   >Save</span
                 >
@@ -784,13 +779,13 @@ export default {
     handleClickSave() {
       if (this.selectedSpinner) {
         alert("Spinner data save.");
-        this.handleClickSaveSpinner();
+        this.handleClickSaveSpinner("old");
         return;
       }
     },
 
-    handleClickSaveSpinner() {
-      if (this.selectedSpinner) {
+    handleClickSaveSpinner(type) {
+      if (type === "old") {
         //save existing spinner
 
         let spinnersList = this.getSpinnersList();
