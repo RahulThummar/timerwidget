@@ -239,7 +239,11 @@
             <span class="form-inner">
               <div class="name-label">Tag Name</div>
               <span class="input-main">
-                <input v-model="message" placeholder="Enter Tag Name..." />
+                <input
+                  v-model="message"
+                  placeholder="Enter Tag Name..."
+                  @keydown.enter="handleClickTagEnter"
+                />
 
                 <div
                   class="enter-btn-main pointer"
@@ -520,6 +524,7 @@ export default {
       }
 
       // this.ctx.fillText(truncatedLabel, 10, 0);
+
       this.ctx.fillText(
         truncatedLabel,
         truncatedLabel.length < label.length ? 10 : -20,
