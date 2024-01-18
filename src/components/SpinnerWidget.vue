@@ -211,6 +211,11 @@
             data-bs-toggle="modal"
             data-bs-target="#saveSpinnerModal"
             :style="{ width: '36px', height: '36px' }"
+            @click="
+              () => {
+                selectedSpinner = null;
+              }
+            "
           />
         </div>
         <div v-if="this.isItemAdded && this.selectedSpinner">
@@ -467,7 +472,12 @@ export default {
       return "modal";
     },
     dismissAttributeSaveSpinner() {
-      return spinnerName.value.trim() !== "" ? "modal" : null;
+      const isDuplicateSpinnerName = this.getSpinnersList().some(
+        (spinner) => spinner.spinnerName === spinnerName.value.trim()
+      );
+      return spinnerName.value.trim() !== "" && !isDuplicateSpinnerName
+        ? "modal"
+        : null;
     },
   },
   methods: {
@@ -584,26 +594,30 @@ export default {
       return Math.random() * (M - m) + m;
     },
 
+    generateRandomColor(existingColors) {
+      let randomColor;
+      for (let i = 0; i < 10; i++) {
+        const darkColor = {
+          r: Math.floor(Math.random() * 128),
+          g: Math.floor(Math.random() * 128),
+          b: Math.floor(Math.random() * 128),
+        };
+
+        const color = `rgb(${darkColor.r},${darkColor.g},${darkColor.b})`;
+
+        if (!existingColors.has(color)) {
+          randomColor = color;
+          break;
+        }
+      }
+      return randomColor;
+    },
+
     handleClickTagEnter() {
       if (message.value.trim() !== "") {
         const existingColors = new Set(this.tagList.map((tag) => tag.color));
 
-        let randomColor;
-        for (let i = 0; i < 10; i++) {
-          // Generate a dark color by limiting the range of RGB components
-          const darkColor = {
-            r: Math.floor(Math.random() * 128),
-            g: Math.floor(Math.random() * 128),
-            b: Math.floor(Math.random() * 128),
-          };
-
-          const color = `rgb(${darkColor.r},${darkColor.g},${darkColor.b})`;
-
-          if (!existingColors.has(color)) {
-            randomColor = color;
-            break; // Exit the loop once a unique color is found
-          }
-        }
+        const randomColor = this.generateRandomColor(existingColors);
 
         this.tagList.push({
           label: message.value.trim(),
@@ -727,30 +741,13 @@ export default {
         (spinner) => spinner.spinnerName === selectedValue
       );
 
-      // Assign random color to each prize in selectedSpinner
       for (let i = 0; i < this.selectedSpinner.prizes.length; i++) {
         const existingColors = new Set(
           this.selectedSpinner.prizes.map((item) => item.color)
         );
 
-        let randomColor;
-        for (let j = 0; j < 10; j++) {
-          // Generate a dark color by limiting the range of RGB components
-          const darkColor = {
-            r: Math.floor(Math.random() * 128),
-            g: Math.floor(Math.random() * 128),
-            b: Math.floor(Math.random() * 128),
-          };
-
-          const color = `rgb(${darkColor.r},${darkColor.g},${darkColor.b})`;
-
-          if (!existingColors.has(color)) {
-            randomColor = color;
-            break; // Exit the loop once a unique color is found
-          }
-        }
-
-        this.selectedSpinner.prizes[i].color = randomColor;
+        this.selectedSpinner.prizes[i].color =
+          this.generateRandomColor(existingColors);
       }
 
       if (this.selectedSpinner) {
@@ -783,34 +780,73 @@ export default {
       }
       this.chooseSpinner = true;
     },
+
     handleClickSave() {
       if (this.selectedSpinner) {
         alert("Spinner data save.");
+        this.handleClickSaveSpinner();
         return;
       }
     },
 
     handleClickSaveSpinner() {
-      if (spinnerName.value.trim() === "") {
-        alert("Please add spinner name for save spinner.");
-        return;
+      if (this.selectedSpinner) {
+        //save existing spinner
+
+        let spinnersList = this.getSpinnersList();
+
+        const updatedSpinnersList = spinnersList.map((spinner) => {
+          if (spinner.spinnerName === this.selectedSpinner.spinnerName) {
+            return {
+              ...spinner,
+              spinnerName: this.selectedSpinner.spinnerName,
+              prizes: this.prizes,
+            };
+          } else {
+            return spinner;
+          }
+        });
+
+        localStorage.setItem(
+          "spinnersList",
+          JSON.stringify(updatedSpinnersList)
+        );
+        this.selectedSpinner = {
+          spinnerName: this.selectedSpinner.spinnerName,
+          prizes: this.prizes,
+        };
+      } else {
+        //save and saveas
+        if (spinnerName.value.trim() === "") {
+          alert("Please add spinner name for save spinner.");
+          return;
+        }
+
+        const isDuplicateSpinnerName = this.getSpinnersList().some(
+          (spinner) => spinner.spinnerName === spinnerName.value.trim()
+        );
+
+        if (isDuplicateSpinnerName) {
+          alert("This named spinner is already exists.");
+          return;
+        }
+
+        this.prizes.forEach((object) => {
+          delete object["color"];
+        });
+
+        let saveSpinner = {
+          spinnerName: spinnerName.value.trim(),
+          prizes: this.prizes,
+        };
+
+        let spinnersList = this.getSpinnersList();
+        spinnersList.push(saveSpinner);
+        localStorage.setItem("spinnersList", JSON.stringify(spinnersList));
+        this.selectedSpinner = saveSpinner;
+
+        spinnerName.value = "";
       }
-
-      this.prizes.forEach((object) => {
-        delete object["color"];
-      });
-
-      let saveSpinner = {
-        spinnerName: spinnerName.value.trim(),
-        prizes: this.prizes,
-      };
-
-      let spinnersList = this.getSpinnersList();
-      spinnersList.push(saveSpinner);
-      localStorage.setItem("spinnersList", JSON.stringify(spinnersList));
-      this.selectedSpinner = saveSpinner;
-
-      spinnerName.value = "";
     },
 
     handleClickDeleteSpinner() {
