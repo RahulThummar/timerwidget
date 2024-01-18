@@ -519,7 +519,11 @@ export default {
         truncatedLabel += "...";
       }
 
-      this.ctx.fillText(truncatedLabel, 10, 0);
+      this.ctx.fillText(
+        truncatedLabel,
+        truncatedLabel.length < label.length ? 10 : -20,
+        0
+      );
 
       this.ctx.restore();
     },
