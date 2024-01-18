@@ -655,13 +655,13 @@ body {
 }
 
 
-
 .winner-main {
   display: flex;
   flex-wrap: wrap;
 }
 
 .winner-inner {
+  align-items: center;
   display: flex;
   border-radius: 20px;
   background-color: #dceeff;
@@ -669,8 +669,9 @@ body {
 }
 
 .winner-tag{ 
-  display: block;
-  white-space: nowrap;
+  max-width: 250px;
+  width: auto;
+  white-space: normal;
 }
 
 

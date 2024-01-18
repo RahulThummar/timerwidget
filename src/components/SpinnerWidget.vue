@@ -591,7 +591,7 @@ export default {
       this.spinnerStart = true;
       this.isSpinning = true;
       this.isAccelerating = true;
-      this.angVelMax = this.rand(0.25, 0.4);
+      this.angVelMax = this.rand(15, 4);
       this.engine(); // Start engine!
     },
 
