@@ -727,6 +727,32 @@ export default {
         (spinner) => spinner.spinnerName === selectedValue
       );
 
+      // Assign random color to each prize in selectedSpinner
+      for (let i = 0; i < this.selectedSpinner.prizes.length; i++) {
+        const existingColors = new Set(
+          this.selectedSpinner.prizes.map((item) => item.color)
+        );
+
+        let randomColor;
+        for (let j = 0; j < 10; j++) {
+          // Generate a dark color by limiting the range of RGB components
+          const darkColor = {
+            r: Math.floor(Math.random() * 128),
+            g: Math.floor(Math.random() * 128),
+            b: Math.floor(Math.random() * 128),
+          };
+
+          const color = `rgb(${darkColor.r},${darkColor.g},${darkColor.b})`;
+
+          if (!existingColors.has(color)) {
+            randomColor = color;
+            break; // Exit the loop once a unique color is found
+          }
+        }
+
+        this.selectedSpinner.prizes[i].color = randomColor;
+      }
+
       if (this.selectedSpinner) {
         this.prizes = [...this.selectedSpinner.prizes];
         this.prevPrizes = [...this.selectedSpinner.prizes];
@@ -769,6 +795,11 @@ export default {
         alert("Please add spinner name for save spinner.");
         return;
       }
+
+      this.prizes.forEach((object) => {
+        delete object["color"];
+      });
+
       let saveSpinner = {
         spinnerName: spinnerName.value.trim(),
         prizes: this.prizes,
