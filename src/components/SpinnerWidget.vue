@@ -574,11 +574,11 @@ export default {
       this.isAccelerating = true;
       // this.angVelMax = this.rand(15, 4);
 
-      this.angVelMax = this.rand(Math.floor(Math.random() * 65) + 1, 0);
-      this.engine(); // Start engine!
-      console.log("object");
-      console.log(Math.floor(Math.random() * 50) + 1, "max");
-      console.log(Math.floor(Math.random() * 20) + 1, "min");
+      this.angVelMax = this.rand(
+        Math.floor(Math.random() * 65) + 1,
+        Math.floor(Math.random() * 5) + 1
+      );
+      this.engine(); // Start engine
     },
 
     rand(m, M) {
