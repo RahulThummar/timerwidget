@@ -572,9 +572,20 @@ export default {
       this.spinnerStart = true;
       this.isSpinning = true;
       this.isAccelerating = true;
-      this.angVelMax = this.rand(15, 4);
+      // this.angVelMax = this.rand(15, 4);
+
+      this.angVelMax = this.rand(
+        Math.floor(Math.random() * 50) + 1,
+        Math.floor(Math.random() * 5) + 1
+      );
       this.engine(); // Start engine!
     },
+
+    //     generateRandomNumber() {
+    //     const randomInteger = Math.floor(Math.random() * 10) + 1;
+
+    //     return randomInteger;
+    // },
 
     rand(m, M) {
       return Math.random() * (M - m) + m;
