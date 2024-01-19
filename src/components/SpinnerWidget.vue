@@ -409,7 +409,8 @@ export default {
       PI: Math.PI,
       TAU: 2 * Math.PI,
       arc: 0,
-      friction: 0.991,
+      friction: Math.random() * (0.991 - 0.985) + 0.985,
+      // friction: 0.991,
       angVelMin: 0.009,
       angVelMax: 0,
       angVel: 0,
@@ -552,6 +553,7 @@ export default {
             this.initAnimation();
           }, 3);
           this.winnerName = winningSector.label;
+          this.friction = Math.random() * (0.991 - 0.985) + 0.985;
         }
       }
 
