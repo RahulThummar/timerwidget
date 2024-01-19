@@ -373,25 +373,6 @@
 <script>
 import lottie from "lottie-web";
 import animationData from "../assets/images/celebration.json";
-import unFilledtimerImg from "@/assets/images/TrafficLightWidget/unFilledtimerImg.png";
-import filledTrafficlightImg from "@/assets/images/TrafficLightWidget/filledTrafficlight.png";
-import VolumOn from "@/assets/images/TimerWidget/VolumOn.png";
-import VolumOff from "@/assets/images/TimerWidget/VolumOff.png";
-import Sun from "@/assets/images/TimerWidget/Sun.png";
-import Moon from "@/assets/images/TimerWidget/Moon.png";
-import arrow from "@/assets/images/SpinnerWidget/arrow.png";
-import editImg from "@/assets/images/SpinnerWidget/editImg.png";
-import play_icn from "@/assets/images/SpinnerWidget/play_icn.png";
-import EnterImg from "@/assets/images/SpinnerWidget/EnterImg.png";
-import cancelImg from "@/assets/images/SpinnerWidget/cancelImg.png";
-import play_bg from "@/assets/images/SpinnerWidget/play_bg.png";
-import ResetImg from "@/assets/images/SpinnerWidget/ResetImg.png";
-import SaveImg from "@/assets/images/SpinnerWidget/SaveImg.png";
-import deleteImg from "@/assets/images/SpinnerWidget/deleteImg.png";
-import deleteSvg from "@/assets/images/SpinnerWidget/deleteSvg.svg";
-import CreteSpinner from "@/assets/images/SpinnerWidget/CreteSpinner.svg";
-import ChooseSpinner from "@/assets/images/SpinnerWidget/ChooseSpinner.svg";
-import SaveAsImg from "@/assets/images/SpinnerWidget/SaveAsImg.png";
 import celebration_bell from "@/assets/sound/SpinnerWidget/celebration_bell.mp3";
 import { colorsList } from "./constants/ConstData.js";
 import { ref } from "vue";
@@ -402,6 +383,24 @@ let spinnerName = ref("");
 export default {
   data() {
     return {
+      editImg: require("@/assets/images/SpinnerWidget/editImg.png"),
+      Sun: require("@/assets/images/TimerWidget/Sun.png"),
+      Moon: require("@/assets/images/TimerWidget/Moon.png"),
+      VolumOn: require("@/assets/images/TimerWidget/VolumOn.png"),
+      VolumOff: require("@/assets/images/TimerWidget/VolumOff.png"),
+      ChooseSpinner: require("@/assets/images/SpinnerWidget/ChooseSpinner.svg"),
+      CreteSpinner: require("@/assets/images/SpinnerWidget/CreteSpinner.svg"),
+      deleteSvg: require("@/assets/images/SpinnerWidget/deleteSvg.svg"),
+      play_bg: require("@/assets/images/SpinnerWidget/play_bg.png"),
+      ResetImg: require("@/assets/images/SpinnerWidget/ResetImg.png"),
+      SaveImg: require("@/assets/images/SpinnerWidget/SaveImg.png"),
+      deleteImg: require("@/assets/images/SpinnerWidget/deleteImg.png"),
+      SaveAsImg: require("@/assets/images/SpinnerWidget/SaveAsImg.png"),
+      arrow: require("@/assets/images/SpinnerWidget/arrow.png"),
+      EnterImg: require("@/assets/images/SpinnerWidget/EnterImg.png"),
+      cancelImg: require("@/assets/images/SpinnerWidget/cancelImg.png"),
+      play_icn: require("@/assets/images/SpinnerWidget/play_icn.png"),
+
       tot: 0,
       elSpin: null,
       ctx: null,
@@ -425,26 +424,8 @@ export default {
       spinnerName: spinnerName,
       canvasVerify: true,
       celebration_bell: celebration_bell,
-      editImg: editImg,
-      unFilledtimerImg: unFilledtimerImg,
-      filledTrafficlightImg: filledTrafficlightImg,
-      ChooseSpinner: ChooseSpinner,
-      CreteSpinner: CreteSpinner,
-      deleteSvg: deleteSvg,
+
       selectedSound: null,
-      Sun: Sun,
-      Moon: Moon,
-      play_bg: play_bg,
-      ResetImg: ResetImg,
-      SaveImg: SaveImg,
-      deleteImg: deleteImg,
-      SaveAsImg: SaveAsImg,
-      arrow: arrow,
-      EnterImg: EnterImg,
-      cancelImg: cancelImg,
-      play_icn: play_icn,
-      VolumOn: VolumOn,
-      VolumOff: VolumOff,
       IsSoundOn: true,
       IsLightMode: true,
       colorTypes: colorsList,

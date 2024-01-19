@@ -76,29 +76,20 @@
 <script>
 import lottie from "lottie-web";
 import animationData from "../assets/images/celebration.json";
-import unFilledtimerImg from "@/assets/images/TrafficLightWidget/unFilledtimerImg.png";
-import filledTrafficlightImg from "@/assets/images/TrafficLightWidget/filledTrafficlight.png";
-import RottetImg from "@/assets/images/TrafficLightWidget/RottetImg.png";
-import VolumOn from "@/assets/images/TimerWidget/VolumOn.png";
-import VolumOff from "@/assets/images/TimerWidget/VolumOff.png";
-import Sun from "@/assets/images/TimerWidget/Sun.png";
-import Moon from "@/assets/images/TimerWidget/Moon.png";
 import ClickSound from "@/assets/sound/TrafficLightWidget/ClickSound.mp3";
 import { colorsList } from "./constants/ConstData.js";
 
 export default {
   data() {
     return {
+      RottetImg: require("@/assets/images/TrafficLightWidget/RottetImg.png"),
+      Sun: require("@/assets/images/TimerWidget/Sun.png"),
+      Moon: require("@/assets/images/TimerWidget/Moon.png"),
+      VolumOn: require("@/assets/images/TimerWidget/VolumOn.png"),
+      VolumOff: require("@/assets/images/TimerWidget/VolumOff.png"),
       currentLight: 0,
       ClickSound: ClickSound,
-      RottetImg: RottetImg,
-      unFilledtimerImg: unFilledtimerImg,
-      filledTrafficlightImg: filledTrafficlightImg,
       selectedSound: null,
-      Sun: Sun,
-      Moon: Moon,
-      VolumOn: VolumOn,
-      VolumOff: VolumOff,
       IsSoundOn: true,
       IsLightMode: true,
       colorTypes: colorsList,

@@ -756,26 +756,7 @@
 import lottie from "lottie-web";
 import animationData from "../assets/images/celebration.json";
 import CircleProgress from "vue3-circle-progress";
-import "vue3-circle-progress/dist/circle-progress.css"; 
-import filledTimerImg from "@/assets/images/TimerWidget/filledTimerImg.png";
-import Group4 from "@/assets/images/TimerWidget/Group4.png";
-import trafficlight from "@/assets/images/TimerWidget/trafficlight.png";
-import musical from "@/assets/images/TimerWidget/musical.png";
-import HourGlass from "@/assets/images/TimerWidget/HourGlass.png";
-import CircleTimer from "@/assets/images/TimerWidget/CircleTimer.png";
-import WatchTimer from "@/assets/images/TimerWidget/WatchTimer.png";
-import PlayTimerImg from "@/assets/images/TimerWidget/PlayTimerImg.png";
-import BigHourGlass from "@/assets/images/TimerWidget/BigHourGlass.png";
-import BigWatchTimer from "@/assets/images/TimerWidget/BigWatchTimer.png";
-import PauseTimerImg from "@/assets/images/TimerWidget/PauseTimerImg.png";
-import VolumOn from "@/assets/images/TimerWidget/VolumOn.png";
-import VolumOff from "@/assets/images/TimerWidget/VolumOff.png";
-import Sun from "@/assets/images/TimerWidget/Sun.png";
-import Moon from "@/assets/images/TimerWidget/Moon.png";
-import DeleteIcn from "@/assets/images/TimerWidget/DeleteIcn.png";
-import ResetImg from "@/assets/images/TimerWidget/ResetImg.png";
-import MusicImg from "@/assets/images/TimerWidget/MusicImg.png";
-import OuterHourGlassImg from "@/assets/images/TimerWidget/OuterHourglass.svg";
+import "vue3-circle-progress/dist/circle-progress.css";
 import { timerTypes, colorsList } from "./constants/ConstData.js";
 
 export default {
@@ -794,30 +775,25 @@ export default {
   },
 
   data() {
-    return { 
-      filledTimerImg: filledTimerImg,
-      Group4: Group4,
-      trafficlight: trafficlight,
-      musical: musical,
+    return {
+      musical: require("@/assets/images/TimerWidget/musical.png"),
+      HourGlass: require("@/assets/images/TimerWidget/HourGlass.png"),
+      CircleTimer: require("@/assets/images/TimerWidget/CircleTimer.png"),
+      WatchTimer: require("@/assets/images/TimerWidget/WatchTimer.png"),
+      BigWatchTimer: require("@/assets/images/TimerWidget/BigWatchTimer.png"),
+      PauseTimerImg: require("@/assets/images/TimerWidget/PauseTimerImg.png"),
+      PlayTimerImg: require("@/assets/images/TimerWidget/PlayTimerImg.png"),
+      BigHourGlass: require("@/assets/images/TimerWidget/BigHourGlass.png"),
+      ResetImg: require("@/assets/images/TimerWidget/ResetImg.png"),
+      MusicImg: require("@/assets/images/TimerWidget/MusicImg.png"),
+      Sun: require("@/assets/images/TimerWidget/Sun.png"),
+      Moon: require("@/assets/images/TimerWidget/Moon.png"),
+      VolumOn: require("@/assets/images/TimerWidget/VolumOn.png"),
+      VolumOff: require("@/assets/images/TimerWidget/VolumOff.png"),
+      DeleteIcn: require("@/assets/images/TimerWidget/DeleteIcn.png"),
       selectedSound: null,
       timerTypes: timerTypes,
       colorTypes: colorsList,
-      progressPercent: 50,
-      HourGlass: HourGlass,
-      CircleTimer: CircleTimer,
-      WatchTimer: WatchTimer,
-      BigWatchTimer: BigWatchTimer,
-      PauseTimerImg: PauseTimerImg,
-      PlayTimerImg: PlayTimerImg,
-      BigHourGlass: BigHourGlass,
-      OuterHourGlassImg: OuterHourGlassImg,
-      ResetImg: ResetImg,
-      MusicImg: MusicImg,
-      Sun: Sun,
-      Moon: Moon,
-      DeleteIcn: DeleteIcn,
-      VolumOn: VolumOn,
-      VolumOff: VolumOff,
       timerData: {
         selectedTimer: timerTypes?.HOURGLASS,
         isTimeAdded: false,
@@ -1091,7 +1067,7 @@ export default {
     },
 
     calculateProgress() {
-      const totalSeconds = this.totalSeconds; 
+      const totalSeconds = this.totalSeconds;
       const elapsedSeconds =
         (this.firstDigitMinutes * 10 + this.secondDigitMinutes) * 60 +
         this.firstDigitSeconds * 10 +
