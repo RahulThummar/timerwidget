@@ -41,17 +41,17 @@
           >
             <img
               :src="BigHourGlass"
-              alt="Group244"
+              alt="BigHourGlass"
               :style="{ width: '32px', height: '32px' }"
             />
             <img
               :src="CircleTimer"
-              alt="Group244"
+              alt="CircleTimer"
               :style="{ width: '32px', height: '32px' }"
             />
             <img
               :src="WatchTimer"
-              alt="Group244"
+              alt="WatchTimer"
               :style="{ width: '32px', height: '32px' }"
             />
           </div>
@@ -63,7 +63,7 @@
             <div class="d-flex gap-3">
               <img
                 :src="musical"
-                alt="Group244"
+                alt="musical"
                 :style="{ width: '22px', height: '22px' }"
               />
               <h6>Beep</h6>
@@ -72,7 +72,7 @@
               value="beep"
               class="form-check-input mt-0 pointer"
               type="radio"
-              name="exampleRadios"
+              name="musicTypes"
               id="beep"
               :checked="tempSound === 'beep'"
               @click="
@@ -88,7 +88,7 @@
             <div class="d-flex gap-3">
               <img
                 :src="musical"
-                alt="Group244"
+                alt="musical"
                 :style="{ width: '22px', height: '22px' }"
               />
               <h6>Bubble</h6>
@@ -97,7 +97,7 @@
               value="bubble"
               class="form-check-input mt-0 pointer"
               type="radio"
-              name="exampleRadios"
+              name="musicTypes"
               id="bubble"
               :checked="tempSound === 'bubble'"
               @click="
@@ -113,7 +113,7 @@
             <div class="d-flex gap-3">
               <img
                 :src="musical"
-                alt="Group244"
+                alt="musical"
                 :style="{ width: '22px', height: '22px' }"
               />
               <h6>Buzzer</h6>
@@ -122,7 +122,7 @@
               value="buzzer"
               class="form-check-input mt-0 pointer"
               type="radio"
-              name="exampleRadios"
+              name="musicTypes"
               id="buzzer"
               :checked="tempSound === 'buzzer'"
               @click="
@@ -138,7 +138,7 @@
             <div class="d-flex gap-3">
               <img
                 :src="musical"
-                alt="Group244"
+                alt="musical"
                 :style="{ width: '22px', height: '22px' }"
               />
               <h6>Smooth</h6>
@@ -147,7 +147,7 @@
               value="smooth"
               class="form-check-input mt-0 pointer"
               type="radio"
-              name="exampleRadios"
+              name="musicTypes"
               id="smooth"
               :checked="tempSound === 'smooth'"
               @click="
@@ -163,7 +163,7 @@
             <div class="d-flex gap-3">
               <img
                 :src="musical"
-                alt="Group244"
+                alt="musical"
                 :style="{ width: '22px', height: '22px' }"
               />
               <h6>Sweet End</h6>
@@ -172,7 +172,7 @@
               value="sweet_end"
               class="form-check-input mt-0 pointer"
               type="radio"
-              name="exampleRadios"
+              name="musicTypes"
               id="sweet_end"
               :checked="tempSound === 'sweet_end'"
               @click="
@@ -188,7 +188,7 @@
             <div class="d-flex gap-3">
               <img
                 :src="musical"
-                alt="Group244"
+                alt="musical"
                 :style="{ width: '22px', height: '22px' }"
               />
               <h6>Times Up</h6>
@@ -197,7 +197,7 @@
               value="times_up"
               class="form-check-input mt-0 pointer"
               type="radio"
-              name="exampleRadios"
+              name="musicTypes"
               id="times_up"
               :checked="tempSound === 'times_up'"
               @click="
@@ -756,8 +756,7 @@
 import lottie from "lottie-web";
 import animationData from "../assets/images/celebration.json";
 import CircleProgress from "vue3-circle-progress";
-import "vue3-circle-progress/dist/circle-progress.css";
-import Group244 from "@/assets/images/TimerWidget/Group244.png";
+import "vue3-circle-progress/dist/circle-progress.css"; 
 import filledTimerImg from "@/assets/images/TimerWidget/filledTimerImg.png";
 import Group4 from "@/assets/images/TimerWidget/Group4.png";
 import trafficlight from "@/assets/images/TimerWidget/trafficlight.png";
@@ -795,8 +794,7 @@ export default {
   },
 
   data() {
-    return {
-      Group244: Group244,
+    return { 
       filledTimerImg: filledTimerImg,
       Group4: Group4,
       trafficlight: trafficlight,

@@ -16,8 +16,6 @@
     "core-js": "^3.8.3",
     "lottie-web": "^5.12.2",
     "vue": "^3.4.8",
-    "vue-fortune-wheel": "^2.1.0",
-    "vue-wheel": "^1.1.1",
     "vue3-circle-progress": "^1.0.7",
     "vue3-roulette": "^0.3.3"
   },
