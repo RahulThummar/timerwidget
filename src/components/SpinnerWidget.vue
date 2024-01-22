@@ -617,8 +617,6 @@ export default {
           color: randomColor,
         });
 
-        console.log(this.tagList, "this.tagListthis.tagList");
-
         message.value = "";
       }
     },
@@ -631,10 +629,14 @@ export default {
 
       this.handleClickWinTag();
 
-      console.log(this.prizes, "this.prizes");
-      this.prizes;
+      // this.prizes;
       this.prizes = [...this.tagList];
 
+      for (let i = 0; i < this.prizes.length; i++) {
+        const existingColors = new Set(this.prizes.map((item) => item.color));
+
+        this.prizes[i].color = this.generateRandomColor(existingColors);
+      } 
       this.num += 1;
 
       this.prevPrizes = this.prizes;
