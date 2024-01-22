@@ -15,66 +15,54 @@
         }"
         class="filled-spinner-main"
       >
-        <div class="arrow-img">
-          <img :src="arrow" :style="{ width: '42px', height: '29px' }" />
-        </div>
+        <div class="">
+          <div class="arrow-img">
+            <img :src="arrow" :style="{ width: '42px', height: '29px' }" />
+          </div>
 
-        <div class="outer-border">
-          <div :key="num" id="wheelOfFortune">
-            <canvas ref="wheelCanvas" width="300" height="300"></canvas>
-            <div id="spin">
-              <div class="start-spin-img" @click="startSpin">
-                <div v-if="!this.isSpinning" class="play-spin-img">
+          <div class="outer-border">
+            <div :key="num" id="wheelOfFortune">
+              <canvas ref="wheelCanvas" width="290" height="290"></canvas>
+
+              <div id="spin">
+                <div class="start-spin-img" @click="startSpin">
+                  <div v-if="!this.isSpinning" class="play-spin-img">
+                    <img
+                      :src="play_icn"
+                      :style="{ width: '20px', height: '20px' }"
+                    />
+                  </div>
                   <img
-                    :src="play_icn"
-                    :style="{ width: '20px', height: '20px' }"
+                    :src="play_bg"
+                    :style="{ width: '60px', height: '60px' }"
                   />
                 </div>
-                <img
-                  :src="play_bg"
-                  :style="{ width: '60px', height: '60px' }"
-                />
-              </div>
-              <div class="winner-name" v-if="this.winnerName !== ''">
-                <div class="winner-main">
-                  <span class="winner-inner">
-                    <div class="winner-tag">
-                      {{ this.winnerName }}
-                    </div>
-                    <img
-                      :style="{ width: '15px', height: '15px' }"
-                      loading="lazy"
-                      class="pointer m-1"
-                      :src="cancelImg"
-                      @click="handleClickWinTag()"
-                    />
-                  </span>
+                <div class="winner-name" v-if="this.winnerName !== ''">
+                  <div class="winner-main">
+                    <span class="winner-inner">
+                      <div class="winner-tag">
+                        {{ this.winnerName }}
+                      </div>
+                      <img
+                        :style="{ width: '15px', height: '15px' }"
+                        loading="lazy"
+                        class="pointer m-1"
+                        :src="cancelImg"
+                        @click="handleClickWinTag()"
+                      />
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
+          <div
+            class="spinner-complition-animation"
+            ref="animationContainer"
+            v-if="this.animationStarted"
+          ></div>
         </div>
-
-        <div
-          class="spinner-complition-animation"
-          ref="animationContainer"
-          v-if="this.animationStarted"
-        ></div>
-
-        <!-- <div class="winner-name" v-if="this.winnerName !== ''">
-          <div class="tag-main">
-            <span class="tag-inner">
-              {{ this.winnerName }}
-              <img
-                :style="{ width: '15px', height: '15px' }"
-                loading="lazy"
-                class="pointer"
-                :src="cancelImg"
-                @click="handleClickWinTag()"
-              />
-            </span>
-          </div>
-        </div> -->
       </div>
 
       <div v-if="!isItemAdded" class="empty-spinner-main">
@@ -225,6 +213,9 @@
         </div>
       </div>
     </div>
+  </div>
+  <div v-if="selectedSpinner" class="saved-spinner-name">
+    <div class="saved-spinner-name-2">{{ selectedSpinner.spinnerName }}</div>
   </div>
 
   <audio ref="tickAudio" :src="celebration_bell"></audio>
@@ -626,6 +617,8 @@ export default {
           color: randomColor,
         });
 
+        console.log(this.tagList, "this.tagListthis.tagList");
+
         message.value = "";
       }
     },
@@ -638,6 +631,8 @@ export default {
 
       this.handleClickWinTag();
 
+      console.log(this.prizes, "this.prizes");
+      this.prizes;
       this.prizes = [...this.tagList];
 
       this.num += 1;

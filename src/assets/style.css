@@ -464,30 +464,54 @@ body {
 
 .empty-spinner-main {
   position: absolute;
-  height: 350px;
-  width: 350px;
+  /* height: 350px; */
+  /* width: 350px; */
   position: absolute;
-  display: flex;
-  align-items: center;
+  /* display: flex; */
+  /* align-items: center; */
   left: 10%;
   top: 10%;
-  padding-top: 22px;
+  margin-top: 30px;
 }
 
 
 .filled-spinner-main {
-  position: absolute;
   transform: rotate(90deg);
-  height: 350px;
-  width: 350px;
+  /* height: 350px; */
+  /* width: 350px; */
   position: absolute;
-  display: flex;
-  align-items: center;
-  left: 3%;
-  /* left: 9%; */
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
+  /* left: 3%; */
+  left: 7%;
   top: 18%;
-  padding-top: 22px;
+  /* padding-top: 22px; */
   /* background-color: #A1A8D0; */
+}
+
+.saved-spinner-name { 
+  /* transform: rotate(-90deg);             */
+  color: #5B6770;
+  font-size: 20px;
+  font-weight: 400;
+  font-family: 'Anek Latin', sans-serif; 
+  position: absolute;
+display: flex;
+justify-content: center;
+align-items: center;
+  /* top: 20px; */
+  left: 0; 
+  right: 0;
+  bottom: 0px;
+}
+.saved-spinner-name-2{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 195px;
+  display: block;
+  margin-bottom: 0px;
 }
 
 .play-spinner-btn {
@@ -502,9 +526,9 @@ body {
   display: flex;
   align-items: center;
   position: absolute;
-  right: 47%;
+  right: 41%;
   z-index: 1;
-  top: 0;
+  top: -34px;
   transform: rotate(-90deg);
   height: 50px;
   width: 60px;
@@ -735,8 +759,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 312px;
-  width: 312px;
+  height: 300px;
+  width: 300px;
   border: 3px solid #c4c8cc;
   border-radius: 50%;
 }

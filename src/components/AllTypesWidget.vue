@@ -47,6 +47,7 @@
       :style="{
         zIndex: !selectTimer ? '-1' : '1',
         opacity: !selectTimer ? '0' : '1',
+        position: 'relative',
       }"
     >
       <TimerWidget />
