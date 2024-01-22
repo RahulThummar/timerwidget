@@ -317,7 +317,7 @@ body {
   animation-fill-mode: forwards;
   visibility: hidden;
 }
-/* 
+
 @keyframes middleGlassAnimate {
   0% {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
@@ -346,7 +346,7 @@ body {
   100% {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   }
-} */
+} 
 
 .complition-animation {
   margin-left: 97px;

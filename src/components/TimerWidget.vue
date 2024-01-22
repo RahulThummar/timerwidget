@@ -1001,6 +1001,7 @@ export default {
         }, 1000);
       }, 5);
     },
+
     clearHourglass() {
       clearInterval(this.interval);
       this.secondsLeft = 0;
