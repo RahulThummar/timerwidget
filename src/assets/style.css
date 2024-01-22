@@ -502,7 +502,7 @@ justify-content: center;
 align-items: center;
   /* top: 20px; */
   left: 0; 
-  right: 0;
+  right: 32px;
   bottom: 0px;
 }
 .saved-spinner-name-2{
