@@ -1,6 +1,9 @@
 <template>
   <div
     class="inner-main"
+    @click="handleClick"
+    @mouseleave="handleMouseLeave"
+    :class="{ enlarged: isEnlarged }"
     :style="{
       'background-color': IsLightMode
         ? colorTypes?.LIGHTBACKGROUND
@@ -225,6 +228,7 @@
     </div>
 
     <div
+      class="h-100"
       v-if="
         !this.musicSelection.IsSelectMusicIcn &&
         !this.musicSelection.Is_SelectMusic
@@ -297,7 +301,11 @@
           :src="BigWatchTimer"
           alt="Selected Timer"
           class="circle-progress"
-          :style="{ width: '170px', height: '170px' }"
+          :style="{
+            width: isEnlarged ? '250px' : '170px',
+            height: isEnlarged ? '250px' : '170px',
+            transition: 'width 1s, height 1s',
+          }"
         />
 
         <div
@@ -306,12 +314,18 @@
             this.timerData.isTimeAdded
           "
           class="circle-progress"
+          :style="{
+            transform: 'scale(' + (isEnlarged ? 1.01 : 1) + ')',
+            transition: 'transform 1s',
+            transition: 'all 1s ease-in-out',
+          }"
         >
           <circle-progress
+            :key="this.isEnlarged"
             :percent="calculateProgress()"
-            :stroke-width="17"
-            :inner-stroke-width="17"
-            :size="170"
+            :stroke-width="isEnlarged ? 22 : 17"
+            :inner-stroke-width="isEnlarged ? 22 : 17"
+            :size="isEnlarged ? 270 : 170"
             :empty-color="colorTypes?.EMPTYPROGRESSBARCOLOR"
             :stroke-color="colorTypes?.FILLPROGRESSBARCOLOR"
             :linecap="'square'"
@@ -628,6 +642,12 @@
             { 'count-light': !IsLightMode },
             { 'count-dark': IsLightMode },
           ]"
+          :style="{
+            fontSize:
+              isEnlarged && timerData.selectedTimer === timerTypes?.WATCHTIMER
+                ? '35px'
+                : '26px',
+          }"
         >
           <!-- {{
             timerData.selectedTimer && this.timerData.isTimeAdded
@@ -636,18 +656,18 @@
           }} -->
           <span>
             <template v-if="timerData.selectedTimer && timerData.isTimeAdded">
-              <span class="d-flex">
+              <span class="d-flex justify-content-center">
                 <span
                   v-for="(digit, index) in minutes"
                   :key="index"
-                  style="width: 25px"
+                  style="width: 30px"
                   >{{ digit }}</span
                 >
                 <span class="ms-1 me-1">:</span>
                 <span
                   v-for="(digit, index) in seconds"
                   :key="index"
-                  style="width: 25px"
+                  style="width: 30px"
                   >{{ digit }}</span
                 >
               </span>
@@ -791,6 +811,8 @@ export default {
       VolumOn: require("@/assets/images/TimerWidget/VolumOn.png"),
       VolumOff: require("@/assets/images/TimerWidget/VolumOff.png"),
       DeleteIcn: require("@/assets/images/TimerWidget/DeleteIcn.png"),
+      isEnlarged: false,
+      timer: null,
       selectedSound: null,
       timerTypes: timerTypes,
       colorTypes: colorsList,
@@ -836,6 +858,18 @@ export default {
   },
 
   methods: {
+    handleClick() {
+      clearTimeout(this.timer);
+      this.isEnlarged = false;
+    },
+    handleMouseLeave() {
+      this.timer = setTimeout(() => {
+        if (this.timerData.isTimeAdded && this.completedProgress !== 0) {
+          this.isEnlarged = true;
+        }
+        // this.isEnlarged = true;
+      }, 3000);
+    },
     initAnimation() {
       const container = this.$refs.animationContainer;
       const animation = lottie.loadAnimation({
@@ -1078,6 +1112,7 @@ export default {
       const progress = (remainingSeconds / totalSeconds) * 100;
       this.completedProgress = Math.round((progress - 100) * 100) / 100;
 
+      console.log(Math.round((progress - 100) * 100) / 100);
       return Math.round((progress - 100) * 100) / 100; // Round to 2 decimal places
     },
   },
