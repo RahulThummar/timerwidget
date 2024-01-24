@@ -15,6 +15,8 @@
         :style="{
           zIndex: !isItemAdded ? '-1' : '1',
           opacity: !isItemAdded ? '0' : '1',
+          left: isEnlarged ? '8%' : '7%',
+          top: isEnlarged ? '3%' : '7%',
         }"
         class="filled-spinner-main"
       >
@@ -23,9 +25,19 @@
             <img :src="arrow" :style="{ width: '42px', height: '29px' }" />
           </div>
 
-          <div class="outer-border">
+          <div
+            class="outer-border"
+            :style="{
+              width: isEnlarged ? '330px' : '300px',
+              height: isEnlarged ? '330px' : '300px',
+            }"
+          >
             <div :key="num" id="wheelOfFortune">
-              <canvas ref="wheelCanvas" width="290" height="290"></canvas>
+              <canvas
+                ref="wheelCanvas"
+                :width="isEnlarged ? '320' : '290'"
+                :height="isEnlarged ? '320' : '290'"
+              ></canvas>
 
               <div id="spin">
                 <div class="start-spin-img" @click="startSpin">
@@ -220,7 +232,7 @@
       </transition>
     </div>
   </div>
-  <div v-if="selectedSpinner" class="saved-spinner-name">
+  <div v-if="selectedSpinner && !this.isEnlarged" class="saved-spinner-name">
     <div class="saved-spinner-name-2">{{ selectedSpinner.spinnerName }}</div>
   </div>
 
@@ -462,15 +474,38 @@ export default {
   },
   methods: {
     handleClick() {
-      clearTimeout(this.timer);
       this.isEnlarged = false;
+      clearTimeout(this.timer);
+      setTimeout(() => {
+        this.tot = this.prizes.length;
+        this.elSpin = document.querySelector("#spin");
+        this.ctx = this.$refs.wheelCanvas.getContext("2d");
+        this.dia = this.ctx.canvas.width;
+        this.rad = this.dia / 2;
+        this.arc = this.TAU / this.tot;
+
+        // INIT!
+        this.prizes.forEach(this.drawSector);
+        this.rotate(); // Initial rotation
+      }, 1);
     },
     handleMouseLeave() {
       this.timer = setTimeout(() => {
-        // if (this.timerData.isTimeAdded && this.completedProgress !== 0) {
-        this.isEnlarged = true;
-        // }
-        // this.isEnlarged = true;
+        if (this.isItemAdded) {
+          this.isEnlarged = true;
+        }
+        setTimeout(() => {
+          this.tot = this.prizes.length;
+          this.elSpin = document.querySelector("#spin");
+          this.ctx = this.$refs.wheelCanvas.getContext("2d");
+          this.dia = this.ctx.canvas.width;
+          this.rad = this.dia / 2;
+          this.arc = this.TAU / this.tot;
+
+          // INIT!
+          this.prizes.forEach(this.drawSector);
+          this.rotate(); // Initial rotation
+        }, 1);
       }, 3000);
     },
 
