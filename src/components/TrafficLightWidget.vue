@@ -1,39 +1,42 @@
 <template>
   <div
-    class="ms-3"
+    class="trafic-bg"
+    @click="handleClick"
+    @mouseleave="handleMouseLeave"
+    :class="{ enlarged: isEnlarged }"
     :style="{
       'background-color': IsLightMode
         ? colorTypes?.LIGHTBACKGROUND
         : colorTypes?.DARKBACKGROUND,
     }"
   >
-    <div>
+    <div
+      :class="[
+        { 'traffic-light': !rotation },
+        { 'traffic-light-1 ': rotation },
+      ]"
+    >
       <div
-        :class="[
-          { 'traffic-light': !rotation },
-          { 'traffic-light-1 ': rotation },
-        ]"
-      >
-        <div
-          class="light"
-          @click="changeColor(1)"
-          :class="{ redactive: currentLight === 1 }"
-        ></div>
-        <div
-          class="light"
-          @click="changeColor(2)"
-          :class="{ yellowactive: currentLight === 2 }"
-        ></div>
-        <div
-          class="light"
-          @click="changeColor(3)"
-          :class="{ greenactive: currentLight === 3 }"
-        ></div>
-      </div>
-
-      <!-- bottom buttons -->
-
+        class="light"
+        @click="changeColor(1)"
+        :class="{ redactive: currentLight === 1 }"
+      ></div>
       <div
+        class="light"
+        @click="changeColor(2)"
+        :class="{ yellowactive: currentLight === 2 }"
+      ></div>
+      <div
+        class="light"
+        @click="changeColor(3)"
+        :class="{ greenactive: currentLight === 3 }"
+      ></div>
+    </div>
+
+    <!-- bottom buttons -->
+    <transition name="fade" mode="out-in">
+      <div
+        v-if="!this.isEnlarged"
         :class="{
           'bottom-buttons-traffic': !rotation,
           'bottom-buttons-1': rotation,
@@ -68,7 +71,7 @@
           />
         </div>
       </div>
-    </div>
+    </transition>
   </div>
   <audio ref="tickAudio" :src="ClickSound"></audio>
 </template>
@@ -87,6 +90,8 @@ export default {
       Moon: require("@/assets/images/TimerWidget/Moon.png"),
       VolumOn: require("@/assets/images/TimerWidget/VolumOn.png"),
       VolumOff: require("@/assets/images/TimerWidget/VolumOff.png"),
+      isEnlarged: false,
+      timer: null,
       currentLight: 0,
       ClickSound: ClickSound,
       selectedSound: null,
@@ -98,6 +103,20 @@ export default {
   },
 
   methods: {
+    handleClick() {
+      console.log("handleMouseLeave");
+      clearTimeout(this.timer);
+      this.isEnlarged = false;
+    },
+    handleMouseLeave() {
+      this.timer = setTimeout(() => {
+        // if (this.timerData.isTimeAdded && this.completedProgress !== 0) {
+        this.isEnlarged = true;
+        // }
+        // this.isEnlarged = true;
+      }, 3000);
+    },
+
     changeColor(lightNumber) {
       this.currentLight = lightNumber;
       if (this.IsSoundOn) {

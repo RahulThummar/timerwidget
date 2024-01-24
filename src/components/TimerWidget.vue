@@ -235,63 +235,69 @@
       "
     >
       <!-- header buttons -->
-      <div
-        v-if="this.completedProgress !== 0"
-        class="timer-types p-1 d-flex justify-content-between"
-      >
-        <div
-          class="timer-type-box"
-          :style="{
-            backgroundColor:
-              timerData.selectedTimer === timerTypes?.HOURGLASS
-                ? colorTypes?.SELECTEDTIMERCOLOR
-                : colorTypes?.UNSELECTEDTIMERCOLOR,
-          }"
-          @click="selectTimer(timerTypes?.HOURGLASS)"
-        >
-          <img
-            :src="BigHourGlass"
-            alt="Hour Glass"
-            :style="{ width: '32px', height: '32px' }"
-          />
-        </div>
-        <div
-          class="timer-type-box"
-          :style="{
-            backgroundColor:
-              timerData.selectedTimer === timerTypes?.CIRCLETIMER
-                ? colorTypes?.SELECTEDTIMERCOLOR
-                : colorTypes?.UNSELECTEDTIMERCOLOR,
-          }"
-          @click="selectTimer(timerTypes?.CIRCLETIMER)"
-        >
-          <img
-            :src="CircleTimer"
-            alt="Circle Timer"
-            :style="{ width: '32px', height: '32px' }"
-          />
-        </div>
-        <div
-          class="timer-type-box"
-          :style="{
-            backgroundColor:
-              timerData.selectedTimer === timerTypes?.WATCHTIMER
-                ? colorTypes?.SELECTEDTIMERCOLOR
-                : colorTypes?.UNSELECTEDTIMERCOLOR,
-          }"
-          @click="selectTimer(timerTypes?.WATCHTIMER)"
-        >
-          <img
-            :src="WatchTimer"
-            alt="Watch Timer"
-            :style="{ width: '32px', height: '32px' }"
-          />
-        </div>
+
+      <div v-if="this.completedProgress !== 0">
+        <transition name="fade" mode="out-in">
+          <div
+            class="timer-types p-1 d-flex justify-content-between"
+            v-if="!this.isEnlarged"
+          >
+            <div
+              class="timer-type-box"
+              :style="{
+                backgroundColor:
+                  timerData.selectedTimer === timerTypes?.HOURGLASS
+                    ? colorTypes?.SELECTEDTIMERCOLOR
+                    : colorTypes?.UNSELECTEDTIMERCOLOR,
+              }"
+              @click="selectTimer(timerTypes?.HOURGLASS)"
+            >
+              <img
+                :src="BigHourGlass"
+                alt="Hour Glass"
+                :style="{ width: '32px', height: '32px' }"
+              />
+            </div>
+            <div
+              class="timer-type-box"
+              :style="{
+                backgroundColor:
+                  timerData.selectedTimer === timerTypes?.CIRCLETIMER
+                    ? colorTypes?.SELECTEDTIMERCOLOR
+                    : colorTypes?.UNSELECTEDTIMERCOLOR,
+              }"
+              @click="selectTimer(timerTypes?.CIRCLETIMER)"
+            >
+              <img
+                :src="CircleTimer"
+                alt="Circle Timer"
+                :style="{ width: '32px', height: '32px' }"
+              />
+            </div>
+            <div
+              class="timer-type-box"
+              :style="{
+                backgroundColor:
+                  timerData.selectedTimer === timerTypes?.WATCHTIMER
+                    ? colorTypes?.SELECTEDTIMERCOLOR
+                    : colorTypes?.UNSELECTEDTIMERCOLOR,
+              }"
+              @click="selectTimer(timerTypes?.WATCHTIMER)"
+            >
+              <img
+                :src="WatchTimer"
+                alt="Watch Timer"
+                :style="{ width: '32px', height: '32px' }"
+              />
+            </div>
+          </div>
+        </transition>
       </div>
 
       <div v-else class="completed-txt">
         <h5>Completed</h5>
       </div>
+
       <div class="content">
         <img
           v-if="
@@ -315,7 +321,7 @@
           "
           class="circle-progress"
           :style="{
-            transform: 'scale(' + (isEnlarged ? 1.01 : 1) + ')',
+            // transform: 'scale(' + (isEnlarged ? 1.01 : 1) + ')',
             transition: 'transform 1s',
             transition: 'all 1s ease-in-out',
           }"
@@ -325,7 +331,7 @@
             :percent="calculateProgress()"
             :stroke-width="isEnlarged ? 22 : 17"
             :inner-stroke-width="isEnlarged ? 22 : 17"
-            :size="isEnlarged ? 270 : 170"
+            :size="isEnlarged ? 250 : 170"
             :empty-color="colorTypes?.EMPTYPROGRESSBARCOLOR"
             :stroke-color="colorTypes?.FILLPROGRESSBARCOLOR"
             :linecap="'square'"
@@ -677,85 +683,86 @@
       </div>
 
       <!-- bottom buttons -->
-
-      <div
-        v-if="
-          !this.musicSelection.IsSelectMusicIcn &&
-          !this.musicSelection.Is_SelectMusic
-        "
-        class="bottom-buttons-timer p-2"
-      >
-        <div>
-          <img
-            v-if="this.completedProgress === 0"
-            :src="ResetImg"
-            class="pointer"
-            alt="reset timer"
-            :style="{ width: '36px', height: '36px' }"
-            @click="resettimer"
-          />
-          <img
-            v-else-if="!timerRunning"
-            :src="PlayTimerImg"
-            class="pointer"
-            alt="startTimer"
-            :style="{ width: '36px', height: '36px' }"
-            @click="startTimer"
-          />
-          <img
-            v-else
-            :src="PauseTimerImg"
-            class="pointer"
-            alt="PauseTimerImg"
-            :style="{ width: '36px', height: '36px' }"
-            @click="stopTimer"
-          />
-        </div>
-        <div>
-          <img
-            v-if="this.completedProgress === 100"
-            :src="MusicImg"
-            class="pointer"
-            alt="Volume On"
-            :style="{ width: '36px', height: '36px' }"
-            @click="MusicImgClick"
-          />
-          <img
-            v-else-if="IsSoundOn"
-            :src="VolumOn"
-            class="pointer"
-            alt="Volume On"
-            :style="{ width: '36px', height: '36px' }"
-            @click="stopSound"
-          />
-          <img
-            v-else
-            :src="VolumOff"
-            class="pointer"
-            alt="Volume Off"
-            :style="{ width: '36px', height: '36px' }"
-            @click="startSound"
-          />
-        </div>
-        <div>
-          <img
-            v-if="IsLightMode"
-            :src="Sun"
-            class="pointer"
-            alt="light Mode On"
-            :style="{ width: '36px', height: '36px' }"
-            @click="stopLightMode"
-          />
-          <img
-            v-else
-            :src="Moon"
-            class="pointer"
-            alt="light Mode Off"
-            :style="{ width: '36px', height: '36px' }"
-            @click="startLightMode"
-          />
-        </div>
-        <!-- <div>
+      <transition name="fade" mode="out-in">
+        <div
+          v-if="
+            !this.musicSelection.IsSelectMusicIcn &&
+            !this.musicSelection.Is_SelectMusic &&
+            !this.isEnlarged
+          "
+          class="bottom-buttons-timer p-2"
+        >
+          <div>
+            <img
+              v-if="this.completedProgress === 0"
+              :src="ResetImg"
+              class="pointer"
+              alt="reset timer"
+              :style="{ width: '36px', height: '36px' }"
+              @click="resettimer"
+            />
+            <img
+              v-else-if="!timerRunning"
+              :src="PlayTimerImg"
+              class="pointer"
+              alt="startTimer"
+              :style="{ width: '36px', height: '36px' }"
+              @click="startTimer"
+            />
+            <img
+              v-else
+              :src="PauseTimerImg"
+              class="pointer"
+              alt="PauseTimerImg"
+              :style="{ width: '36px', height: '36px' }"
+              @click="stopTimer"
+            />
+          </div>
+          <div>
+            <img
+              v-if="this.completedProgress === 100"
+              :src="MusicImg"
+              class="pointer"
+              alt="Volume On"
+              :style="{ width: '36px', height: '36px' }"
+              @click="MusicImgClick"
+            />
+            <img
+              v-else-if="IsSoundOn"
+              :src="VolumOn"
+              class="pointer"
+              alt="Volume On"
+              :style="{ width: '36px', height: '36px' }"
+              @click="stopSound"
+            />
+            <img
+              v-else
+              :src="VolumOff"
+              class="pointer"
+              alt="Volume Off"
+              :style="{ width: '36px', height: '36px' }"
+              @click="startSound"
+            />
+          </div>
+          <div>
+            <img
+              v-if="IsLightMode"
+              :src="Sun"
+              class="pointer"
+              alt="light Mode On"
+              :style="{ width: '36px', height: '36px' }"
+              @click="stopLightMode"
+            />
+            <img
+              v-else
+              :src="Moon"
+              class="pointer"
+              alt="light Mode Off"
+              :style="{ width: '36px', height: '36px' }"
+              @click="startLightMode"
+            />
+          </div>
+          <!-- <div>
         <img
           :src="DeleteIcn"
           alt="DeleteIcn"
@@ -763,7 +770,8 @@
           :style="{ width: '28px', height: '28px' }"
         />
       </div> -->
-      </div>
+        </div>
+      </transition>
     </div>
   </div>
   <audio

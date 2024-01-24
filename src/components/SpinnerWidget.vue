@@ -1,6 +1,9 @@
 <template>
   <div
-    class="ms-3"
+    class="spinner-bg"
+    @click="handleClick"
+    @mouseleave="handleMouseLeave"
+    :class="{ enlarged: isEnlarged }"
     :style="{
       'background-color': IsLightMode
         ? colorTypes?.LIGHTBACKGROUND
@@ -131,87 +134,90 @@
       </div>
 
       <!-- bottom buttons -->
+      <transition name="fade" mode="out-in">
+        <div
+          v-if="!this.isEnlarged"
+          class="p-2"
+          key="item-not-added"
+          :class="
+            this.isItemAdded
+              ? 'bottom-buttons-spinner'
+              : 'bottom-buttons-empty-spinner'
+          "
+        >
+          <div>
+            <img
+              :src="ResetImg"
+              class="pointer"
+              alt="reset"
+              :style="{ width: '36px', height: '36px' }"
+              @click="handleClickReset"
+            />
+          </div>
+          <div>
+            <img
+              v-if="IsSoundOn"
+              :src="VolumOn"
+              class="pointer"
+              alt="Volume On"
+              :style="{ width: '36px', height: '36px' }"
+              @click="stopSound"
+            />
+            <img
+              v-else
+              :src="VolumOff"
+              class="pointer"
+              alt="Volume Off"
+              :style="{ width: '36px', height: '36px' }"
+              @click="startSound"
+            />
+          </div>
+          <div v-if="this.isItemAdded">
+            <img
+              data-bs-toggle="modal"
+              data-bs-target="#addEditTagModal"
+              :src="editImg"
+              class="pointer"
+              alt="edit tags"
+              :style="{ width: '36px', height: '36px' }"
+              @click="handleClickEdit"
+            />
+          </div>
 
-      <div
-        class="p-2"
-        :class="
-          this.isItemAdded
-            ? 'bottom-buttons-spinner'
-            : 'bottom-buttons-empty-spinner'
-        "
-      >
-        <div>
-          <img
-            :src="ResetImg"
-            class="pointer"
-            alt="reset"
-            :style="{ width: '36px', height: '36px' }"
-            @click="handleClickReset"
-          />
-        </div>
-        <div>
-          <img
-            v-if="IsSoundOn"
-            :src="VolumOn"
-            class="pointer"
-            alt="Volume On"
-            :style="{ width: '36px', height: '36px' }"
-            @click="stopSound"
-          />
-          <img
-            v-else
-            :src="VolumOff"
-            class="pointer"
-            alt="Volume Off"
-            :style="{ width: '36px', height: '36px' }"
-            @click="startSound"
-          />
-        </div>
-        <div v-if="this.isItemAdded">
-          <img
-            data-bs-toggle="modal"
-            data-bs-target="#addEditTagModal"
-            :src="editImg"
-            class="pointer"
-            alt="edit tags"
-            :style="{ width: '36px', height: '36px' }"
-            @click="handleClickEdit"
-          />
-        </div>
+          <div v-if="this.isItemAdded">
+            <img
+              :src="SaveImg"
+              class="pointer"
+              alt="SaveImg"
+              :data-bs-toggle="this.selectedSpinner ? null : 'modal'"
+              data-bs-target="#saveSpinnerModal"
+              :style="{ width: '36px', height: '36px' }"
+              @click="handleClickSave"
+            />
+          </div>
 
-        <div v-if="this.isItemAdded">
-          <img
-            :src="SaveImg"
-            class="pointer"
-            alt="SaveImg"
-            :data-bs-toggle="this.selectedSpinner ? null : 'modal'"
-            data-bs-target="#saveSpinnerModal"
-            :style="{ width: '36px', height: '36px' }"
-            @click="handleClickSave"
-          />
+          <div v-if="this.isItemAdded && this.selectedSpinner">
+            <img
+              :src="SaveAsImg"
+              class="pointer"
+              alt="SaveAsImg"
+              data-bs-toggle="modal"
+              data-bs-target="#saveSpinnerModal"
+              :style="{ width: '36px', height: '36px' }"
+            />
+          </div>
+          <div v-if="this.isItemAdded && this.selectedSpinner">
+            <img
+              :src="deleteImg"
+              class="pointer"
+              alt="deleteImg"
+              data-bs-toggle="modal"
+              data-bs-target="#deleteSpinnerModal"
+              :style="{ width: '36px', height: '36px' }"
+            />
+          </div>
         </div>
-
-        <div v-if="this.isItemAdded && this.selectedSpinner">
-          <img
-            :src="SaveAsImg"
-            class="pointer"
-            alt="SaveAsImg"
-            data-bs-toggle="modal"
-            data-bs-target="#saveSpinnerModal"
-            :style="{ width: '36px', height: '36px' }"
-          />
-        </div>
-        <div v-if="this.isItemAdded && this.selectedSpinner">
-          <img
-            :src="deleteImg"
-            class="pointer"
-            alt="deleteImg"
-            data-bs-toggle="modal"
-            data-bs-target="#deleteSpinnerModal"
-            :style="{ width: '36px', height: '36px' }"
-          />
-        </div>
-      </div>
+      </transition>
     </div>
   </div>
   <div v-if="selectedSpinner" class="saved-spinner-name">
@@ -410,8 +416,10 @@ export default {
       isAccelerating: false,
       animFrame: null,
       prizes: [],
-
       tagList: [],
+
+      isEnlarged: false,
+      timer: null,
       message: message,
       spinnerName: spinnerName,
       canvasVerify: true,
@@ -453,6 +461,19 @@ export default {
     },
   },
   methods: {
+    handleClick() {
+      clearTimeout(this.timer);
+      this.isEnlarged = false;
+    },
+    handleMouseLeave() {
+      this.timer = setTimeout(() => {
+        // if (this.timerData.isTimeAdded && this.completedProgress !== 0) {
+        this.isEnlarged = true;
+        // }
+        // this.isEnlarged = true;
+      }, 3000);
+    },
+
     getIndex() {
       return Math.floor(this.tot - (this.ang / this.TAU) * this.tot) % this.tot;
     },
@@ -636,7 +657,7 @@ export default {
         const existingColors = new Set(this.prizes.map((item) => item.color));
 
         this.prizes[i].color = this.generateRandomColor(existingColors);
-      } 
+      }
       this.num += 1;
 
       this.prevPrizes = this.prizes;
