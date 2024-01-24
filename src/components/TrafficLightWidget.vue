@@ -10,32 +10,33 @@
         : colorTypes?.DARKBACKGROUND,
     }"
   >
-    <div
-      :class="[
-        { 'traffic-light': !rotation },
-        { 'traffic-light-1 ': rotation },
-      ]"
-    >
+    <transition name="fade" mode="out-in">
       <div
-        class="light"
-        @click="changeColor(1)"
-        :class="{ redactive: currentLight === 1 }"
-      ></div>
-      <div
-        class="light"
-        @click="changeColor(2)"
-        :class="{ yellowactive: currentLight === 2 }"
-      ></div>
-      <div
-        class="light"
-        @click="changeColor(3)"
-        :class="{ greenactive: currentLight === 3 }"
-      ></div>
-    </div>
+        :key="isEnlarged"
+        :class="{ 'traffic-light': !rotation, 'traffic-light-1': rotation }"
+      >
+        <div
+          v-for="light in [1, 2, 3]"
+          :key="light"
+          class="light"
+          :style="{
+            width: isEnlarged ? '86px' : '80px',
+            height: isEnlarged ? '86px' : '80px',
+          }"
+          @click="changeColor(light)"
+          :class="{
+            redactive: light === 1 && currentLight === 1,
+            yellowactive: light === 2 && currentLight === 2,
+            greenactive: light === 3 && currentLight === 3,
+          }"
+        ></div>
+      </div>
+    </transition>
 
     <!-- bottom buttons -->
     <transition name="fade" mode="out-in">
       <div
+        :key="this.isEnlarged"
         v-if="!this.isEnlarged"
         :class="{
           'bottom-buttons-traffic': !rotation,
