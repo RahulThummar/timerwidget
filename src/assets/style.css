@@ -133,7 +133,7 @@ body {
   font-weight: 500;
   font-family: 'Anek Latin', sans-serif;
   position: absolute;
-  top: 78%;
+  /* top: 78%; */
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -312,6 +312,44 @@ body {
 }
 
 .hr-glass svg #bottomGlassSand {
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.hr-glass-zoomed {
+  /* margin-left: 52px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 240px;
+  height: 240px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hr-glass-zoomed svg {
+  height: 240px;
+  width: 240px;
+}
+
+.hr-glass-zoomed svg #middleSand {
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+
+.hr-glass-zoomed svg #topGlassSand {
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+  z-index: 2 !important;
+}
+
+.hr-glass-zoomed svg #bottomGlassSand {
   animation-iteration-count: 1;
   animation-timing-function: ease-in;
   animation-fill-mode: forwards;

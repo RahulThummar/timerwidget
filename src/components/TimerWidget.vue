@@ -484,142 +484,144 @@
             </div>
           </div>
         </div>
-
-        <div
-          :style="{
-            zIndex:
-              timerData.selectedTimer === timerTypes?.HOURGLASS &&
-              this.timerData.isTimeAdded
-                ? '1'
-                : '-1',
-            opacity:
-              timerData.selectedTimer === timerTypes?.HOURGLASS &&
-              this.timerData.isTimeAdded
-                ? '1'
-                : '0',
-            display: !this.timerData.isTimeAdded ? 'none' : '', // or 'none' depending on your preferred default display value
-          }"
-          class="hr-glass"
-        >
-          <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <radialGradient
-                gradientUnits="userSpaceOnUse"
-                cx="226.928"
-                cy="99.801"
-                r="143.9"
-                id="gradient-1"
-                gradientTransform="matrix(2.520381, 0, 0, 0.105047, -345.016998, 89.317177)"
+        <transition name="fade" mode="out-in">
+          <div
+            :style="{
+              zIndex:
+                timerData.selectedTimer === timerTypes?.HOURGLASS &&
+                this.timerData.isTimeAdded
+                  ? '1'
+                  : '-1',
+              opacity:
+                timerData.selectedTimer === timerTypes?.HOURGLASS &&
+                this.timerData.isTimeAdded
+                  ? '1'
+                  : '0',
+              display: !this.timerData.isTimeAdded ? 'none' : '',
+              transition: 'width 1s, height 1s',
+            }"
+            :class="isEnlarged ? 'hr-glass-zoomed' : ' hr-glass'"
+          >
+            <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient
+                  gradientUnits="userSpaceOnUse"
+                  cx="226.928"
+                  cy="99.801"
+                  r="143.9"
+                  id="gradient-1"
+                  gradientTransform="matrix(2.520381, 0, 0, 0.105047, -345.016998, 89.317177)"
+                >
+                  <stop offset="0" style="stop-color: rgb(250, 149, 121)" />
+                </radialGradient>
+                <radialGradient
+                  gradientUnits="userSpaceOnUse"
+                  cx="226.928"
+                  cy="99.801"
+                  r="143.9"
+                  id="gradient-2"
+                  gradientTransform="matrix(2.520381, 0, 0, 0.105047, -344.7435, -413.743469)"
+                >
+                  <stop offset="0" style="stop-color: rgb(250, 149, 121)" />
+                </radialGradient>
+              </defs>
+              <g
+                transform="matrix(1.488654, 0, 0, 1.488654, -85.968338, -124.319496)"
               >
-                <stop offset="0" style="stop-color: rgb(250, 149, 121)" />
-              </radialGradient>
-              <radialGradient
-                gradientUnits="userSpaceOnUse"
-                cx="226.928"
-                cy="99.801"
-                r="143.9"
-                id="gradient-2"
-                gradientTransform="matrix(2.520381, 0, 0, 0.105047, -344.7435, -413.743469)"
-              >
-                <stop offset="0" style="stop-color: rgb(250, 149, 121)" />
-              </radialGradient>
-            </defs>
-            <g
-              transform="matrix(1.488654, 0, 0, 1.488654, -85.968338, -124.319496)"
-            >
-              <g id="topGlass">
-                <polygon
-                  style="fill: rgb(101, 214, 206)"
-                  points="126.025 116.627 329.326 116.627 321.346 148.544 302.612 194.339 273.817 227.297 249.532 246.031 236.002 251.582 221.777 251.235 202.696 243.603 179.105 224.175 155.514 197.808 140.249 167.625 130.188 138.136"
-                  id="topGlassSand"
-                />
-                <polygon
-                  style="fill: rgb(255, 233, 214, 0.01); visibility: visible"
-                  points="125.294 105.142 126.097 119.33 132.807 148.472 143.16 174.738 153.13 195.635 166.551 211.74 182.464 228.42 200.485 241.84 215.823 250.084 228.093 252.002 236.721 250.851 264.712 235.513 292.704 206.18 304.207 191.034 318.778 155.757 327.405 124.89 329.706 104.184"
-                  id="topGlass"
-                  class="zindex-1"
-                />
-                <path
-                  d="M 124.797 107.509 C 124.797 138.949 150.131 190.99 153.291 195.278 C 156.418 199.522 195.775 252.31 227.32 252.31"
-                  style="
-                    stroke-width: 4px;
-                    fill: none;
-                    stroke: rgb(255, 233, 214);
-                  "
-                />
-                <path
-                  d="M 227.259 252.315 C 227.259 220.875 252.593 168.834 255.753 164.546 C 258.88 160.302 298.237 107.514 329.782 107.514"
-                  style="
-                    stroke-width: 4px;
-                    fill: none;
-                    stroke: rgb(255, 233, 214);
-                  "
-                  transform="matrix(-1, 0, 0, -1, 557.041016, 359.828995)"
-                />
-                <!-- <polygon
+                <g id="topGlass">
+                  <polygon
+                    style="fill: rgb(101, 214, 206)"
+                    points="126.025 116.627 329.326 116.627 321.346 148.544 302.612 194.339 273.817 227.297 249.532 246.031 236.002 251.582 221.777 251.235 202.696 243.603 179.105 224.175 155.514 197.808 140.249 167.625 130.188 138.136"
+                    id="topGlassSand"
+                  />
+                  <polygon
+                    style="fill: rgb(255, 233, 214, 0.01); visibility: visible"
+                    points="125.294 105.142 126.097 119.33 132.807 148.472 143.16 174.738 153.13 195.635 166.551 211.74 182.464 228.42 200.485 241.84 215.823 250.084 228.093 252.002 236.721 250.851 264.712 235.513 292.704 206.18 304.207 191.034 318.778 155.757 327.405 124.89 329.706 104.184"
+                    id="topGlass"
+                    class="zindex-1"
+                  />
+                  <path
+                    d="M 124.797 107.509 C 124.797 138.949 150.131 190.99 153.291 195.278 C 156.418 199.522 195.775 252.31 227.32 252.31"
+                    style="
+                      stroke-width: 4px;
+                      fill: none;
+                      stroke: rgb(255, 233, 214);
+                    "
+                  />
+                  <path
+                    d="M 227.259 252.315 C 227.259 220.875 252.593 168.834 255.753 164.546 C 258.88 160.302 298.237 107.514 329.782 107.514"
+                    style="
+                      stroke-width: 4px;
+                      fill: none;
+                      stroke: rgb(255, 233, 214);
+                    "
+                    transform="matrix(-1, 0, 0, -1, 557.041016, 359.828995)"
+                  />
+                  <!-- <polygon
                   style="fill: url(#gradient-0)"
                   points="135.19 105.569 137.516 133.871 153.025 173.805 183.654 208.312 215.834 224.208 244.137 192.416 249.952 154.032 238.709 122.628 223.588 98.977"
                 /> -->
-              </g>
-              <g
-                transform="matrix(1, 0, 0, -1, 0.002997, 504.836395)"
-                id="bottomGlass"
-              >
-                <polygon
-                  style="fill: rgb(101, 214, 206)"
-                  points="180.30499267578125 225.71600341796875 188.2050018310547 228.48599243164062 193.4530029296875 231.3000030517578 201.25999450683594 235.82699584960938 210.5489959716797 241.2469940185547 218.22500610351562 245.05499267578125 223.13900756835938 247.56300354003906 227.4550018310547 248.3040008544922 232.44700622558594 247.99899291992188 241.26499938964844 244.85800170898438 245.47000122070312 242.03199768066406 253.6529998779297 237.7729949951172 258.9440002441406 234.53199768066406 267.614013671875 228.1909942626953 276.17401123046875 221.01400756835938 284.3210144042969 217.03900146484375 286.7049865722656 214.45599365234375 301.4110107421875 198.55799865722656 319.6929931640625 157.2239990234375 327.2030029296875 134.00900268554688 329.9339904785156 107.78399658203125 125.0469970703125 109.96900177001953 131.8780059814453 146.8489990234375 145.53599548339844 180.9969940185547 158.6490020751953 203.67100524902344"
-                  id="bottomGlassSand"
-                />
-                <polygon
-                  style="fill: rgb(255, 233, 214, 0.01)"
-                  points="124.947 105.142 126.097 119.33 132.807 148.472 143.16 174.738 153.13 195.635 166.551 211.74 182.464 228.42 200.485 241.84 215.823 250.084 228.093 252.002 236.721 250.851 264.712 235.513 292.704 206.18 304.207 191.034 318.778 155.757 327.405 124.89 329.706 104.184"
+                </g>
+                <g
+                  transform="matrix(1, 0, 0, -1, 0.002997, 504.836395)"
                   id="bottomGlass"
+                >
+                  <polygon
+                    style="fill: rgb(101, 214, 206)"
+                    points="180.30499267578125 225.71600341796875 188.2050018310547 228.48599243164062 193.4530029296875 231.3000030517578 201.25999450683594 235.82699584960938 210.5489959716797 241.2469940185547 218.22500610351562 245.05499267578125 223.13900756835938 247.56300354003906 227.4550018310547 248.3040008544922 232.44700622558594 247.99899291992188 241.26499938964844 244.85800170898438 245.47000122070312 242.03199768066406 253.6529998779297 237.7729949951172 258.9440002441406 234.53199768066406 267.614013671875 228.1909942626953 276.17401123046875 221.01400756835938 284.3210144042969 217.03900146484375 286.7049865722656 214.45599365234375 301.4110107421875 198.55799865722656 319.6929931640625 157.2239990234375 327.2030029296875 134.00900268554688 329.9339904785156 107.78399658203125 125.0469970703125 109.96900177001953 131.8780059814453 146.8489990234375 145.53599548339844 180.9969940185547 158.6490020751953 203.67100524902344"
+                    id="bottomGlassSand"
+                  />
+                  <polygon
+                    style="fill: rgb(255, 233, 214, 0.01)"
+                    points="124.947 105.142 126.097 119.33 132.807 148.472 143.16 174.738 153.13 195.635 166.551 211.74 182.464 228.42 200.485 241.84 215.823 250.084 228.093 252.002 236.721 250.851 264.712 235.513 292.704 206.18 304.207 191.034 318.778 155.757 327.405 124.89 329.706 104.184"
+                    id="bottomGlass"
+                  />
+                  <path
+                    d="M 124.797 107.509 C 124.797 138.949 150.131 190.99 153.291 195.278 C 156.418 199.522 195.775 252.31 227.32 252.31"
+                    style="
+                      stroke-width: 4px;
+                      fill: none;
+                      stroke: rgb(255, 233, 214);
+                    "
+                  />
+                  <path
+                    d="M 227.259 252.315 C 227.259 220.875 252.593 168.834 255.753 164.546 C 258.88 160.302 298.237 107.514 329.782 107.514"
+                    style="
+                      stroke-width: 4px;
+                      fill: none;
+                      stroke: rgb(255, 233, 214);
+                    "
+                    transform="matrix(-1, 0, 0, -1, 557.041016, 359.828995)"
+                  />
+                </g>
+                <rect
+                  x="93.028"
+                  y="88.21"
+                  width="270.801"
+                  height="23.182"
+                  style="fill: url(#gradient-1)"
+                  rx="10"
+                  ry="10"
                 />
-                <path
-                  d="M 124.797 107.509 C 124.797 138.949 150.131 190.99 153.291 195.278 C 156.418 199.522 195.775 252.31 227.32 252.31"
-                  style="
-                    stroke-width: 4px;
-                    fill: none;
-                    stroke: rgb(255, 233, 214);
-                  "
-                />
-                <path
-                  d="M 227.259 252.315 C 227.259 220.875 252.593 168.834 255.753 164.546 C 258.88 160.302 298.237 107.514 329.782 107.514"
-                  style="
-                    stroke-width: 4px;
-                    fill: none;
-                    stroke: rgb(255, 233, 214);
-                  "
-                  transform="matrix(-1, 0, 0, -1, 557.041016, 359.828995)"
+                <rect
+                  x="93.301"
+                  y="-414.851"
+                  width="270.801"
+                  height="23.182"
+                  style="fill: url(#gradient-2)"
+                  transform="matrix(1, 0, 0, -1, 0, 0)"
+                  rx="10"
+                  ry="10"
                 />
               </g>
-              <rect
-                x="93.028"
-                y="88.21"
-                width="270.801"
-                height="23.182"
-                style="fill: url(#gradient-1)"
-                rx="10"
-                ry="10"
+              <polygon
+                style="fill: rgb(101, 214, 206)"
+                points="237.024 244.856 243.903 242.98 250.468 242.355 257.034 241.73 263.6 242.98 269.708 245.097 264.171 247.051 262.217 247.865 260.751 248.517 260.425 249.82 260.262 252.262 260.1 255.031 259.774 261.708 263.008 458.515 256.353 458.515 248.242 257.34 247.207 253.68 247.045 252.549 246.561 250.771 246.076 249.64 245.106 247.702 235.574 245.278"
+                id="middleSand"
               />
-              <rect
-                x="93.301"
-                y="-414.851"
-                width="270.801"
-                height="23.182"
-                style="fill: url(#gradient-2)"
-                transform="matrix(1, 0, 0, -1, 0, 0)"
-                rx="10"
-                ry="10"
-              />
-            </g>
-            <polygon
-              style="fill: rgb(101, 214, 206)"
-              points="237.024 244.856 243.903 242.98 250.468 242.355 257.034 241.73 263.6 242.98 269.708 245.097 264.171 247.051 262.217 247.865 260.751 248.517 260.425 249.82 260.262 252.262 260.1 255.031 259.774 261.708 263.008 458.515 256.353 458.515 248.242 257.34 247.207 253.68 247.045 252.549 246.561 250.771 246.076 249.64 245.106 247.702 235.574 245.278"
-              id="middleSand"
-            />
-          </svg>
-        </div>
+            </svg>
+          </div>
+        </transition>
 
         <div
           v-if="this.completedProgress == 0"
@@ -628,34 +630,39 @@
         ></div>
         <transition name="fade" mode="out-in">
           <div
-            :key="this.isEnlarged"
+            :key="isEnlarged"
             :class="[
               {
                 'hour-glass-count':
-                  timerData.selectedTimer === timerTypes?.HOURGLASS &&
-                  this.timerData.isTimeAdded,
+                  timerData.selectedTimer === timerTypes.HOURGLASS &&
+                  timerData.isTimeAdded,
               },
               {
                 'circle-count':
-                  timerData.selectedTimer === timerTypes?.CIRCLETIMER &&
-                  this.timerData.isTimeAdded,
+                  timerData.selectedTimer === timerTypes.CIRCLETIMER &&
+                  timerData.isTimeAdded,
               },
               {
                 'watch-count':
-                  timerData.selectedTimer === timerTypes?.WATCHTIMER &&
-                  this.timerData.isTimeAdded,
+                  timerData.selectedTimer === timerTypes.WATCHTIMER &&
+                  timerData.isTimeAdded,
               },
               { 'count-light': !IsLightMode },
               { 'count-dark': IsLightMode },
             ]"
-            :style="{
-              fontSize: isEnlarged
-                ? timerData.selectedTimer === timerTypes?.WATCHTIMER ||
-                  timerData.selectedTimer === timerTypes?.CIRCLETIMER
-                  ? '35px'
-                  : '26px'
-                : '24px',
-            }"
+            :style="[
+              {
+                fontSize: isEnlarged
+                  ? timerData.selectedTimer === timerTypes.WATCHTIMER ||
+                    timerData.selectedTimer === timerTypes.CIRCLETIMER
+                    ? '35px'
+                    : '26px'
+                  : '24px',
+              },
+              timerData.selectedTimer === timerTypes.HOURGLASS && {
+                top: isEnlarged ? '90%' : '78%',
+              },
+            ]"
           >
             <span>
               <template v-if="timerData.selectedTimer && timerData.isTimeAdded">
