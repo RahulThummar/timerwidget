@@ -299,47 +299,46 @@
       </div>
 
       <div class="content">
-        <img
-          v-if="
-            timerData.selectedTimer === timerTypes?.WATCHTIMER &&
-            this.timerData.isTimeAdded
-          "
-          :src="BigWatchTimer"
-          alt="Selected Timer"
-          class="circle-progress"
-          :style="{
-            width: isEnlarged ? '250px' : '170px',
-            height: isEnlarged ? '250px' : '170px',
-            transition: 'width 1s, height 1s',
-          }"
-        />
+        <transition name="fade" mode="out-in">
+          <img
+            :key="this.isEnlarged"
+            v-if="
+              timerData.selectedTimer === timerTypes?.WATCHTIMER &&
+              this.timerData.isTimeAdded
+            "
+            :src="BigWatchTimer"
+            alt="Selected Timer"
+            class="circle-progress"
+            :style="{
+              width: isEnlarged ? '250px' : '170px',
+              height: isEnlarged ? '250px' : '170px',
+            }"
+          />
+        </transition>
 
         <div
-          v-else-if="
+          v-if="
             timerData.selectedTimer === timerTypes?.CIRCLETIMER &&
             this.timerData.isTimeAdded
           "
           class="circle-progress"
-          :style="{
-            // transform: 'scale(' + (isEnlarged ? 1.01 : 1) + ')',
-            transition: 'transform 1s',
-            transition: 'all 1s ease-in-out',
-          }"
         >
-          <circle-progress
-            :key="this.isEnlarged"
-            :percent="calculateProgress()"
-            :stroke-width="isEnlarged ? 22 : 17"
-            :inner-stroke-width="isEnlarged ? 22 : 17"
-            :size="isEnlarged ? 250 : 170"
-            :empty-color="colorTypes?.EMPTYPROGRESSBARCOLOR"
-            :stroke-color="colorTypes?.FILLPROGRESSBARCOLOR"
-            :linecap="'square'"
-          ></circle-progress>
+          <transition name="fade" mode="out-in">
+            <circle-progress
+              :key="this.isEnlarged"
+              :percent="calculateProgress()"
+              :stroke-width="isEnlarged ? 22 : 17"
+              :inner-stroke-width="isEnlarged ? 22 : 17"
+              :size="isEnlarged ? 250 : 170"
+              :empty-color="colorTypes?.EMPTYPROGRESSBARCOLOR"
+              :stroke-color="colorTypes?.FILLPROGRESSBARCOLOR"
+              :linecap="'square'"
+            ></circle-progress>
+          </transition>
         </div>
 
         <div
-          v-else-if="!this.timerData.isTimeAdded"
+          v-if="!this.timerData.isTimeAdded"
           class="d-flex inner-content p-4"
         >
           <div class="d-flex">
@@ -627,59 +626,58 @@
           class="complition-animation"
           ref="animationContainer"
         ></div>
-
-        <div
-          :class="[
-            {
-              'hour-glass-count':
-                timerData.selectedTimer === timerTypes?.HOURGLASS &&
-                this.timerData.isTimeAdded,
-            },
-            {
-              'circle-count':
-                timerData.selectedTimer === timerTypes?.CIRCLETIMER &&
-                this.timerData.isTimeAdded,
-            },
-            {
-              'watch-count':
-                timerData.selectedTimer === timerTypes?.WATCHTIMER &&
-                this.timerData.isTimeAdded,
-            },
-            { 'count-light': !IsLightMode },
-            { 'count-dark': IsLightMode },
-          ]"
-          :style="{
-            fontSize:
-              isEnlarged && timerData.selectedTimer === timerTypes?.WATCHTIMER
-                ? '35px'
-                : '26px',
-          }"
-        >
-          <!-- {{
-            timerData.selectedTimer && this.timerData.isTimeAdded
-            ? formattedTime
-            : ""
-          }} -->
-          <span>
-            <template v-if="timerData.selectedTimer && timerData.isTimeAdded">
-              <span class="d-flex justify-content-center">
-                <span
-                  v-for="(digit, index) in minutes"
-                  :key="index"
-                  style="width: 30px"
-                  >{{ digit }}</span
-                >
-                <span class="ms-1 me-1">:</span>
-                <span
-                  v-for="(digit, index) in seconds"
-                  :key="index"
-                  style="width: 30px"
-                  >{{ digit }}</span
-                >
-              </span>
-            </template>
-          </span>
-        </div>
+        <transition name="fade" mode="out-in">
+          <div
+            :key="this.isEnlarged"
+            :class="[
+              {
+                'hour-glass-count':
+                  timerData.selectedTimer === timerTypes?.HOURGLASS &&
+                  this.timerData.isTimeAdded,
+              },
+              {
+                'circle-count':
+                  timerData.selectedTimer === timerTypes?.CIRCLETIMER &&
+                  this.timerData.isTimeAdded,
+              },
+              {
+                'watch-count':
+                  timerData.selectedTimer === timerTypes?.WATCHTIMER &&
+                  this.timerData.isTimeAdded,
+              },
+              { 'count-light': !IsLightMode },
+              { 'count-dark': IsLightMode },
+            ]"
+            :style="{
+              fontSize: isEnlarged
+                ? timerData.selectedTimer === timerTypes?.WATCHTIMER ||
+                  timerData.selectedTimer === timerTypes?.CIRCLETIMER
+                  ? '35px'
+                  : '26px'
+                : '24px',
+            }"
+          >
+            <span>
+              <template v-if="timerData.selectedTimer && timerData.isTimeAdded">
+                <span class="d-flex justify-content-center">
+                  <span
+                    v-for="(digit, index) in minutes"
+                    :key="index"
+                    style="width: 30px"
+                    >{{ digit }}</span
+                  >
+                  <span class="ms-1 me-1">:</span>
+                  <span
+                    v-for="(digit, index) in seconds"
+                    :key="index"
+                    style="width: 30px"
+                    >{{ digit }}</span
+                  >
+                </span>
+              </template>
+            </span>
+          </div>
+        </transition>
       </div>
 
       <!-- bottom buttons -->
