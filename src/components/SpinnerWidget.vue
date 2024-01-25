@@ -506,7 +506,7 @@ export default {
           this.prizes.forEach(this.drawSector);
           this.rotate(); // Initial rotation
         }, 1);
-      }, 3000);
+      }, 5000);
     },
 
     getIndex() {

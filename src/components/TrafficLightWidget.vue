@@ -115,7 +115,7 @@ export default {
         this.isEnlarged = true;
         // }
         // this.isEnlarged = true;
-      }, 3000);
+      }, 5000);
     },
 
     changeColor(lightNumber) {
